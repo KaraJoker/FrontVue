@@ -1,0 +1,27 @@
+<div class="report-abnorma-detail">
+    <v-user-detail :user-detail="userReport"></v-user-detail>
+    <div class="data-content clear">
+        <div class="report-long">
+            <div class="report-box">
+                <div class="page-box-title">
+                    <span>异常片段分类:共七类</span>
+                    <button type="button" class="print-btn" @click="returnTotal()">
+                        << 返回数据总览</button>
+                </div>
+            </div>
+            <div class="report-box">
+                <div class="btn-group">
+                    <button @click="allError">全部报错</button>
+                    <button @click="checkSure">复核确认</button>
+                </div>
+                <div class="disease-content" v-for="(item,index) in dataList" :key="index">
+                    <v-heart-part show-error="true" :echar-data="item"></v-heart-part>
+                </div>
+            </div>
+        </div>
+        <div class="report-aside">
+            <v-error-aside></v-error-aside>
+        </div>
+    </div>
+    <v-suggest></v-suggest>
+</div>

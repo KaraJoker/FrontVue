@@ -1,0 +1,39 @@
+<div class="powerPerson-box">
+    <el-form ref="ruleForm" label-width="100px" class="demo-ruleForm" :rules="rules" :model="powerObj">
+        <div class="role-box page-box">
+            <div class="page-box-title">
+                <i class="fa fa-circle-o"></i>
+                <span>角色信息</span>
+            </div>
+            <transition name="fade">
+                <div class="form-box">
+                    <el-form-item label="角色名称" class="role" prop="role">
+                        <el-input v-model="powerObj.role"  clearable></el-input>
+                    </el-form-item>
+                    <el-form-item label="状态" class="status">
+                        <el-radio-group v-model="powerObj.status">
+                            <el-radio label="0">启用</el-radio>
+                            <el-radio label="1">禁用</el-radio>
+                        </el-radio-group>
+                    </el-form-item>
+                </div>
+            </transition>
+        </div>
+        <div class="page-box">
+            <div class="setPower">
+                <div class="page-box-title">
+                    <i class="fa fa-circle-o"></i>
+                    <span>设置权限</span>
+                </div>
+                <div class="checkbox-content">
+                    <v-check-group :lists="reportList" @checked-change="getReportValue" :checked-value="reportChecked"></v-check-group>
+                    <v-check-group :lists="systemList" @checked-change="getSystemValue" :checked-value="systemChecked"></v-check-group>
+                </div>
+            </div>
+            <el-form-item class="btn-group">
+                <div type="primary" class="save-btn form-btn" @click="save('ruleForm')">保存</div>
+                <div class="cancel-btn form-btn" @click="cancel">返回</div>
+            </el-form-item>
+        </div>
+    </el-form>
+</div>

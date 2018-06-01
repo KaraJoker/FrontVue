@@ -1,0 +1,84 @@
+<div class="auditDetail-box">
+    <div class="page-box base">
+        <ul class="base-detail">
+            <li>帐号：
+                <span v-text="baseDetail.mobile"></span>
+            </li>
+            <li>真实姓名：
+                <span v-text="baseDetail.userRealName"></span>
+            </li>
+            <li>证件类型：
+                <span v-text="baseDetail.certificateType==0?'身份证':''"></span>
+            </li>
+            <li>证件号码：
+                <span v-text="baseDetail.certificateNumber"></span>
+            </li>
+            <li>科室：
+                <span v-text="departmentName"></span>
+            </li>
+            <li>申请时间：
+                <span v-text="baseDetail.createTime"></span>
+            </li>
+        </ul>
+        <ul class="img-list">
+            <li>
+                <span>手持证件照片:</span>
+                <div class="img-path">
+                    <img :src="baseDetail.idCertificatePhoto" alt="">
+                </div>
+            </li>
+            <li>
+                <span>医师执业注册证照片:</span>
+                <div class="img-path">
+                    <img :src="baseDetail.registrationCertificatePhoto" alt="">
+                </div>
+            </li>
+            <li>
+                <span>医生职称证照片:</span>
+                <div class="img-path">
+                    <img :src="baseDetail.titleCertificatePhoto" alt="">
+                </div>
+            </li>
+        </ul>
+        <div class="btn-group" v-if="this.$route.name=='auditDetailWait'">
+            <div @click="showSuggest('1')" key="save-btn" class="btn-save">审核通过</div>
+            <div @click="showSuggest('2')" key="cancel-btn" class="btn-cancel">审核不通过</div>
+        </div>
+    </div>
+    <div class="table-box page-box">
+        <div class="page-box-title">
+            <i class="fa fa-circle-o"></i>
+            <span>实名认证记录</span>
+        </div>
+        <div class="table-content">
+            <el-table :data="tableData.data" style="width: 100%">
+                <el-table-column prop="createTime" :formatter="dateCreateTime" label="申请时间" min-width="150" align="center">
+                </el-table-column>
+                <el-table-column prop="userRealName" label="真实姓名" min-width="50" align="center">
+                </el-table-column>
+                <el-table-column prop="certificateType" :formatter="certificateType" label="证件类型" min-width="220" align="center">
+                </el-table-column>
+                <el-table-column prop="certificateNumber" label="证件号码" min-width="100" align="center">
+                </el-table-column>
+                <el-table-column prop="reviewState" :formatter="reviewFormat" label="审核结果" min-width="100" align="center">
+                </el-table-column>
+                <el-table-column prop="reviewName" label="审核人" min-width="100" align="center">
+                </el-table-column>
+                <el-table-column prop="updateTime" :formatter="dateUpdateTime" label="审核时间" min-width="100" align="center">
+                </el-table-column>
+                <el-table-column prop="reviewRemark" label="审核反馈" min-width="100" align="center">
+                </el-table-column>
+            </el-table>
+            <el-pagination class="pagination-box" :current-page="tableData.currentPage" :page-size="tableData.pageSize" layout="total, prev, pager, next, jumper"
+                :total="tableData.total" @current-change="handleCurrentChange">
+            </el-pagination>
+        </div>
+    </div>
+    <el-dialog title="审核意见" :visible.sync="dialogVisible" width="30%">
+        <el-input type="textarea" :rows="6" placeholder="请输入内容" v-model="textarea"></el-input>
+        <span slot="footer" class="dialog-footer">
+            <el-button @click="dialogVisible = false">取 消</el-button>
+            <el-button type="primary" @click="submitSuggest">提 交</el-button>
+        </span>
+    </el-dialog>
+</div>

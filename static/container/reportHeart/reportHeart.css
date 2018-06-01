@@ -1,0 +1,70 @@
+.report-table-list .filter-box {
+    margin-bottom: 30px;
+}
+
+.report-table-list .filter-box .btn-group {
+    float: right;
+    padding-top: 17px;
+}
+
+.report-table-list .filter-box .btn-group button {
+    width: 90px;
+    height: 30px;
+    border: 1px solid #409eff;
+    border-radius: 30px;
+    background-color: #fff;
+    color: #409eff;
+    outline: none;
+    cursor: pointer;
+}
+
+.report-table-list .filter-box .search-box {
+    padding: 30px 0;
+    overflow: hidden;
+}
+
+.report-table-list .filter-box .search-box .account-input {
+    width: 450px;
+    display: inline-block;
+}
+
+.report-table-list .filter-box .search-box .time-choice {
+    width: 500px;
+    display: inline-block;
+}
+
+.report-table-list .filter-box .fade-enter-active,
+.report-table-list .filter-box .fade-leave-active {
+    transition: all .15s linear;
+}
+
+.report-table-list .filter-box .fade-enter,
+.report-table-list .filter-box .fade-leave-to {
+    height: 0;
+    padding: 0;
+}
+
+.report-table-list .table-content {
+    padding: 30px 0;
+    width: 94%;
+    position: relative;
+    margin: 0 auto;
+}
+
+.report-table-list .table-content .pagination-box {
+    padding-top: 20px;
+    text-align: right;
+}
+
+.report-table-list .table-content .choice {
+    position: absolute;
+    top: -53px;
+    right: 9px;
+}
+
+.report-table-list .table-content .btn-see {
+    width: 90px;
+    height: 30px;
+    background-color: #edeff1;
+    border-radius: 30px;
+}

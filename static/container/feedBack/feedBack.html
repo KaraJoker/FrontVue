@@ -1,0 +1,19 @@
+<div class="page-box feed-back">
+    <div class="page-box-title">
+        <i class="fa fa-circle-o"></i>
+        <span>意见反馈</span>
+    </div>
+    <div class="feed-back-detail">
+        <h1>尊敬的用户：</h1>
+        <p>您好！为了给您提供更好的服务，我们希望收集您使用平台的看法或建议</p>
+        <form action="" class="feedback-form">
+            <p>
+                <span style="color:red">*</span> 请留下您对我们的意见和建议</p>
+            <textarea v-model="textValue"></textarea>
+            <div class="rule-btn" @click="submitText">立即提交</div>
+            <div class="hint">您已输入
+                <span v-text="wordNum"></span>字，还可输入
+                <span v-text="wordLast"></span>字</div>
+        </form>
+    </div>
+</div>

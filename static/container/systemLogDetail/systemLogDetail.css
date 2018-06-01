@@ -1,0 +1,114 @@
+.systemLogDetail-box .table-content {
+    padding: 30px 0;
+    width: 94%;
+    position: relative;
+    margin: 0 auto;
+}
+.systemLogDetail-box .page-box{
+    margin-bottom:30px; 
+}  
+
+.systemLogDetail-box .table-content .pagination-box {
+    padding-top: 20px;
+    text-align: right;
+}
+
+.systemLogDetail-box .table-content .choice {
+    position: absolute;
+    top: -53px;
+    right: 9px;
+}
+
+.systemLogDetail-box .table-content .btn-see {
+    width: 90px;
+    height: 30px;
+    background-color: #edeff1;
+    border-radius: 30px;
+}
+
+.systemLogDetail-box .table-box .add {
+    float: right;
+    width: 124px;
+    height: 30px;
+    border: 1px solid #3DB8F0;
+    line-height: 30px;
+    border-radius: 30px;
+    color: #3DB8F0;
+    background-color: #fff;
+    cursor: pointer;
+    padding: 0;
+    margin-top: 7px;
+}
+
+.systemLogDetail-box .table-box .add span {
+    line-height: 30px;
+}
+
+.systemLogDetail-box .rule-btn {
+    background-color: #ECEFF1;
+    border-radius: 30px;
+    width: 100px;
+    height: 30px;
+    color: #7C939F;
+}
+
+.systemLogDetail-box .delete-btn {
+    background-color: #ECEFF1;
+    border-radius: 30px;
+    width: 100px;
+    height: 30px;
+    color: #3DB8F0;
+}
+
+.systemLogDetail-box .head {
+    height: 52px;
+    font-size: 0;
+    background: #F4F3F8;
+    line-height: 52px;
+}
+
+.systemLogDetail-box .head li {
+    display: inline-block;
+    width: 50%;
+    vertical-align: top;
+    font-size: 16px;
+    color: #333;
+    padding-left: 14%;
+    box-sizing: border-box;
+}
+
+.systemLogDetail-box .diff-content {
+    font-size: 0;
+}
+
+.systemLogDetail-box .right {
+    display: inline-block;
+    width: 50%;
+    vertical-align: top;
+    font-size: 14px;
+    color: #333;
+    box-sizing: border-box;
+    padding-left: 14%;
+    line-height: 24px;
+    padding-top: 20px;
+}
+
+.systemLogDetail-box .left {
+    display: inline-block;
+    width: 50%;
+    vertical-align: top;
+    font-size: 14px;
+    color: #333;
+    box-sizing: border-box;
+    padding-left: 14%;
+    line-height: 24px;
+    padding-top: 20px;
+}
+
+.systemLogDetail-box .left .diff {
+    color: red
+}
+
+.systemLogDetail-box .right .diff {
+    color: green;
+}

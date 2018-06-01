@@ -1,0 +1,36 @@
+<div class="organization-edit page-box">
+    <div class="page-box-title">
+        <i class="fa fa-circle-o"></i>
+        <span v-text="this.$route.params.id?'编辑部门':'添加部门'"></span>
+    </div>
+    <el-form class="organization-edit-form" label-width="120px" :rules="rules" :model="formData" ref="organization">
+        <el-form-item label="部门名称" prop="departmentName">
+            <el-input v-model="formData.departmentName" placeholder="请输入部门名称"></el-input>
+        </el-form-item>
+        <el-form-item label="上级部门" v-if="parentDepartmentName">
+            <el-input v-model="parentDepartmentName" :disabled="true"></el-input>
+        </el-form-item>
+        <el-form-item label="状态">
+            <el-radio-group v-model="formData.status">
+                <el-radio label="0">启用</el-radio>
+                <el-radio label="1">禁用</el-radio>
+            </el-radio-group>
+        </el-form-item>
+        <el-form-item label="部门负责人">
+            <el-input v-model="formData.principle"></el-input>
+        </el-form-item>
+        <el-form-item label="部门电话">
+            <el-input v-model="formData.departmentPhone"></el-input>
+        </el-form-item>
+        <el-form-item label="地址">
+            <el-input v-model="formData.address"></el-input>
+        </el-form-item>
+        <el-form-item label="备注">
+            <el-input type="textarea" v-model="formData.remarks"></el-input>
+        </el-form-item>
+        <el-form-item>
+            <div @click="save('organization')" key="save-btn" class="btn-save">保存</div>
+            <div @click="cancel" key="cancel-btn" class="btn-cancel">返回</div>
+        </el-form-item>
+    </el-form>
+</div>

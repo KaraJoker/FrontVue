@@ -1,0 +1,33 @@
+<div class="systemSet-box page-box">
+    <div class="page-box-title">
+        <i class="fa fa-circle-o"></i>
+        <span>系统设置</span>
+    </div>
+    <div>
+        <el-form ref="personForm" label-width="100px">
+            <div class="el-form-item" style="margin-left: 27px;margin-bottom: 12px;">
+                <label class="el-form-item__label">系統logo</label>
+                <v-upload :reqed="'true'" ref="fileUpload" name="logo" :img-path="logo"></v-upload>
+            </div>
+            <el-form-item label="系统名称" class="sys-name">
+                <el-input v-model="sysName" name="sysName"></el-input>
+            </el-form-item>
+            <el-form-item label="版权信息">
+                <el-checkbox name="copyright" v-model="copyright">隐藏版权</el-checkbox>
+            </el-form-item>
+            <div class="el-form-item" style="margin-left: 27px;">
+                <label class="el-form-item__label">宣传图片</label>
+                <v-upload :reqed="'true'" ref="fileUpload" name="publishPicture" style="margin-left: 10px;" :img-path="publishPicture[0]"
+                    img-size="1484*537"></v-upload>
+                <v-upload :reqed="'true'" ref="fileUpload" name="publishPicture" style="margin-left: 10px;" :img-path="publishPicture[1]"
+                    img-size="1484*537"></v-upload>
+                <v-upload :reqed="'true'" ref="fileUpload" name="publishPicture" style="margin-left: 10px;" :img-path="publishPicture[2]"
+                    img-size="1484*537"></v-upload>
+                <p class="hint">(登录背景图片，最多可设置三张)</p>
+            </div>
+            <el-form-item>
+                <div class="rule-btn save" @click="save('personForm')">保存</div>
+            </el-form-item>
+        </el-form>
+    </div>
+</div>

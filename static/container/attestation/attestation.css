@@ -1,0 +1,166 @@
+.attestation-box .ren-zhen-form .progress {
+    padding: 30px 0;
+}
+
+.attestation-box .ren-zhen-form {
+    width: 940px;
+    margin: 0 auto;
+    padding-bottom: 40px;
+}
+
+.attestation-box .el-form {
+    width: 400px;
+    float: left;
+    /* margin-left: 188px; */
+}
+
+.attestation-box .photo-example {
+    width: 400px;
+    float: right;
+    /* margin-right: 286px; */
+}
+
+.attestation-box .photo-example p {
+    font-size: 14px;
+    color: #333;
+    line-height: 20px;
+}
+
+.attestation-box .userRenZhen {
+    width: 300px;
+    height: 400px;
+}
+
+.attestation-box .userRenZhen img {
+    width: 100%;
+    height: 100%;
+}
+
+.attestation-box .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    width: 300px;
+    height: 178px;
+    overflow: hidden;
+}
+
+.attestation-box .avatar-uploader img {
+    width: 100%;
+    height: 100%;
+}
+
+.attestation-box .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+}
+
+.attestation-box .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+}
+
+.attestation-box .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+}
+
+.attestation-box .el-select {
+    width: 300px;
+}
+
+.attestation-box .btn-next {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    width: 172px;
+    height: 51px;
+    background: url(/images/btn_y.png) no-repeat center center;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    letter-spacing: 7px;
+    padding: 0;
+    cursor: pointer;
+    line-height: 34px;
+}
+
+.attestation-box .btn-next span {
+    line-height: 31px;
+    font-size: 14px;
+    display: block;
+    position: relative;
+    top: -8px;
+}
+
+.attestation-box .zhiZhiRenZhen {
+    width: 300px;
+    height: 150px;
+}
+
+.attestation-box .zhiZhiRenZhen img {
+    width: 100%;
+    height: 100%;
+}
+
+.attestation-box .img-name {
+    font-size: 14px;
+    color: #333;
+    line-height: 34px;
+    margin-bottom: 22px;
+    text-align: center;
+    width: 300px;
+}
+
+.attestation-box .form-success {
+    padding-bottom: 30px;
+}
+
+.attestation-box .ren-zhen-result {
+    width: 320px;
+    margin: 0 auto;
+    position: relative;
+    margin-top: 54px;
+    padding-bottom: 20px;
+}
+
+.attestation-box .ren-zhen-result li {
+    font-size: 14px;
+    color: #333;
+    line-height: 26px;
+}
+
+.attestation-box .again-renzhen {
+    cursor: pointer;
+    margin-top: 20px;
+    display: block;
+    width: 142px;
+    height: 51px;
+    font-size: 14px;
+    color: #fff;
+    line-height: 33px;
+    text-align: center;
+    background: url('../../images/btn_y.png') no-repeat center center;
+}
+
+.attestation-box .result-img {
+    width: 147px;
+    height: 151px;
+    position: absolute;
+    top: -17px;
+    right: 0;
+}
+
+.attestation-box .result-img img {
+    width: 100%;
+    height: 100%;
+}
+
+.img-upload .el-form-item__label {
+    width: 99px;
+}

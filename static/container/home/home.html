@@ -1,0 +1,20 @@
+<div class="echar-box">
+    <div class="jie-du-count list-box">
+        <v-count-percent></v-count-percent>
+    </div>
+    <div class="jie-du-line list-box">
+        <v-count-line></v-count-line>
+    </div>
+    <div class="jie-du-type list-box">
+        <v-type-bar></v-type-bar>
+    </div>
+    <div class="jie-du-type-line list-box">
+        <v-type-line></v-type-line>
+    </div>
+    <div class="jie-du-people list-box" v-if="isAdministrator">
+        <v-person></v-person>
+    </div>
+    <div class="jie-du-mouth list-box">
+        <v-month-line></v-month-line>
+    </div>
+</div>

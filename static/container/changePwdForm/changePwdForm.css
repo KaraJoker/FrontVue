@@ -1,0 +1,46 @@
+.phone-form,
+.pwd-form {
+    width: 350px;
+    margin: 0 auto;
+    padding-bottom: 140px;
+}
+
+.changePwd .progress {
+    padding: 160px 0 30px 0;
+}
+
+.verfy {
+    width: 130px;
+}
+
+.time {
+    float: right;
+    width: 96px;
+    padding: 0;
+    height: 40px;
+    color: #fe7630;
+    border-color: #fe7630;
+}
+
+.box-card .btn-next {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    width: 172px;
+    height: 51px;
+    background: url(/images/btn_y.png) no-repeat center center;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    letter-spacing: 7px;
+    padding: 0;
+    margin: 0;
+}
+
+.box-card .btn-next span {
+    line-height: 31px;
+    font-size: 14px;
+    display: block;
+    position: relative;
+    top: -8px;
+}

@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+/*智柔文件格式
+* 1. 心电：每5分钟存一个文件
+* 4. 一个文件只有一种数据类型;
+**/
+message SmoothedData
+{
+	uint32 flag = 1;				       		//文件标志: 0xecec:心电(ecg); 0xcece:温度(chero temperture);
+	uint32 checksum = 2;				   		//总的校验和
+	string vendor = 3;			           		//厂商名  SDK提供接口
+	uint32 product = 4;				       		//产品型号, SDK增加接口
+	uint32 sn = 5;			   			   		//产品序列号, 贴片id
+	string cid = 6;                             //测量序列号 每个分段测量文件保持一样（原始数据和滤波后数据）
+	string fid = 7;                             //文件唯一标识 (每个文件都有一个独立序列号，用户快速索引);
+	uint32 leads = 8;					   		//导联数, SDK增加接口
+	uint32 ecgFreqs = 9;					   	//ecg采样率,SDK增加接口
+	uint64 startTime = 10;		 			   	//此文件数据存储开始时间
+	uint64 endTime = 11;						//此文件数据存储结束时间
+	uint32 encrypt = 12;				   		//加密选项, 1:加密; 0:不加密, 默认不加密。
+
+	SmoothedSet smoothedset = 13;   //滤波后心电数据（开始时间和结束时间之间采集到的）
+	repeated HeartRate heartRateSet = 14;    //心率信息 (开始时间和结束时间之间采集到的）
+
+}
+
+/*虑波数据集*/
+message SmoothedSet
+{
+	repeated EcgSmoothedRawData v1Data = 1;		 	   	//详细数据心电数据, 导联1的心电数据
+	repeated EcgSmoothedRawData v2Data = 2;		 	   	//2
+	repeated EcgSmoothedRawData v3Data = 3;		 	   	//3
+	repeated EcgSmoothedRawData v4Data = 4;		 	   	//4
+	repeated EcgSmoothedRawData v5Data = 5;		 	   	//……
+	repeated EcgSmoothedRawData v6Data = 6;		 	   	//
+	repeated EcgSmoothedRawData v7Data = 7;		 	   	//
+	repeated EcgSmoothedRawData v8Data = 8;		 	    //
+	repeated EcgSmoothedRawData v9Data = 9;		 	    //
+	repeated EcgSmoothedRawData v10Data = 10;		 	    //
+	repeated EcgSmoothedRawData v11Data = 11;		 	    //
+	repeated EcgSmoothedRawData v12Data = 12;		 	    //
+}
+
+/*虑波数据*/
+message EcgSmoothedRawData
+{
+	uint32 time = 1;            //采集到此数据的时间戳
+	uint32 isLost = 2;          //是否处于丢包状态
+	repeated uint32 value = 3;  //心电数组
+}
+
+/*心率*/
+message HeartRate
+{
+	uint32 time = 1;   //时间
+	uint32 rate = 2;   //心率值
+	uint32 qrsIndex = 3; //qrs索引
+}
+		
+
+
+

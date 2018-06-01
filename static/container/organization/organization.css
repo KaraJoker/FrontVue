@@ -1,0 +1,162 @@
+.organization {
+    width: 96%;
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    border-radius: 4px;
+    background: #fff;
+}
+
+.organization-content {
+    border-top: 1px solid #edeff1;
+    font-size: 0;
+}
+
+.organization-content .left {
+    display: inline-block;
+    vertical-align: top;
+    width: 18%;
+    text-align: center;
+    padding: 48px;
+    box-sizing: border-box;
+}
+
+.organization-content .right {
+    display: inline-block;
+    vertical-align: top;
+    border-left: 1px solid #edeff1;
+    width: 82%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    padding: 48px;
+}
+
+.organization-content .left .filter-input {
+    margin-bottom: 10px;
+}
+
+.organization-content .right .tab-content {
+    width: 84%;
+    margin: 0 auto;
+}
+
+.organization-content .right .el-tabs__header {
+    width: 195px;
+    margin: 0 auto;
+}
+
+.organization-content .right .company-section {
+    width: 400px;
+    margin: 0 auto;
+    padding-top: 30px;
+}
+
+.organization-content .right .company-table {
+    padding-top: 30px;
+}
+
+.organization-content .tab-group {
+    font-size: 0;
+    width: 170px;
+    margin: 0 auto;
+}
+
+.organization-content .tab-group li {
+    font-size: 14px;
+    line-height: 36px;
+    display: inline-block;
+    vertical-align: top;
+    color: #333;
+    width: 80px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.organization-content .tab-group li.active {
+    border: 1px solid #fe763a;
+    background-color: #fe763a;
+    color: #fff;
+}
+
+.organization-content .tab-group li.first {
+    border: 1px solid #edeff1;
+    border-right: 1px solid #fff;
+}
+
+.organization-content .tab-group li.second {
+    border: 1px solid #edeff1;
+    border-left: 1px solid #fff;
+}
+
+.organization-content .textarea-box {
+    width: 280px;
+    height: 92px;
+    border: 1px solid #dcdfe6;
+    outline: none;
+    padding: 5px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    line-height: 16px;
+}
+
+.organization-content .edit-btn {
+    width: 142px;
+    height: 51px;
+    border: none;
+    outline: none;
+    background: url('/images/btn_y.png') no-repeat center center;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+    color: #fff;
+    font-size: 12px;
+    line-height: 35px;
+}
+
+.organization-content .base-info {
+    color: #333;
+    text-align: center;
+    /* padding: 20px 0; */
+}
+
+.organization-content .base-info ul {
+    padding: 30px 0;
+}
+
+.organization-content .base-info li {
+    font-size: 14px;
+    line-height: 22px;
+}
+
+.organization-content .base-info .title-box {
+    display: inline-block;
+    width: 311px;
+    vertical-align: top;
+    text-align: right;
+}
+
+.organization-content .base-info .value-box {
+    display: inline-block;
+    width: 300px;
+    text-align: left;
+    vertical-align: top;
+    min-height: 50px;
+}
+
+.organization-content  .add {
+    float: right;
+    width: 124px;
+    height: 30px;
+    border: 1px solid #3DB8F0;
+    line-height: 30px;
+    border-radius: 30px;
+    color: #3DB8F0;
+    background-color: #fff;
+    cursor: pointer;
+    padding: 0;
+    margin-top: 7px;
+    margin-bottom: 10px;
+}
+
+.organization-content  .add span {
+    line-height: 30px;
+}

@@ -1,0 +1,13 @@
+syntax = "proto3";
+/**
+    心电模板文件存储方式
+**/
+message TemplatesDataSet{
+    uint32 morphFid = 1; 		//模板文件索引（唯一性)
+	repeated TemplateData templateData = 2;   		//模板内容，是一个对象:包括模板ID和模板的数据。
+}
+
+message TemplateData {
+    uint32 templateId = 1; 		//模板号
+	repeated int32 data = 2;    //模板数据，是一个整形数组。
+}

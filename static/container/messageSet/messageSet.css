@@ -1,0 +1,19 @@
+.messsage-set-box .messsage-set-content {
+    width: 500px;
+    margin: 0 auto;
+    padding: 30px;
+}
+
+.messsage-set-box .messsage-set-content .rule-btn {
+    width: 142px;
+    height: 51px;
+    border: none;
+    outline: none;
+    background: url('/images/btn_y.png') no-repeat center center;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+    color: #fff;
+    font-size: 12px;
+    line-height: 35px;
+}

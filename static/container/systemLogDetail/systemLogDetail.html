@@ -1,0 +1,46 @@
+<div class="systemLogDetail-box">
+    <div class="table-box page-box">
+        <div class="page-box-title">
+            <i class="fa fa-circle-o"></i>
+            <span>基本信息</span>
+        </div>
+        <div class="table-content">
+            <el-table :data="listData"  style="width: 100%">
+                <el-table-column prop="operateTime" :formatter="date" label="操作时间" min-width="150" align="center">
+                </el-table-column>
+                <el-table-column prop="operateContent" label="操作内容" min-width="50" align="center">
+                </el-table-column>
+                <el-table-column prop="operateType" label="操作类型" min-width="50" align="center">
+                </el-table-column>
+                <el-table-column prop="operator" label="操作人" min-width="50" align="center">
+                </el-table-column>
+                <el-table-column prop="operateAccount" label="操作账号" min-width="100" align="center">
+                </el-table-column>
+            </el-table>
+        </div>
+    </div>
+    <div class="table-box page-box">
+        <div class="page-box-title">
+            <i class="fa fa-circle-o"></i>
+            <span>操作详情</span>
+        </div>
+        <div class="table-content">
+            <ul class="head">
+                <li>操作前</li>
+                <li>操作后</li>
+            </ul>
+            <div class="diff-content">
+                <ul class="left">
+                    <li v-for="(key,value,index) in after" :key="index">
+                        <span>{{key}}</span>
+                    </li>
+                </ul>
+                <ul class="right">
+                    <li v-for="(value,key,index) in before" :key="index">
+                        <span v-text="before[key]"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

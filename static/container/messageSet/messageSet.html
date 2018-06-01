@@ -1,0 +1,24 @@
+<div class="messsage-set-box page-box">
+    <div class="page-box-title">
+        <i class="fa fa-circle-o"></i>
+        <span>消息设置</span>
+    </div>
+    <div class="messsage-set-content">
+        <el-form ref="form" :model="formData" label-width="180px" label-position="top">
+            <el-form-item label="选择接收的消息类型">
+                <el-checkbox v-model="formData.announcement">系统通知</el-checkbox>
+                <el-checkbox v-model="formData.notification">系统公告</el-checkbox>
+            </el-form-item>
+            <el-form-item label="选择接收的消息方式">
+                <el-radio-group v-model="receiveMethod">
+                    <el-radio label=0 value="0">消息通知</el-radio>
+                    <el-radio label=1 value="1">短信</el-radio>
+                    <el-radio label=2 value="2">消息通知和短息</el-radio>
+                </el-radio-group>
+            </el-form-item>
+            <el-form-item>
+                <div class="rule-btn" @click="saveSet">保存</div>
+            </el-form-item>
+        </el-form>
+    </div>
+</div>

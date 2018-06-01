@@ -1,0 +1,12 @@
+.report-box .print-btn {
+    width: 124px;
+    height: 30px;
+    border: 1px solid #409eff;
+    border-radius: 30px;
+    background-color: #fff;
+    color: #409eff;
+    outline: none;
+    cursor: pointer;
+    float: right;
+    margin-top: 5px;
+}

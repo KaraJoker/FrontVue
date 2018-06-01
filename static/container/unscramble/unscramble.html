@@ -1,0 +1,82 @@
+<div class="unscramble-content">
+    <div class="filter-box page-box">
+        <div class="page-box-title">
+            <i class="fa fa-circle-o"></i>
+            <span>筛选查询</span>
+            <div class="btn-group">
+                <button type="button" v-text="isSearchShow?'收起':'展开'" @click="toggleSearchShow()" class="fa fa-angle-double-down">收起</button>
+                <button type="button" @click="search()">查询结果</button>
+            </div>
+        </div>
+        <transition name="fade">
+            <el-form ref="form" label-width="100px" class="search-box" v-show="isSearchShow">
+                <el-form-item label="报告时间" class="time-choice">
+                    <el-date-picker v-model="searchObj.reportTime" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"
+                        value-format="timestamp">
+                    </el-date-picker>
+                </el-form-item>
+                <el-form-item label="完成时间" class="time-choice">
+                    <el-date-picker v-model="searchObj.finishTime" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"
+                        value-format="timestamp">
+                    </el-date-picker>
+                </el-form-item>
+                <el-form-item label="患者账号" class="account-input">
+                    <el-input v-model="searchObj.patientAccount" placeholder="例如:179416313"></el-input>
+                </el-form-item>
+                <el-form-item label="解读及时性">
+                    <el-select v-model="searchObj.timeliness" placeholder="请选择">
+                        <el-option label="全部" value=""></el-option>
+                        <el-option label="及时" value="1"></el-option>
+                        <el-option label="超时" value="0"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="报告类型">
+                    <el-select v-model="searchObj.reportType" placeholder="请选择">
+                        <el-option label="全部" value=""></el-option>
+                        <el-option label="体温报告" value="2,3"></el-option>
+                        <el-option label="心电报告" value="0,1"></el-option>
+                    </el-select>
+                </el-form-item>
+            </el-form>
+        </transition>
+    </div>
+    <div class="table-box page-box">
+        <div class="page-box-title">
+            <i class="fa fa-circle-o"></i>
+            <span>已解读报告</span>
+        </div>
+        <div class="table-content">
+            <el-select class="choice" v-model="choiceShow.showList" multiple collapse-tags style="margin-left: 20px;" placeholder="请选择">
+                <el-option v-for="item in choiceShow.options" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+            </el-select>
+            <el-table :data="tableData.data" style="width: 100%">
+                <el-table-column prop="id" width="0" v-if="false"></el-table-column>
+                <el-table-column prop="reportName" label="报告名称" width="200" align="center" v-if="isShowReport">
+                </el-table-column>
+                <el-table-column prop="patientAccount" label="患者账号" width="120" align="center" v-if="isShowAccount">
+                </el-table-column>
+                <el-table-column prop="name" label="姓名" width="120" align="center" v-if="isShowName">
+                </el-table-column>
+                <el-table-column prop="gender" label="性别" width="50" align="center" v-if="isShowSex">
+                </el-table-column>
+                <el-table-column prop="age" label="年龄" width="50" align="center" v-if="isShowAge">
+                </el-table-column>
+                <el-table-column prop="reportTime" :formatter="reportTime" label="报告时间" width="220" align="center" v-if="isShowReportStartTime">
+                </el-table-column>
+                <el-table-column prop="finishTime" :formatter="finishTime" label="完成时间" width="220" align="center" v-if="isShowReportEndTime">
+                </el-table-column>
+                <el-table-column prop="timeliness"  :formatter="timeliness" label="解读及时性" width="120" align="center" v-if="isShowTimely">
+                </el-table-column>
+                <el-table-column label="操作" min-width="120" align="center">
+                    <template slot-scope="scope">
+                        <el-button @click="handleClick(scope.row)" type="text" size="small" class="btn-see">查看详情</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+            <el-pagination class="pagination-box" :current-page="tableData.currentPage" :page-size="tableData.pageSize" layout="total, prev, pager, next, jumper"
+                :total="tableData.total" @current-change="handleCurrentChange">
+            </el-pagination>
+        </div>
+    </div>
+</div>

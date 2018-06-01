@@ -1,0 +1,50 @@
+<div class="message-center-box page-box">
+    <div class="page-box-title">
+        <i class="fa fa-circle-o"></i>
+        <span>消息中心</span>
+        <el-tabs class="choice-tab" @tab-click="tabListClick" v-model="activeName">
+            <el-tab-pane label="全部未读消息" name="未读"></el-tab-pane>
+            <el-tab-pane label="系统通知" name="0"></el-tab-pane>
+            <el-tab-pane label="系统公告" name="1"></el-tab-pane>
+        </el-tabs>
+    </div>
+    <div class="message-center-content">
+        <el-row class="btn-group">
+            <el-button :disabled="oneDisable" @click="readed()">标记为已读</el-button>
+            <el-button :disabled="deleteAllDisable" @click="allReaded()">全部标记为已读</el-button>
+            <el-button icon="el-icon-delete" :disabled="deleteAllDisable" @click="deleteAll">全部删除</el-button>
+        </el-row>
+        <el-table ref="multipleTable" :row-key="getRowKeys" :data="tableData" tooltip-effect="dark" style="width: 100%" @selection-change="handleSelectionChange"
+            @select-all="choiceAll" @expand-change="openRow" :expand-row-keys="expands">
+            <el-table-column type="selection" width="55">
+            </el-table-column>
+            <el-table-column type="expand">
+                <template slot-scope="props">
+                    <p v-text="props.row.content"></p>
+                </template>
+            </el-table-column>
+            <el-table-column width="50">
+                <template slot-scope="scope">
+                    <i class="fa fa-envelope-o" v-if="scope.row.isReading==true"></i>
+                    <i class="fa fa-envelope-open-o" v-if="scope.row.isReading==false"></i>
+                </template>
+            </el-table-column>
+            <el-table-column prop="title" label="标题" min-width="120">
+            </el-table-column>
+            <el-table-column prop="createTime" :formatter="date" label="日期" min-width="120">
+            </el-table-column>
+            <el-table-column prop="createUser" label="来源" min-width="120">
+            </el-table-column>
+            <el-table-column label="操作" width="120">
+                <template slot-scope="scope">
+                    <el-button icon="el-icon-delete" @click="deleteRow(scope.$index, tableData)" type="text" size="small" class="delete-btn">
+                        移除
+                    </el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+        <el-pagination class="pagination-box" :current-page="page.pageId" :page-size="page.size" layout="total, prev, pager, next, jumper"
+            :total="page.totalElements" @current-change="handleCurrentChange">
+        </el-pagination>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+<div class="img-upload">
+    <div class="img-upload-box">
+        <input type="file" :name="name" class="" class="photo" @change="changeFile" required="true" accept="image/gif,image/jpeg,image/jpg,image/png"
+            ref="avatarInput" />
+        <div class="user-photo">
+            <img :src="nowImg" alt="">
+        </div>
+        <span class="img-size" v-text="imgSize"></span>
+    </div>
+    <span class="hint" v-if="showHint">请上传图片</span>
+</div>

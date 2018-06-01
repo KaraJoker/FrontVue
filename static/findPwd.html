@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>找回密码</title>
+    <link rel="stylesheet" href="/lib/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="./lib/font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div id="page">
+        <div class="head">
+            <div class="content" v-text="webName"></div>
+        </div>
+        <div class="main">
+            <div class="main-inner">
+                <v-form></v-form>
+            </div>
+        </div>
+    </div>
+    <script src="./config/development.js"></script>
+    <script src="./lib/require.js"></script>
+    <script src="./config/require.config.js"></script>
+    <script>
+        require([
+            'vue',
+            'ELEMENT',
+            'axios',
+            'findPwdForm'
+        ], function (
+            Vue,
+            element,
+            axios,
+            findPwdForm
+        ) {
+            Vue.use(element);
+            new Vue({
+                el: '#page',
+                data: {
+                    webName: '',
+                    imgSrc: '',
+                },
+                components: {
+                    "v-form": findPwdForm
+                },
+                methods: {
+                    setWebNameImg: function () {
+                        this.webName = "智柔";
+                        this.imgSrc = "/images/pic_login.jpg";
+                        this.logoSrc = "/images/logo.jpg"
+                    },
+                },
+                created: function () {
+                    this.setWebNameImg();
+                },
+            })
+        })
+    </script>
+</body>
+
+</html>

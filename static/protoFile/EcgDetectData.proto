@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+/*智柔文件格式
+* 1. 心电：每5分钟存一个文件
+* 4. 一个文件只有一种数据类型;
+**/
+message DetectData {
+	uint32 flag = 1; //文件标志: 0xecec:心电(ecg); 0xcece:温度(chero temperture);
+	uint32 checksum = 2; //总的校验和
+	string vendor = 3; //厂商名  SDK提供接口
+	uint32 product = 4; //产品型号, SDK增加接口
+	uint32 sn = 5; //产品序列号, 贴片id
+	string cid = 6; //测量序列号 每个分段测量文件保持一样（原始数据和滤波后数据）
+	string fid = 7; //文件唯一标识 (每个文件都有一个独立序列号，用户快速索引);
+	uint32 leads = 8; //导联数, SDK增加接口
+	uint32 ecgFreqs = 9; //ecg采样率,SDK增加接口
+	uint64 startTime = 10; //此文件数据存储开始时间
+	uint64 endTime = 11; //此文件数据存储结束时间
+	uint32 encrypt = 12; //加密选项, 1:加密; 0:不加密, 默认不加密。
+
+	repeated BeatData detectSet = 13; //检测信息（开始时间和结束时间之间采集到的）
+}
+
+/*诊断数据*/
+message BeatData
+{
+	uint32 time = 1;           //接收时间
+	uint32 qrsIndex = 2;		//qrs索引
+	uint32 qrsDelay = 3;		/* 用于寻找R波的位置， 当前心电向前推移qrsDelay个数据即为R波位置*/
+    uint32 beatType = 4;	    /* 当前QRS心博类型 */
+	uint32 rrInterval = 5;	 	/* RR间期: 当前R峰与前一个R峰间隔点数 */
+	uint32 heartRate = 6;		/* 当前心率 -1: 标识为无效; 0: 标识没有检测到心博*/
+	uint32 morphType = 7;          	/* 当前QRS匹配的模板号*/
+    string morphFid = 8;            //匹配的模板文件索引
+	repeated uint32 abnormalbeat = 9;  	/* 当前检测到的具体异常,详见SDK异常定义列表*/
+}
+		
+
+
+

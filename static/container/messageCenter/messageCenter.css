@@ -1,0 +1,39 @@
+.message-center-box .choice-tab {
+    float: right;
+}
+
+.message-center-box .btn-group {
+    padding: 10px 20px;
+}
+
+.message-center-box .message-center-content {
+    padding: 30px 0;
+    width: 96%;
+    margin: 0 auto;
+}
+
+.message-center-box .btn-group button {
+    border-radius: 40px;
+    color: #17ACF1;
+    border-color: #17ACF1;
+}
+
+.message-center-box .delete-btn {
+    border-radius: 40px;
+    color: #17ACF1;
+    width: 85px;
+    border-color: #17ACF1;
+}
+.message-center-box .el-tabs__nav-wrap::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #fff;
+    z-index: 1;
+}
+.message-center-box .pagination-box{
+    text-align: right;
+}

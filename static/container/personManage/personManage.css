@@ -1,0 +1,112 @@
+.personManage-box .filter-box {
+    margin-bottom: 30px;
+}
+
+.personManage-box .filter-box .btn-group {
+    float: right;
+    padding-top: 17px;
+}
+
+.personManage-box .filter-box .btn-group button {
+    width: 90px;
+    height: 30px;
+    border: 1px solid #409eff;
+    border-radius: 30px;
+    background-color: #fff;
+    color: #409eff;
+    outline: none;
+    cursor: pointer;
+}
+
+.personManage-box .filter-box .search-box {
+    padding: 30px 0;
+    overflow: hidden;
+}
+
+.personManage-box .filter-box .search-box .status {
+    display: inline-block;
+    vertical-align: top;
+    min-width: 10%;
+}
+
+.personManage-box .filter-box .search-box .role {
+    display: inline-block;
+    vertical-align: top;
+    min-width: 20%;
+}
+
+.personManage-box .filter-box .search-box .time {
+    display: inline-block;
+    vertical-align: top;
+    min-width: 40%;
+}
+
+.personManage-box .filter-box .fade-enter-active,
+.personManage-box .filter-box .fade-leave-active {
+    transition: all .15s linear;
+}
+
+.personManage-box .filter-box .fade-enter,
+.personManage-box .filter-box .fade-leave-to {
+    height: 0;
+    padding: 0;
+}
+
+.personManage-box .table-content {
+    padding: 30px 0;
+    width: 94%;
+    position: relative;
+    margin: 0 auto;
+}
+
+.personManage-box .table-content .pagination-box {
+    padding-top: 20px;
+    text-align: right;
+}
+
+.personManage-box .table-content .choice {
+    position: absolute;
+    top: -53px;
+    right: 9px;
+}
+
+.personManage-box .table-content .btn-see {
+    width: 90px;
+    height: 30px;
+    background-color: #edeff1;
+    border-radius: 30px;
+}
+
+.personManage-box .table-box .add {
+    float: right;
+    width: 124px;
+    height: 30px;
+    border: 1px solid #3DB8F0;
+    line-height: 30px;
+    border-radius: 30px;
+    color: #3DB8F0;
+    background-color: #fff;
+    cursor: pointer;
+    padding: 0;
+    margin-top: 7px;
+}
+
+.personManage-box .table-box .add  span {
+    line-height: 30px;
+}
+
+.personManage-box .rule-btn {
+    background-color: #ECEFF1;
+    border-radius: 30px;
+    width: 100px;
+    height: 30px;
+    color: #7C939F;
+}
+
+.personManage-box .delete-btn {
+    background-color: #ECEFF1;
+    border-radius: 30px;
+    width: 100px;
+    height: 30px;
+    color: #3DB8F0;
+}

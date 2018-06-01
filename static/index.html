@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>智柔</title>
+    <link rel="stylesheet" href="./lib/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="./lib/font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div id="app">
+        <router-view></router-view>
+    </div>
+    <script src="./config/development.js"></script>
+    <script src="./lib//protobuf3.0.js"></script>
+    <script src="./lib/require.js"></script>
+    <script src="./config/require.config.js"></script>
+    <script>
+        'use strict';
+        require([
+            'vue',
+            'vuex',
+            'ELEMENT',
+            'VueRouter',
+            'router',
+            'layout',
+            'jquery',
+            'store',
+            'mixins'
+        ], function (
+            Vue,
+            Vuex,
+            element,
+            VueRouter,
+            router,
+            layout,
+            $,
+            store
+        ) {
+            Vue.use(element);
+            Vue.use(VueRouter);
+            new Vue({
+                el: '#app',
+                store: store,
+                router: router
+            });
+            // 路由拦截， 验证是否有token
+            router.beforeResolve(function (to, from, next) {
+                if (sessionStorage.getItem('zhirou_token')) {
+                    next()
+                } else {
+                    location.href = "/login.html"
+                };
+                if (sessionStorage.getItem('isTemporary')=='true') {
+                    next({
+                        name: 'attestation'
+                    })
+                }
+            }.bind(this));
+        });
+    </script>
+</body>
+
+</html>

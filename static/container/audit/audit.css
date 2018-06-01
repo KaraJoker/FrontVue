@@ -1,0 +1,128 @@
+.audit-box .filter-box {
+    margin-bottom: 30px;
+}
+
+.audit-box .filter-box .btn-group {
+    float: right;
+    padding-top: 17px;
+}
+
+.audit-box .filter-box .btn-group button {
+    width: 90px;
+    height: 30px;
+    border: 1px solid #409eff;
+    border-radius: 30px;
+    background-color: #fff;
+    color: #409eff;
+    outline: none;
+    cursor: pointer;
+}
+
+.audit-box .filter-box .search-box {
+    padding: 30px 0;
+    overflow: hidden;
+}
+
+.audit-box .filter-box .search-box .status {
+    display: inline-block;
+    vertical-align: top;
+    min-width: 10%;
+}
+
+.audit-box .filter-box .search-box .role {
+    display: inline-block;
+    vertical-align: top;
+    min-width: 20%;
+}
+
+.audit-box .filter-box .search-box .time {
+    display: inline-block;
+    vertical-align: top;
+    min-width: 40%;
+}
+
+.audit-box .filter-box .fade-enter-active,
+.audit-box .filter-box .fade-leave-active {
+    transition: all .15s linear;
+}
+
+.audit-box .filter-box .fade-enter,
+.audit-box .filter-box .fade-leave-to {
+    height: 0;
+    padding: 0;
+}
+
+.audit-box .table-content {
+    padding: 30px 0;
+    width: 94%;
+    position: relative;
+    margin: 0 auto;
+}
+
+.audit-box .table-content .pagination-box {
+    padding-top: 20px;
+    text-align: right;
+}
+
+.audit-box .table-content .choice {
+    position: absolute;
+    top: -53px;
+    right: 9px;
+}
+
+.audit-box .table-content .btn-see {
+    width: 90px;
+    height: 30px;
+    background-color: #edeff1;
+    border-radius: 30px;
+}
+
+.audit-box .table-box .add {
+    float: right;
+    width: 124px;
+    height: 30px;
+    border: 1px solid #3DB8F0;
+    line-height: 30px;
+    border-radius: 30px;
+    color: #3DB8F0;
+    background-color: #fff;
+    cursor: pointer;
+    padding: 0;
+    margin-top: 7px;
+}
+
+.audit-box .table-box .add span {
+    line-height: 30px;
+}
+
+.audit-box .rule-btn {
+    background-color: #ECEFF1;
+    border-radius: 30px;
+    width: 100px;
+    height: 30px;
+    color: #7C939F;
+}
+
+.audit-box .delete-btn {
+    background-color: #ECEFF1;
+    border-radius: 30px;
+    width: 100px;
+    height: 30px;
+    color: #3DB8F0;
+}
+
+.audit-box .tab-box {
+    width: 98%;
+    margin: 0 auto;
+}
+
+.audit-box .tab-box .el-tabs__header {
+    margin: 0;
+}
+
+.audit-box .tab-box .el-tabs__header .el-tabs__nav {
+    background-color: #f4f5f9;
+}
+.audit-box .tab-box .is-active{
+    background-color: #fff;
+}

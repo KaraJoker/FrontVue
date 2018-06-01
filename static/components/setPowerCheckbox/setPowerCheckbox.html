@@ -1,0 +1,6 @@
+<div class="checkbox-box">
+    <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange" class="check-all">全选</el-checkbox>
+    <el-checkbox-group v-model="checkedList" @change="handleCheckedChange">
+        <el-checkbox v-for="list in lists" :label="list.value" :key="list.value">{{list.text}}</el-checkbox>
+    </el-checkbox-group>
+</div>

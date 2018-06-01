@@ -1,0 +1,64 @@
+.detail {
+    padding: 105px 0;
+    width: 962px;
+    margin: 0 auto;
+}
+
+.detail li {
+    width: 217px;
+    display: inline-block;
+    vertical-align: top;
+    height: 315px;
+    border: 1px solid #edeff1;
+    border-radius: 4px;
+    margin: 0 49px;
+}
+
+.img-icon {
+    text-align: center;
+    margin: 50px 0 20px 0;
+    height: 60px;
+}
+
+.img-icon img {
+    display: inline-block;
+}
+
+.detail h2 {
+    font-size: 18px;
+    color: #333;
+    line-height: 40px;
+    text-align: center;
+}
+
+.detail p {
+    font-size: 12px;
+    width: 167px;
+    margin: 0 auto;
+    color: #606266;
+    line-height: 22px;
+}
+
+.detail .rule-btn {
+    width: 133px;
+    height: 54px;
+    font-size: 14px;
+    border-radius: 2px;
+    color: #fff;
+    margin: 0 auto;
+    margin-top: 10px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    display: block;
+    text-align: center;
+    line-height: 36px;
+}
+
+.y-button {
+    background: url('/images/btn_y.png') no-repeat center center;
+}
+
+.g-button {
+    background: url('/images/btn_g.png') no-repeat center center;
+}

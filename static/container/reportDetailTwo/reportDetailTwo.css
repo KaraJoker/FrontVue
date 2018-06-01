@@ -1,0 +1,189 @@
+.report-detail .user-detail {
+    width: 96%;
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    border-radius: 4px;
+    background: #fff;
+}
+
+.report-detail .data-content {
+    width: 96%;
+    margin: 0 auto;
+    padding: 30px 0;
+}
+
+.report-detail .report-long {
+    width: 78%;
+    float: left;
+}
+
+.report-detail .report-aside {
+    width: 20%;
+    /* height: 300px; */
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    background: #fff;
+    float: right;
+}
+
+.report-detail .print-btn {
+    width: 90px;
+    height: 30px;
+    border: 1px solid #409eff;
+    border-radius: 30px;
+    background-color: #fff;
+    color: #409eff;
+    outline: none;
+    cursor: pointer;
+    float: right;
+    margin-top: 5px;
+}
+
+.report-detail .user-detail-content {
+    font-size: 0;
+    padding: 20px 0;
+}
+
+.report-detail .user-detail-content li {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 14px;
+    color: #90a4ae;
+    padding: 0 16px;
+    line-height: 34px;
+}
+
+.report-detail .user-detail-content li span {
+    color: #333;
+}
+
+.report-detail .detail-text {
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    background: #fff;
+    padding: 28px;
+}
+
+.report-detail .base-detail-echar {
+    margin-top: 30px;
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    background: #fff;
+}
+
+.report-detail .base-detail-echar .base-detail {
+    width: 1000px;
+    height: 350px;
+    /* background: url(../../images/grid_3.png) no-repeat 128px 35px; */
+    background-size: 772px 290px;
+    margin: 0 auto;
+}
+
+.report-detail .detail-text ul {
+    font-size: 0;
+}
+
+.report-detail .detail-text li {
+    display: inline-block;
+    font-size: 14px;
+    color: #333;
+    line-height: 26px;
+}
+
+.report-detail .report-probably li {
+    width: 25%;
+}
+
+.report-detail .heart li {
+    width: 50%;
+}
+
+.report-detail .jielv .left {
+    width: 50%;
+    float: left;
+}
+
+.report-detail .jielv .right {
+    float: right;
+    width: 50%;
+}
+
+.report-detail .jielv li {
+    width: 100%;
+}
+
+.report-detail .label-title {
+    display: inline-block;
+    width: 111px;
+}
+
+.report-detail .detail-text h2 {
+    font-size: 18px;
+    color: #333;
+    text-align: center;
+}
+
+.report-detail .detail-text h3 {
+    font-size: 16px;
+    color: #333;
+    line-height: 45px;
+}
+
+.report-detail .part {
+    border-bottom: 1px solid #edeff1;
+    padding: 30px 0;
+}
+
+.report-detail .check-detail-btn {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    width: 172px;
+    height: 51px;
+    background: url(/images/btn_y.png) no-repeat center center;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    line-height: 34px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+.report-detail .base-detail-echar .time-see {
+    width: 1000px;
+    margin: 0 auto;
+    height: 200px;
+    padding-top: 65px;
+}
+
+.report-detail .base-splashes {
+    width: 400px;
+    height: 400px;
+    margin: 0 auto;
+}
+
+.report-detail .heart-num {
+    text-align: center;
+    display: inline-block;
+    margin: 0 auto;
+    width: 100px;
+}
+
+.report-detail .page-box-title .title {
+    display: inline-block;
+    width: 40%;
+}
+
+.report-detail .page-box-title .time {
+    display: inline-block;
+    line-height: 44px;
+}
+
+.report-detail .table-box {
+    width: 96%;
+    margin: 0 auto;
+    padding-bottom: 50px;
+}

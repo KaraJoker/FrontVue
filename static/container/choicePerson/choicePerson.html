@@ -1,0 +1,37 @@
+<div class="choicePerson-box page-box">
+    <div class="page-box-title">
+        <i class="fa fa-circle-o"></i>
+        <span>选择人员</span>
+    </div>
+    <div class="choicePerson-content">
+        <div class="left">
+            <h2 class="title">部门列表</h2>
+            <el-input class="filter-input" placeholder="请输入部门搜索" v-model="filterPerson" suffix-icon="el-icon-search">
+            </el-input>
+            <el-tree class="filter-tree" :data="positionData" node-key="id" :default-checked-keys="[2]" :default-expanded-keys="[1]"
+                :filter-node-method="filterNode" ref="organizationTree" @check="checkList" @node-click="filterClick">
+            </el-tree>
+        </div>
+        <div class="right">
+            <div class="right-content">
+                <div style="text-align: center">
+                    <el-transfer style="text-align: left; display: inline-block" v-model="checkOption" filterable :titles="['本部门全部人员', '已经勾选的人员']"
+                        :button-texts="['到左边', '到右边']" :format="{
+                        noChecked: '${total}',
+                        hasChecked: '${checked}/${total}'
+                      }" :props="{
+                        key: 'doctorinfoId',
+                        label: 'realName'
+                      }" :filter-method="filterMethod" @change="handleChange" :data="personData">
+                        <span slot-scope="{ option }">{{ option.realName }}- {{ option.mobile }}</span>
+                    </el-transfer>
+                </div>
+
+                <div class="btn-group">
+                    <div class="save-btn form-btn" @click="save">保存</div>
+                    <div class="cancel-btn form-btn" @click="cancel">返回</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

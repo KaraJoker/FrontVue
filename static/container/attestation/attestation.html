@@ -1,0 +1,110 @@
+<div class="page-box attestation-box">
+    <div class="page-box-title">
+        <i class="fa fa-circle-o"></i>
+        <span>我的认证</span>
+    </div>
+    <div class="clear ren-zhen-form" v-if="showRenZhen">
+        <v-progress :active="step" class="progress" :progress-text="progressText"></v-progress>
+        <el-form :model="userRenZhen" :rules="rules" ref="userRenZhenForm" label-width="100px" v-show="step==0">
+            <el-form-item label="真实姓名" prop="realName">
+                <el-input type="text" placeholder="请输入真实姓名" name="realName" v-model="userRenZhen.realName" clearable></el-input>
+            </el-form-item>
+            <el-form-item label="证件类型" prop="certificateType">
+                <el-select v-model="userRenZhen.certificateType" placeholder="请选择证件类型">
+                    <el-option v-for="item in idTypeOption" :key="item.value" :label="item.text" :value="item.value"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="证件号码" prop="certificateNumber">
+                <el-input type="text" placeholder="请输入选择的证件的号码" v-model="userRenZhen.certificateNumber" clearable></el-input>
+            </el-form-item>
+            <div class="el-form-item is-required img-upload">
+                <label class="el-form-item__label">持证件照片</label>
+                <v-upload img-path="" :reqed="'true'" @uploadImg="fileChange" ref="fileUpload" name="file" class="el-form-item__content"
+                    style="margin-left: 100px;"></v-upload>
+            </div>
+            <el-form-item>
+                <div @click="submitId('userRenZhenForm')" class="btn-next">下一步</div>
+            </el-form-item>
+        </el-form>
+        <div class="photo-example" v-show="step==0">
+            <p>示例照片</p>
+            <div class="userRenZhen">
+                <img src="/images/idcard.png" alt="">
+            </div>
+        </div>
+        <el-form :model="physicianZhenPhoto" :rules="rules" ref="ziZhiForm" label-width="140px" v-show="step==1">
+            <el-form-item label="所在部门" prop="subject">
+                <el-select v-model="physicianZhenPhoto.subject" multiple placeholder="请选择所在部门">
+                    <el-option v-for="item in positionList" :key="item.index" :label="item.departmentName" :value="item.id"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="职位">
+                <el-select v-model="physicianZhenPhoto.position" placeholder="">
+                </el-select>
+            </el-form-item>
+            <div class="el-form-item is-required img-upload">
+                <label class="el-form-item__label" style="width: 140px">医师执业注册证</label>
+                <v-upload img-path="" :reqed="'true'" ref="registrationFileUpload" @uploadImg="registrationFileChange" name="registrationFile"
+                    class="el-form-item__content" style="margin-left: 140px;"></v-upload>
+            </div>
+            <div class="el-form-item img-upload">
+                <label class="el-form-item__label" style="width: 140px">医生职称证</label>
+                <v-upload img-path="" :reqed="'false'" ref="certificateFileUpload" @uploadImg="certificateFileChange" name="certificateFile"
+                    class="el-form-item__content" style="margin-left: 140px;"></v-upload>
+            </div>
+            <el-form-item>
+                <div @click="submitZiZhi('ziZhiForm')" class="btn-next">下一步</div>
+            </el-form-item>
+        </el-form>
+        <div class="photo-example" v-show="step==1">
+            <p>示例照片</p>
+            <div class="zhiZhiRenZhen">
+                <img src="/images/register.png" alt="">
+            </div>
+            <div class="img-name">医师执业注册证</div>
+            <div class="zhiZhiRenZhen">
+                <img src="/images/zhicheng.png" alt="">
+            </div>
+            <div class="img-name">医生职称证</div>
+        </div>
+        <div class="form-success" v-if="step==2">
+            <img src="/images/success_face.png" alt="">
+            <p>提交成功，资质正在审核中...</p>
+        </div>
+    </div>
+    <div class="ren-zhen-result" v-if="showRenZhenResult">
+        <ul>
+            <li>证件类型:
+                <span v-text="result.certificateType== 0?'身份证':''"></span>
+            </li>
+            <li>证件号码:
+                <span v-text="result.certificateNumber"></span>
+            </li>
+            <li>真实姓名:
+                <span v-text="result.userRealName"></span>
+            </li>
+            <li>所在部门:
+                <span v-text="departmentName"></span>
+            </li>
+            <li>职位:
+                <span v-text="result.position"></span>
+            </li>
+            <li>认证结果:
+                <span v-text="renZhenResult"></span>
+            </li>
+            <li>申请时间:
+                <span v-text="createTime"></span>
+            </li>
+            <li v-if="result.updateTime">审核时间:
+                <span v-text="updateTime"></span>
+            </li>
+            <li v-if="result.reviewRemark">
+                <span v-text="result.reviewRemark"></span>
+            </li>
+        </ul>
+        <div class="again-renzhen" v-if="result.reviewState===2" @click="againRenZhen">重新认证</div>
+        <div class="result-img">
+            <img :src="resultImgPath" alt="">
+        </div>
+    </div>
+</div>

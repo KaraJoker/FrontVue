@@ -1,0 +1,72 @@
+.unscramble-content .filter-box {
+    margin-bottom: 30px;
+}
+
+.unscramble-content .filter-box .btn-group {
+    float: right;
+    padding-top: 17px;
+}
+
+.unscramble-content .filter-box .btn-group button {
+    width: 90px;
+    height: 30px;
+    border: 1px solid #409eff;
+    border-radius: 30px;
+    background-color: #fff;
+    color: #409eff;
+    outline: none;
+    cursor: pointer;
+}
+
+.unscramble-content .filter-box .search-box {
+    padding: 30px 0;
+    overflow: hidden;
+}
+
+.unscramble-content .filter-box .search-box .account-input {
+    width: 450px;
+}
+
+.unscramble-content .filter-box .el-form-item {
+    display: inline-block;
+}
+
+.unscramble-content .filter-box .search-box .time-choice {
+    width: 450px;
+}
+
+.unscramble-content .filter-box .fade-enter-active,
+.unscramble-content .filter-box .fade-leave-active {
+    transition: all .15s linear;
+}
+
+.unscramble-content .filter-box .fade-enter,
+.unscramble-content .filter-box .fade-leave-to {
+    height: 0;
+    padding: 0;
+}
+
+.unscramble-content .table-content {
+    padding: 30px 0;
+    width: 94%;
+    position: relative;
+    margin: 0 auto;
+}
+
+.unscramble-content .table-content .pagination-box {
+    padding-top: 20px;
+    text-align: right;
+}
+
+.unscramble-content .table-content .choice {
+    position: absolute;
+    top: -53px;
+    right: 9px;
+}
+
+.unscramble-content .table-content .btn-see {
+    width: 90px;
+    height: 30px;
+    background-color: #edeff1;
+    border-radius: 30px;
+}

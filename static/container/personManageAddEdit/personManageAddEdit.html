@@ -1,0 +1,50 @@
+<div class="personManageAddEdit-box page-box">
+    <div class="page-box-title">
+        <i class="fa fa-circle-o"></i>
+        <span>人员信息</span>
+    </div>
+    <div>
+        <el-form :model="person" :rules="rules" ref="personForm" label-width="100px">
+            <el-form-item label="手机号" prop="mobile">
+                <el-input v-model="person.mobile" clearable>
+                    <el-button slot="append" icon="el-icon-search" class="search-phone" @click.native="searchPhone"></el-button>
+                </el-input>
+            </el-form-item>
+            <el-form-item label="姓名" prop="realName">
+                <el-input v-model="person.realName" clearable></el-input>
+            </el-form-item>
+            <el-form-item label="性别">
+                <el-radio-group v-model="person.gender">
+                    <el-radio label='1'>男</el-radio>
+                    <el-radio label='0'>女</el-radio>
+                </el-radio-group>
+            </el-form-item>
+            <el-form-item label="身份证号" prop="idCard">
+                <el-input v-model="person.idCard" clearable></el-input>
+            </el-form-item>
+            <el-form-item label="出生日期" prop="birthday">
+                <el-date-picker v-model="person.birthday" value-format="timestamp" type="date" placeholder="选择日期" clearable>
+                </el-date-picker>
+            </el-form-item>
+            <el-form-item label="所在部门" prop="departmentId">
+                <el-select v-model="person.departmentId" multiple placeholder="请选择所在部门">
+                    <el-option v-for="item in subjectList" :key="item.departmentName" :label="item.departmentName" :value="item.id"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="职位">
+                <el-select v-model="person.position" placeholder="">
+                </el-select>
+            </el-form-item>
+            <el-form-item label="状态">
+                <el-radio-group v-model="person.status">
+                    <el-radio label="true">启用</el-radio>
+                    <el-radio label="false">禁用</el-radio>
+                </el-radio-group>
+            </el-form-item>
+            <el-form-item>
+                <div class="rule-btn save" @click="save('personForm')">保存</div>
+                <div class="rule-btn cancel" @click="cancel()">返回</div>
+            </el-form-item>
+        </el-form>
+    </div>
+</div>

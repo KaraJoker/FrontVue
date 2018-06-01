@@ -1,0 +1,78 @@
+<div class="organization">
+    <div class="page-box-title">
+        <i class="fa fa-circle-o"></i>
+        <span>组织架构</span>
+    </div>
+    <div class="organization-content clear">
+        <div class="left">
+            <el-input class="filter-input" placeholder="输入关键字进行过滤" v-model="filterText" suffix-icon="el-icon-search">
+            </el-input>
+            <el-tree class="filter-tree" :data="treeData" :default-checked-keys="[1]" :filter-node-method="filterNode" ref="organizationTree"
+                @node-click="filterClick">
+            </el-tree>
+        </div>
+        <div class="right">
+            <ul class="tab-group">
+                <li @click="changeShow(1)" class="first" :class="showBox==1 ? 'active' : ''">基本信息</li>
+                <li @click="changeShow(2)" class="second" :class="showBox==2 ? 'active' : ''">下级部门</li>
+            </ul>
+            <div class="tab-content">
+                <div class="base-info" v-show="showBox==1">
+                    <ul>
+                        <li>
+                            <span class="title-box">部门名称：</span>
+                            <span class="value-box" v-text="organization.organizationList.label"></span>
+                        </li>
+                        <li v-if="organization.parentOrganization">
+                            <span class="title-box">上级部门：</span>
+                            <span class="value-box" v-text="organization.parentOrganization"></span>
+                        </li>
+                        <li>
+                            <span class="title-box">状态：</span>
+                            <span class="value-box" v-text="organization.organizationList.status=='0'?'启用':'禁用'"></span>
+                        </li>
+                        <li>
+                            <span class="title-box">部门负责人：</span>
+                            <span class="value-box" v-text="organization.organizationList.principle"></span>
+                        </li>
+                        <li>
+                            <span class="title-box">部门电话：</span>
+                            <span class="value-box" v-text="organization.organizationList.departmentPhone"></span>
+                        </li>
+                        <li>
+                            <span class="title-box">地址：</span>
+                            <span class="value-box" v-text="organization.organizationList.address"></span>
+                        </li>
+                        <li>
+                            <span class="title-box">备注：</span>
+                            <span class="value-box" v-text="organization.organizationList.remarks"></span>
+                        </li>
+                    </ul>
+                    <div class="edit-btn" type="primary" @click="changeEdit" key="edit-btn" v-if="nowPosData.id!==1">编辑</div>
+                </div>
+                <div class="company-table" v-show="showBox==2">
+                    <el-button class="add" @click="add()" type="text" icon="el-icon-plus">添加</el-button>
+                    <el-table border style="width: 100%" :data="tableData">
+                        <el-table-column prop="label" label="部门名称" min-width="150" align="center">
+                        </el-table-column>
+                        <el-table-column prop="principle" label="负责人" min-width="120" align="center">
+                        </el-table-column>
+                        <el-table-column align="center" prop="departmentPhone" label="部门电话" min-width="120">
+                        </el-table-column>
+                        <el-table-column prop="status" :formatter="status" align="center" label="状态" min-width="120">
+                        </el-table-column>
+                        <el-table-column prop="address" label="地址" align="center" min-width="300">
+                        </el-table-column>
+                        <el-table-column label="操作" min-width="100">
+                            <template slot-scope="scope">
+                                <el-button @click="editData(scope.row)" type="text" size="small">编辑</el-button>
+                                <el-button type="text" size="small" @click.native.prevent="deleteData(scope.$index,tableData,scope.row)">删除</el-button>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                </div>
+                </di>
+            </div>
+        </div>
+    </div>
+</div>

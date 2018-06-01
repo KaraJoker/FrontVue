@@ -1,0 +1,21 @@
+<div class="report-abnorma-type">
+    <v-user-detail></v-user-detail>
+    <div class="data-content clear">
+        <div class="report-long">
+            <div class="report-box">
+                <div class="page-box-title">
+                    <span>异常片段分类:共七类</span>
+                    <button type="button" class="print-btn" @click="returnTotal()">
+                        << 返回数据总览</button>
+                </div>
+            </div>
+            <div class="disease-content" v-for="(item,index) in this.$store.getters.diseaseListDealData" :key="index">
+                <v-disease-list :error-mode-id="item" :error-type="index"></v-disease-list>
+            </div>
+        </div>
+        <div class="report-aside">
+            <v-error-aside></v-error-aside>
+        </div>
+    </div>
+    <v-suggest></v-suggest>
+</div>

@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+/*智柔文件格式
+* 1. 体温：每隔1小时存一个文件
+* 4. 一个文件只有一种数据类型;
+**/
+message TempDataSet
+{
+	uint32 flag = 1;				       		//文件标志: 0xecec:心电(ecg); 0xcece:温度(chero temperture);
+	uint32 checksum = 2;				   		//总的校验和
+	string vendor = 3;			           		//厂商名  SDK提供接口
+	uint32 product = 4;				       		//产品型号, SDK增加接口
+	uint32 sn = 5;			   			   		//产品序列号, 贴片id
+	string cid = 6;                             //测量序列号 每个分段测量文件保持一样（原始数据和滤波后数据）
+	string fid = 7;                             //文件唯一标识 (每个文件都有一个独立序列号，用户快速索引);
+	uint64 startTime = 8;		 			   	//此文件数据存储开始时间
+	uint64 endTime = 9;						    //此文件数据存储结束时间
+	uint32 encrypt = 10;				   		//加密选项, 1:加密; 0:不加密, 默认不加密。
+	repeated ChTemperatureData tempData = 11; 	//体温数组
+}
+
+/**
+    单个体温数据
+**/
+message ChTemperatureData
+{
+    uint32 time = 1;                        //采集时间，相对于开始时间
+	uint32 temp1 = 2;		 	   	//预测体温
+	uint32 temp2 = 3;		 	   	//sensor 1 体温值
+	uint32 temp3 = 4;		 	   	//sensor 2 体温值
+	uint32 temp4 = 5;		 	   	//sensor 3 体温值
+	uint32 status = 6;		 	   	        //测量状态
+}

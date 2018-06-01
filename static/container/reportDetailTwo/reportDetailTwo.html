@@ -1,0 +1,245 @@
+<div class="report-detail">
+    <v-user-detail :user-detail="userReport"></v-user-detail>
+    <div class="data-content clear">
+        <div class="report-long" ref="printContent">
+            <div class="detail-text">
+                <h2 v-text="userReport.name"></h2>
+                <ul class="report-probably part">
+                    <li>姓名：
+                        <span v-text="userReport.userName"></span>
+                    </li>
+                    <li>性别：
+                        <span v-text="userReport.userGender"></span>
+                    </li>
+                    <li>开始时间：
+                        <span>{{userReport.startTime|time}}</span>
+                    </li>
+                    <li>报告编号：
+                        <span v-text="userReport.reportId"></span>
+                    </li>
+                    <li>ID号：
+                        <span v-text="userReport.patchId"></span>
+                    </li>
+                    <li>年龄：
+                        <span v-text="userReport.userAge"></span>
+                    </li>
+                    <li>结束时间：
+                        <span>{{userReport.endTime|time}}</span>
+                    </li>
+                    <li>有效时长：
+                        <span>{{userReport.validTime}}</span>
+                    </li>
+                </ul>
+                <div class="heart part">
+                    <h3>心率</h3>
+                    <ul>
+                        <li>
+                            <span class="label-title">总心搏：</span>
+                            <span v-text="userReport.heartBeatCount"></span>次
+                        </li>
+                        <li>
+                            <span class="label-title">最高心率：</span>
+                            <span v-text="userReport.heartRateHigh"></span>
+                            <span>bpm(</span>
+                            <span>{{userReport.heartRateHighTime|hour}}</span>
+                            <span>)</span>
+                        </li>
+                        <li>
+                            <span class="label-title">平均心率：</span>
+                            <span v-text="userReport.heartRateAverage"></span>bpm
+                        </li>
+                        <li>
+                            <span class="label-title">最低心率：</span>
+                            <span v-text="userReport.heartRateLow"></span>
+                            <span>bpm(</span>
+                            <span>{{userReport.heartRateLowTime|hour}}</span>
+                            <span>)</span>
+                        </li>
+                        <li>
+                            <span class="label-title">RR间期>2.0秒：</span>
+                            <span v-text="userReport.RRCount"></span>
+                            次
+                        </li>
+                        <li>
+                            <span class="label-title">最长RR间期：</span>
+                            <span>{{userReport.RRLong|hour}}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="jielv clear part">
+                    <div class="left">
+                        <h3>室上性节律</h3>
+                        <ul>
+                            <li>
+                                <span class="label-title">室上早总数：</span>
+                                <span v-text="userReport.svesCount"></span>次
+                                <span>(</span>
+                                <span v-text="userReport.svesRatio"></span>
+                                <span>)</span>
+                            </li>
+                            <li>
+                                <span class="label-title">单发室上早：</span>
+                                <span v-text="userReport.svesSingleCount"></span>次
+                                <span>(</span>
+                                <span v-text="userReport.svesSingleRatio"></span>
+                                <span>)</span>
+                            </li>
+                            <li>
+                                <span class="label-title">成对室上早：</span>
+                                <span v-text="userReport.svesPairedCount"></span>次
+                                <span>(</span>
+                                <span v-text="userReport.svesPairedRatio"></span>
+                                <span>)</span>
+                            </li>
+                            <li>
+                                <span class="label-title">二联律：</span>
+                                <span v-text="userReport.svesBigeminyPosition"></span>阵
+                                <span v-text="userReport.svesBigeminyCount"></span>次
+                            </li>
+                            <li>
+                                <span class="label-title">三联率：</span>
+                                <span v-text="userReport.svesTrigeminyPosition"></span>阵
+                                <span v-text="userReport.svesTrigeminyCount"></span>次
+                            </li>
+                            <li>
+                                <span class="label-title">室上速：</span>
+                                <span v-text="userReport.stPosition"></span>阵
+                                <span v-text="userReport.stCount"></span>次
+                                <span>(</span>
+                                <span v-text="userReport.stRatio"></span>
+                                <span>)</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="right">
+                        <h3>室性节律</h3>
+                        <ul>
+                            <li>
+                                <span class="label-title">室上早总数：</span>
+                                <span v-text="userReport.vpbCount"></span>次
+                                <span>(</span>
+                                <span v-text="userReport.vpbRatio"></span>
+                                <span>)</span>
+                            </li>
+                            <li>
+                                <span class="label-title">单发室上早：</span>
+                                <span v-text="userReport.vpbSingleCount"></span>次
+                                <span>(</span>
+                                <span v-text="userReport.vpbSingleRatio"></span>
+                                <span>)</span>
+                            </li>
+                            <li>
+                                <span class="label-title">成对室上早：</span>
+                                <span v-text="userReport.vpbPairedCount"></span>次
+                                <span>(</span>
+                                <span v-text="userReport.vpbPairedRatio"></span>
+                                <span>)</span>
+                            </li>
+                            <li>
+                                <span class="label-title">二联律：</span>
+                                <span v-text="userReport.vpbBigeminyPosition"></span>阵
+                                <span v-text="userReport.vpbBigeminyCount"></span>次
+                            </li>
+                            <li>
+                                <span class="label-title">三联率：</span>
+                                <span v-text="userReport.vpbTrigeminyPosition"></span>阵
+                                <span v-text="userReport.vpbTrigeminyCount"></span>次
+                            </li>
+                            <li>
+                                <span class="label-title">室上速：</span>
+                                <span v-text="userReport.stPosition"></span>阵
+                                <span v-text="userReport.stCount"></span>次
+                                <span>(</span>
+                                <span v-text="userReport.stRatio"></span>
+                                <span>)</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="fangCan part">
+                    <h3>房颤</h3>
+                    <div>
+                        <span class="label-title">总共：</span>
+                        <span v-text="userReport.afibPosition"></span>阵
+                        <span v-text="userReport.afibCount"></span>次
+                        <span>(</span>
+                        <span v-text="userReport.afibRatio"></span>
+                        <span>)</span>
+                    </div>
+                </div>
+                <div type="button" class="check-detail-btn" @click="againSee">复核异常片段</div>
+            </div>
+            <div class="base-detail-echar">
+                <div class="page-box-title">
+                    <i class="fa fa-circle-o"></i>
+                    <span>小时统计</span>
+                </div>
+                <div class="base-detail" ref="heartChart"></div>
+                <div class="time-see" ref="timeEchar"></div>
+                <el-table :data="tableData" class="table-box" style="width:96%;margin:0 auto;">
+                    <el-table-column prop="diseaseTime" label="时间（小时）" width="180" align="center">
+                    </el-table-column>
+                    <el-table-column prop="diseaseTimeValid" label="有效时长（%）" width="180" align="center">
+                    </el-table-column>
+                    <el-table-column prop="diseaseHeartBeat" label="心搏总数（个）" align="center">
+                    </el-table-column>
+                    <el-table-column prop="diseaseHeartRateAverage" label="平均心率（bmp）" align="center">
+                    </el-table-column>
+                    <el-table-column prop="diseaseHeartRateHigh" label="最高心率（bmp）" align="center">
+                    </el-table-column>
+                    <el-table-column prop="diseaseHeartRateLow" label="最低心率（bmp）" align="center">
+                    </el-table-column>
+                    <el-table-column prop="diseaseSves" label="室上早（个）" align="center">
+                    </el-table-column>
+                    <el-table-column prop="diseaseSt" label="室上速（个）" align="center">
+                    </el-table-column>
+                    <el-table-column prop="diseaseVpb" label="室早（个）" align="center">
+                    </el-table-column>
+                    <el-table-column prop="diseaseVt" label="室速（个）" align="center">
+                    </el-table-column>
+                    <el-table-column prop="diseaseAfib" label="房颤（个）" align="center">
+                    </el-table-column>
+                    <el-table-column prop="diseaseLong" label="长时间（个）" align="center">
+                    </el-table-column>
+                </el-table>
+            </div>
+            <div class="base-detail-echar">
+                <div class="page-box-title">
+                    <i class="fa fa-circle-o"></i>
+                    <span>Lorenz散点图</span>
+                </div>
+                <div class="base-splashes" ref="splashesChart"></div>
+            </div>
+            <div class="base-detail-echar">
+                <div class="page-box-title">
+                    <p class="title">
+                        <i class="fa fa-circle-o"></i>
+                        <span>最高心率</span>
+                    </p>
+                    <p class="heart-num">心率
+                        <span>114</span>
+                    </p>
+                    <p class="time">11:35:35</p>
+                </div>
+                <v-heart-part :url-path="heightHeat.urlPath" :id="heightHeat.reportId"  show-error="false"></v-heart-part>
+            </div>
+            <div class="base-detail-echar">
+                <div class="page-box-title">
+                    <p class="title">
+                        <i class="fa fa-circle-o"></i>
+                        <span>最低心率</span>
+                    </p>
+                    <p class="heart-num">心率
+                        <span>114</span>
+                    </p>
+                    <p class="time">11:35:35</p>
+                </div>
+                <v-heart-part :url-path="lowHeat.urlPath" :id="lowHeat.reportId"  show-error="false"></v-heart-part>
+            </div>
+        </div>
+        <div class="report-aside">
+            <v-error-aside></v-error-aside>
+        </div>
+    </div>
+    <v-suggest></v-suggest>
+</div>

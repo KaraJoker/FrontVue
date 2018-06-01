@@ -1,0 +1,31 @@
+<div class="user-detail">
+    <div class="page-box-title">
+        <i class="fa fa-circle-o"></i>
+        <span>基本信息</span>
+    </div>
+    <div class="user-detail-content">
+        <ul>
+            <li>患者账号
+                <span v-text="userDetail.userInfoId"></span>
+            </li>
+            <li>姓名
+                <span v-text="userDetail.usernName"></span>
+            </li>
+            <li>性别
+                <span v-text="userDetail.userGender"></span>
+            </li>
+            <li>年龄
+                <span v-text="userDetail.userAge"></span>
+            </li>
+            <li>报告时间
+                <span>{{userDetail.reportStateTime|time}}</span>
+            </li>
+            <li v-if="userDetail.endTime">诊断时间
+                <span>{{userDetail.endTime|time}}</span>
+            </li>
+            <li v-if="userDetail.doctorName">诊断医生
+                <span v-text="userDetail.doctorName"></span>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>登陆</title>
+    <link rel="stylesheet" href="/lib/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="./lib/font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.min.css">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+        }
+
+        #page {
+            width: 100%;
+            height: 100%;
+        }
+
+        .el-carousel {
+            height: 100%;
+        }
+
+        .head {
+            min-height: 87px;
+            height: 10%;
+            position: relative;
+            z-index: 20;
+            box-shadow: 0 9px 10px rgba(0, 0, 0, 0.1);
+            font-size: 40px;
+            line-height: 86px;
+        }
+
+        .head .content {
+            font-size: 24px;
+            width: 1123px;
+            margin: 0 auto;
+        }
+
+        .main {
+            height: 90%;
+        }
+
+        .login-form .box-card {
+            width: 440px;
+            height: 452px;
+            position: absolute;
+            left: 0;
+            right: -700px;
+            top: -242px;
+            bottom: 0;
+            margin: auto;
+            border: 1px solid #ccc;
+            z-index: 100;
+        }
+
+        .el-form-item button {
+            width: 100%;
+        }
+
+        .zhirou-logo {
+            width: 117px;
+            height: 48px;
+            /* background: url(/images/zhirou_logo.png) no-repeat center center; */
+            margin: 0 auto;
+            padding: 50px 0;
+        }
+
+        .zhirou-logo img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .rule-btn {
+            text-decoration: none;
+        }
+
+        .register-forget {
+            width: 350px;
+            margin: 0 auto;
+            text-align: right;
+        }
+
+        .register-forget .register {
+            color: #9c9c9c;
+        }
+
+        .register-forget .forget {
+            color: #fcbc1c;
+        }
+
+        .login-btn {
+            border: none;
+            width: 350px;
+            height: 71px;
+            background: url("/images/btn_login.png") no-repeat center center;
+        }
+
+        .login-box {
+            margin-bottom: 0;
+        }
+
+        .el-form {
+            width: 350px;
+            margin: 0 auto;
+        }
+
+        .login-btn {
+            cursor: pointer;
+        }
+
+        .login-btn input {
+            background: rgba(0, 0, 0, 0);
+            border: none;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .login-form .el-input__prefix {
+            left: 12px;
+            transition: all .3s;
+        }
+
+        .login-form .el-input__prefix,
+        .el-input__suffix {
+            position: absolute;
+            top: 2px;
+            height: 100%;
+            color: #c0c4cc;
+            text-align: center;
+        }
+
+        .img-list {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="page">
+        <v-form></v-form>
+    </div>
+    <script type="text/x-template" id="login-form">
+        <div style="width:100%;height:100%">
+            <div class="head">
+                <div class="content" v-text="webName" v-if="webName"></div>
+                <div class="content" v-if="!webName">智柔健康</div>
+            </div>
+            <div class="main">
+                <el-carousel trigger="click" height="100%" arrow="never">
+                    <el-carousel-item v-for="item in imgSrc" :key="item" class="img-list">
+                        <img :src="item" alt="">
+                    </el-carousel-item>
+                </el-carousel>
+            </div>
+            <div class="login-form">
+                <el-card class="box-card">
+                    <div class="zhirou-logo">
+                        <img v-if="logo" :src="logo" alt="">
+                        <img v-if="!logo" src="/images/zhirou_logo.png" alt="">
+                    </div>
+                    <el-form :model="sysUser" :rules="rules" ref="loginForm" method="POST">
+                        <el-form-item prop="username">
+                            <el-input placeholder="请输入手机号" v-model="sysUser.username" @keyup.enter.native="submitForm('loginForm')" clearable prefix-icon="el"></el-input>
+                            <span class="el-input__prefix">
+                                <i class="fa fa-user"></i>
+                            </span>
+                        </el-form-item>
+                        <el-form-item prop="password">
+                            <el-input placeholder="请输入密码" type="password" @keyup.enter.native="submitForm('loginForm')" v-model="sysUser.password" clearable
+                                prefix-icon="el"></el-input>
+                            <span class="el-input__prefix">
+                                <i class="fa fa-unlock-alt"></i>
+                            </span>
+                        </el-form-item>
+                        <el-form-item class="login-box">
+                            <el-input class="login-btn" type="button" @click.native="submitForm('loginForm')"></el-input>
+                        </el-form-item>
+                    </el-form>
+                    <div class="register-forget">
+                        <a class="register rule-btn" href="/register.html">免费注册</a>
+                        <a class="forget rule-btn" href="/findPwd.html">忘记密码</a>
+                    </div>
+                </el-card>
+            </div>
+        </div>
+    </script>
+    <script src="./config/development.js"></script>
+    <script src="./lib/vue.js"></script>
+    <script src="./lib/jquery-3.3.1.min.js"></script>
+    <script src="./lib/element-ui/lib/index.js"></script>
+    <script>
+        'use strict';
+        var loginForm = {
+            template: '#login-form',
+            data: function () {
+                // 手机号验证
+                var checkPhone = function (rule, value, callback) {
+                    var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
+                    if (!value) {
+                        return callback(new Error("手机号不能为空"));
+                    } else if (!myreg.test(value)) {
+                        callback(new Error("请输入正确的手机号"));
+                    } else {
+                        callback();
+                    }
+                };
+                return {
+                    flag: true,
+                    webName: '',
+                    imgSrc: ['/images/pic_login.jpg', '/images/pic_login1.jpg', '/images/pic_login2.jpg'],
+                    logo: '',
+                    sysUser: {
+                        username: "",
+                        password: ""
+                    },
+                    rules: {
+                        username: [{
+                            validator: checkPhone,
+                            trigger: "blur"
+                        }],
+                        password: [{
+                                required: true,
+                                message: "请输入密码",
+                                trigger: "blur"
+                            },
+                            {
+                                min: 6,
+                                max: 16,
+                                message: "长度在 6 到 16 个字符",
+                                trigger: "blur"
+                            }
+                        ]
+                    }
+                };
+            },
+            methods: {
+                setWebNameImg: function () {
+                    $.ajax({
+                        beforeSend: function (request) {
+                            request.setRequestHeader("Authorization", 'Bearer ' + sessionStorage.getItem(
+                                'zhirou_token'));
+                        },
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        method: "post",
+                        url: developmentPath + "/sysManage/findSystemSetting",
+                    }).then(function (res) {
+                        if (res.status == 200) {
+                            this.webName = res.content.sysName;
+                            this.logo = res.content.logo;
+                            this.imgSrc = res.content.publishPicture.split(',');
+                        }
+                    }.bind(this))
+                },
+                submitForm: function (formName) {
+                    if (this.flag) {
+                        this.$refs[formName].validate(function (valid) {
+                            if (valid) {
+                                this.flag = false;
+                                // 请求服务器
+                                $.ajax({
+                                    xhrFields: {
+                                        withCredentials: true
+                                    },
+                                    timeout: 5000,
+                                    crossDomain: true,
+                                    type: 'post',
+                                    url: developmentPath + "/users/login",
+                                    data: {
+                                        username: this.sysUser.username,
+                                        password: this.sysUser.password
+                                    },
+                                    complete: function (XMLHttpRequest, status) {
+                                        if (status == 'timeout') {
+                                            this.$alert('链接超时，请重新提交', {
+                                                confirmButtonText: '确定',
+                                                callback: function (action) {}
+                                            });
+                                        }
+                                    }.bind(this)
+                                }).then(function (res) {
+                                    this.flag = true;
+                                    if (res.status == 200) {
+                                        // 保存token
+                                        sessionStorage.setItem('zhirou_token', res.content.access_token);
+                                        // 角色是管理员
+                                        // 如果是管理员就存储
+                                        // 如果不是管理员就不存储
+                                        if (res.content.role) {
+                                            // 所有的权限
+                                            var allRole = (function () {
+                                                var arr = [];
+                                                var role = res.content.role;
+                                                for (var i = 0; i < role.length; i++) {
+                                                    var strArr = role[i].privilegeManagement
+                                                        .split(
+                                                            ',');
+                                                    arr = arr.concat(strArr);
+                                                };
+                                                return arr;
+                                            })();
+                                            // 过滤出重复的权限
+                                            var roleArr = (function (data) {
+                                                var arr = [];
+                                                for (var i = 0; i < data.length; i++) {
+                                                    if (arr.indexOf(data[i]) ==
+                                                        -1) {
+                                                        arr.push(data[i])
+                                                    }
+                                                }
+                                                return arr;
+                                            })(allRole);
+                                            sessionStorage.setItem('zhirou_role', roleArr.join(
+                                                ','));
+                                        }
+                                        // 如果是医生
+                                        if (res.content.doctorInfo) {
+                                            // 医生的id
+                                            sessionStorage.setItem('doctorId', res.content.doctorInfo
+                                                .userId);
+
+                                            // 是否是临时医生
+                                            sessionStorage.setItem('isTemporary', false);
+                                        } else {
+                                            // 是否是临时医生
+                                            sessionStorage.setItem('isTemporary', true);
+                                        }
+                                        location.href = "/";
+                                    } else {
+                                        this.$alert(res.message, '提示', {
+                                            confirmButtonText: '确定'
+                                        });
+                                    }
+                                }.bind(this));
+                            }
+                        }.bind(this))
+                    }
+                }
+            },
+            created: function () {
+                this.setWebNameImg();
+            },
+        }
+
+        new Vue({
+            el: '#page',
+            components: {
+                "v-form": loginForm
+            }
+        })
+    </script>
+</body>
+
+</html>

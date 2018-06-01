@@ -1,0 +1,29 @@
+.report-suggest {
+    position: fixed;
+    bottom: 12px;
+    right: 15%;
+    /* top: 190px; */
+    height: 80px;
+    width: 80px;
+    line-height: 100px;
+    background-color: #FE763A;
+    /* left: 0; */
+    margin: 0 auto;
+    cursor: pointer;
+    /* border-radius: 50%; */
+    color: #fff;
+    z-index: 10;
+    background: url('/images/advice.png') no-repeat center center;
+}
+
+.suggest-text {
+    width: 569px;
+    height: 174px;
+    border: 1px solid #edeff1;
+    border-radius: 4px;
+}
+
+.suggest-popup {
+    width: 600px;
+    height: 300px;
+}

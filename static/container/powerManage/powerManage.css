@@ -1,0 +1,112 @@
+.powerManage-box .filter-box {
+    margin-bottom: 30px;
+}
+
+.powerManage-box .filter-box .btn-group {
+    float: right;
+    padding-top: 17px;
+}
+
+.powerManage-box .filter-box .btn-group button {
+    width: 90px;
+    height: 30px;
+    border: 1px solid #409eff;
+    border-radius: 30px;
+    background-color: #fff;
+    color: #409eff;
+    outline: none;
+    cursor: pointer;
+}
+
+.powerManage-box .filter-box .search-box {
+    padding: 30px 0;
+    overflow: hidden;
+}
+
+.powerManage-box .filter-box .search-box .status {
+    display: inline-block;
+    vertical-align: top;
+    min-width: 10%;
+}
+
+.powerManage-box .filter-box .search-box .role {
+    display: inline-block;
+    vertical-align: top;
+    min-width: 20%;
+}
+
+.powerManage-box .filter-box .search-box .time {
+    display: inline-block;
+    vertical-align: top;
+    min-width: 40%;
+}
+
+.powerManage-box .filter-box .fade-enter-active,
+.powerManage-box .filter-box .fade-leave-active {
+    transition: all .15s linear;
+}
+
+.powerManage-box .filter-box .fade-enter,
+.powerManage-box .filter-box .fade-leave-to {
+    height: 0;
+    padding: 0;
+}
+
+.powerManage-box .table-content {
+    padding: 30px 0;
+    width: 94%;
+    position: relative;
+    margin: 0 auto;
+}
+
+.powerManage-box .table-content .pagination-box {
+    padding-top: 20px;
+    text-align: right;
+}
+
+.powerManage-box .table-content .choice {
+    position: absolute;
+    top: -53px;
+    right: 9px;
+}
+
+.powerManage-box .table-content .btn-see {
+    width: 90px;
+    height: 30px;
+    background-color: #edeff1;
+    border-radius: 30px;
+}
+
+.powerManage-box .table-box .add {
+    float: right;
+    width: 124px;
+    height: 30px;
+    border: 1px solid #3DB8F0;
+    line-height: 30px;
+    border-radius: 30px;
+    color: #3DB8F0;
+    background-color: #fff;
+    cursor: pointer;
+    padding: 0;
+    margin-top: 7px;
+}
+
+.powerManage-box .table-box .add span {
+    line-height: 30px;
+}
+
+.powerManage-box .rule-btn {
+    background-color: #ECEFF1;
+    border-radius: 30px;
+    width: 100px;
+    height: 30px;
+    color: #7C939F;
+}
+
+.powerManage-box .delete-btn {
+    background-color: #ECEFF1;
+    border-radius: 30px;
+    width: 100px;
+    height: 30px;
+    color: #3DB8F0;
+}

@@ -1,0 +1,98 @@
+.choicePerson-box {
+    width: 96%;
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    border-radius: 4px;
+    background: #fff;
+}
+
+.choicePerson-content {
+    border-top: 1px solid #edeff1;
+    font-size: 0;
+    height: 600px;
+}
+
+.choicePerson-content .title {
+    font-size: 16px;
+    color: #FE763A;
+    line-height: 20px;
+    text-align: left;
+    padding: 10px 0;
+}
+
+.choicePerson-content .left {
+    display: inline-block;
+    vertical-align: top;
+    width: 27%;
+    text-align: center;
+    padding: 48px;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+.choicePerson-content .right {
+    display: inline-block;
+    vertical-align: top;
+    border-left: 1px solid #edeff1;
+    width: 73%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    padding: 48px;
+    height: 100%;
+}
+
+.organization-content .left .filter-input {
+    margin-bottom: 10px;
+}
+
+.choicePerson-content .form-btn {
+    display: inline-block;
+    vertical-align: top;
+    width: 133px;
+    text-align: center;
+    height: 54px;
+    line-height: 37px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.choicePerson-content .save-btn {
+    background: url('/images/btn_y.png') no-repeat center center;
+    color: #fff;
+}
+
+.choicePerson-content .cancel-btn {
+    background: url('/images/btn_w.png') no-repeat center center;
+    color: #333;
+}
+
+.choicePerson-content .el-input__suffix-inner {
+    color: #FE763A;
+}
+
+.choicePerson-content .right-content {
+    width: 800px;
+    margin: 0 auto;
+}
+
+.choicePerson-content .check-yet {
+    padding: 10px;
+}
+
+.choicePerson-content .search-check-yet {
+    width: 300px;
+}
+
+.choicePerson-content .el-transfer-panel {
+    width: 300px;
+}
+
+.choicePerson-content .btn-group {
+    width: 313px;
+    padding: 24px 0;
+    margin: 0 auto;
+}
+
+.choicePerson-content .btn-group  .form-btn{
+    margin-right: 20px;
+}

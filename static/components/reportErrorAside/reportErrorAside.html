@@ -1,0 +1,20 @@
+<el-tabs type="border-card">
+    <el-tab-pane label="异常记录">
+        <el-table :data="errorList" style="width: 100%" @cell-click="clickRowList">
+            <el-table-column prop="name" label="异常记录" width="150" align="center">
+            </el-table-column>
+            <el-table-column prop="num" label="异常总次数" width="100" align="center">
+            </el-table-column>
+            <el-table-column prop="checkTrueNum" label="已复核的次数" width="120" align="center">
+            </el-table-column>
+        </el-table>
+    </el-tab-pane>
+    <el-tab-pane label="事件记录">
+        <el-table :data="eventLog" style="width: 100%">
+            <el-table-column prop="time" label="事件时间" width="220">
+            </el-table-column>
+            <el-table-column prop="descriptions" label="事件记录" width="150">
+            </el-table-column>
+        </el-table>
+    </el-tab-pane>
+</el-tabs>

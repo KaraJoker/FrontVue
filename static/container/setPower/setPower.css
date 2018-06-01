@@ -1,0 +1,25 @@
+.setPower-box .btn-group {
+    width: 400px;
+    margin: 0 auto;
+}
+
+.setPower-box .form-btn {
+    display: inline-block;
+    vertical-align: top;
+    width: 133px;
+    text-align: center;
+    height: 54px;
+    line-height: 37px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.setPower-box .save-btn {
+    background: url('/images/btn_y.png') no-repeat center center;
+    color: #fff;
+}
+
+.setPower-box .cancel-btn {
+    background: url('/images/btn_w.png') no-repeat center center;
+    color: #333;
+}
