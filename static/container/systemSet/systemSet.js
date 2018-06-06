@@ -7,7 +7,7 @@ define([
 ], function (
     tpl,
     ServerAPI,
-    baseImgUpload,
+    baseImgUpload
 ) {
     return {
         template: tpl,
@@ -15,7 +15,7 @@ define([
             return {
                 id: '',
                 logo: '',
-                sysName: '',
+                sysName: '智柔健康云平台',
                 copyright: true,
                 publishPicture: '',
                 flag: true //防止连续提交
@@ -27,6 +27,7 @@ define([
         methods: {
             save: function (formName) {
                 var formData = new FormData(this.$refs[formName].$el);
+                console.log('wwwwwwwwww', this.copyright);
                 formData.append('copyright', this.copyright);
                 if (this.flag) {
                     this.flag = false;
@@ -35,15 +36,20 @@ define([
                     result.then(function (res) {
                         if (res.status == 200) {
                             this.flag = true;
-                            this.$alert('设置成功', {
+                            this.$alert('提交成功', '提示', {
+                                confirmButtonText: "确定",
+                                callback: function (action) {}
+                            });
+                        }else {
+                            this.$alert(res.message, '提示', {
                                 confirmButtonText: "确定",
                                 callback: function (action) {}
                             });
                         }
                     }.bind(this)).catch(function (err) {
                         this.flag = true;
-                        if(err.statusText=='timeout'){
-                            this.$alert('请求超时，请重新操作', '提示',{
+                        if (err.statusText == 'timeout') {
+                            this.$alert('请求超时，请重新操作', '提示', {
                                 confirmButtonText: "确定",
                                 callback: function (action) {}
                             });
@@ -61,13 +67,17 @@ define([
                         this.copyright = res.content.copyright;
                         this.publishPicture = res.content.publishPicture.split(',');
                         console.log(this.publishPicture);
+                    }else {
+                        this.$alert(res.message, '提示', {
+                            confirmButtonText: "确定",
+                            callback: function (action) {}
+                        });
                     }
                 }.bind(this)).catch(function (err) {
-                    if(err.statusText=='timeout'){
-                        this.$alert('请求超时，请刷新页面', '提示',{
+                    if (err.statusText == 'timeout') {
+                        this.$alert('请求超时，请刷新页面', '提示', {
                             confirmButtonText: "确定",
-                            callback: function (action) {
-                            }
+                            callback: function (action) {}
                         });
                     }
                 }.bind(this));

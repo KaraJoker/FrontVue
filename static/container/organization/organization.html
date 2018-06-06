@@ -48,7 +48,7 @@
                             <span class="value-box" v-text="organization.organizationList.remarks"></span>
                         </li>
                     </ul>
-                    <div class="edit-btn" type="primary" @click="changeEdit" key="edit-btn" v-if="nowPosData.id!==1">编辑</div>
+                    <div class="edit-btn" type="primary" @click="changeEdit" key="edit-btn" v-if="nowPosData.id!=='1'">编辑</div>
                 </div>
                 <div class="company-table" v-show="showBox==2">
                     <el-button class="add" @click="add()" type="text" icon="el-icon-plus">添加</el-button>

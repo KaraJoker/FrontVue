@@ -31,20 +31,6 @@ define([
                 return this.$store.getters.diseaseListDealData;
             }
         },
-        mixins: [mixins],
-        methods: {
-            // 查看片段的详情
-            seeTypeAll: function () {
-                this.$router.push({
-                    name: 'reportAbnormalTypeDetail',
-                    params: {
-                        detailId: 456
-                    }
-                });
-            },
-        },
-        // mounted:function(){
-        //     console.log(this.$store.getters.diseaseListDealData);
-        // }
+        mixins: [mixins]
     };
 });

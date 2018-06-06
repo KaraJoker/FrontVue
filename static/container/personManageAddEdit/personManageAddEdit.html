@@ -19,8 +19,8 @@
                     <el-radio label='0'>女</el-radio>
                 </el-radio-group>
             </el-form-item>
-            <el-form-item label="身份证号" prop="idCard">
-                <el-input v-model="person.idCard" clearable></el-input>
+            <el-form-item label="身份证号" prop="certificateNumber">
+                <el-input v-model="person.certificateNumber" clearable></el-input>
             </el-form-item>
             <el-form-item label="出生日期" prop="birthday">
                 <el-date-picker v-model="person.birthday" value-format="timestamp" type="date" placeholder="选择日期" clearable>
@@ -40,6 +40,11 @@
                     <el-radio label="true">启用</el-radio>
                     <el-radio label="false">禁用</el-radio>
                 </el-radio-group>
+            </el-form-item>
+            <el-form-item label="角色">
+                <el-select v-model="person.roleIds" multiple placeholder="请选择角色">
+                    <el-option v-for="item in roleList" :key="item.role" :label="item.role" :value="item.roleId"></el-option>
+                </el-select>
             </el-form-item>
             <el-form-item>
                 <div class="rule-btn save" @click="save('personForm')">保存</div>

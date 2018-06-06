@@ -9,13 +9,13 @@
                         <span v-text="userReport.userName"></span>
                     </li>
                     <li>性别：
-                        <span v-text="userReport.userGender"></span>
+                        <span>{{userReport.userGender|gender}}</span>
                     </li>
                     <li>开始时间：
                         <span>{{userReport.startTime|time}}</span>
                     </li>
                     <li>报告编号：
-                        <span v-text="userReport.reportId"></span>
+                        <span v-text="userReport.reportCode"></span>
                     </li>
                     <li>ID号：
                         <span v-text="userReport.patchId"></span>
@@ -27,7 +27,7 @@
                         <span>{{userReport.endTime|time}}</span>
                     </li>
                     <li>有效时长：
-                        <span>{{userReport.validTime}}</span>
+                        <span>{{userReport.validTime|hour}}</span>
                     </li>
                 </ul>
                 <div class="heart part">
@@ -169,6 +169,21 @@
                 </div>
                 <div type="button" class="check-detail-btn" @click="againSee">复核异常片段</div>
             </div>
+            <div class="base-detail-echar" v-if="this.$route.params.isResult">
+                <div class="page-box-title">
+                    <i class="fa fa-circle-o"></i>
+                    <span>医生建议</span>
+                    <span style="float:right;color:#333">诊断时间：
+                        <span>{{this.$route.params.finishTime | time}}</span>
+                    </span>
+                </div>
+                <div class="result-content" style="padding: 20px;color:#333">
+                    <div v-text="userReport.doctorRemark"></div>
+                    <p style="text-align: right;">诊断医生：
+                        <span v-text="this.$route.params.doctorName"></span>
+                    </p>
+                </div>
+            </div>
             <div class="base-detail-echar">
                 <div class="page-box-title">
                     <i class="fa fa-circle-o"></i>
@@ -216,12 +231,12 @@
                         <i class="fa fa-circle-o"></i>
                         <span>最高心率</span>
                     </p>
-                    <p class="heart-num">心率
+                    <!-- <p class="heart-num">心率
                         <span>114</span>
                     </p>
-                    <p class="time">11:35:35</p>
+                    <p class="time">11:35:35</p> -->
                 </div>
-                <v-heart-part :url-path="heightHeat.urlPath" :id="heightHeat.reportId"  show-error="false"></v-heart-part>
+                <v-heart-part :url-path="heightHeat.urlPath" :id="heightHeat.reportId" show-error="false"></v-heart-part>
             </div>
             <div class="base-detail-echar">
                 <div class="page-box-title">
@@ -229,12 +244,12 @@
                         <i class="fa fa-circle-o"></i>
                         <span>最低心率</span>
                     </p>
-                    <p class="heart-num">心率
+                    <!-- <p class="heart-num">心率
                         <span>114</span>
                     </p>
-                    <p class="time">11:35:35</p>
+                    <p class="time">11:35:35</p> -->
                 </div>
-                <v-heart-part :url-path="lowHeat.urlPath" :id="lowHeat.reportId"  show-error="false"></v-heart-part>
+                <v-heart-part :url-path="lowHeat.urlPath" :id="lowHeat.reportId" show-error="false"></v-heart-part>
             </div>
         </div>
         <div class="report-aside">

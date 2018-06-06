@@ -57,6 +57,11 @@ define([
                     if (res.status == 200) {
                         // 请求服务器
                         this.logoSrc = res.content.logo;
+                    }else {
+                        this.$alert(res.message, '提示', {
+                            confirmButtonText: "确定",
+                            callback: function (action) {}
+                        });
                     }
                 }.bind(this)).catch(function (err) {
                     if (err.statusText == 'timeout') {
@@ -91,7 +96,7 @@ define([
                     }
                 }
                 if (!inAsides) {
-                    // location.href = "/404.html";
+                    location.href = "/404.html";
                 }
             }
         },
@@ -100,7 +105,7 @@ define([
             this.getLogo();
             this.getAside();
             // 判断是否跳转到404页面
-            this._go404(this.asideActive, this.asides)
+            // this._go404(this.asideActive, this.asides)
         },
         beforeRouteUpdate: function (to, from, next) {
             this.asideActive = to.meta.asideActive;

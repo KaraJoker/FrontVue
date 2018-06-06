@@ -235,6 +235,11 @@ define([
                 result.then(function (res) {
                     if (res.status == 200) {
                         this.userPhone.mobile = res.content.mobile;
+                    }else {
+                        this.$alert(res.message, '提示', {
+                            confirmButtonText: "确定",
+                            callback: function (action) {}
+                        });
                     }
                 }.bind(this)).catch(function (err) {
                     if(err.statusText=='timeout'){

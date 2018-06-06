@@ -20,7 +20,7 @@
                 </div>
             </el-form-item>
             <el-form-item label="姓名" prop="realName">
-                <el-input v-model="userInfo.realName" clearable value=""></el-input>
+                <el-input v-model="userInfo.realName" clearable value="" :disabled="disabledSet"></el-input>
             </el-form-item>
             <el-form-item label="性别">
                 <el-radio-group v-model="userInfo.gender">
@@ -28,16 +28,16 @@
                     <el-radio label="0">女</el-radio>
                 </el-radio-group>
             </el-form-item>
-            <el-form-item label="身份证号" prop="idCard">
-                <el-input v-model="userInfo.certificateNumber" clearable></el-input>
+            <el-form-item label="身份证号" prop="certificateNumber">
+                <el-input v-model="userInfo.certificateNumber" clearable :disabled="disabledSet"></el-input>
             </el-form-item>
             <el-form-item label="科室">
-                <el-select v-model="userInfo.departmentId" multiple placeholder="请选择所在部门">
+                <el-select v-model="userInfo.departmentId" multiple placeholder="请选择所在部门" :disabled="disabledSet">
                     <el-option v-for="item in positionList" :key="item.id" :label="item.departmentName" :value="item.id"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="岗位">
-                <el-input v-model="userInfo.position" clearable></el-input>
+                <el-input v-model="userInfo.position" clearable :disabled="disabledSet"></el-input>
             </el-form-item>
             <el-form-item>
                 <div class="saveBtn" @click="saveInfo('userInfoForm')">保存</div>

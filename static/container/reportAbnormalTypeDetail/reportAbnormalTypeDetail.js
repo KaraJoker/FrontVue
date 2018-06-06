@@ -54,6 +54,10 @@ define([
                 result.then(function (res) {
                     if (res.status == 0) {
                         this.dataList = res.content;
+                    }else {
+                        this.$alert(res.message,'提示', {
+                            confirmButtonText: '确定'
+                        });
                     }
                 }.bind(this)).catch(function (err) {
                     if(err.statusText=='timeout'){
@@ -84,6 +88,10 @@ define([
                                     reportId: this.$route.params.reportId,
                                     type: this.$route.params.type
                                 }
+                            });
+                        }else {
+                            this.$alert(res.message,'提示', {
+                                confirmButtonText: '确定'
                             });
                         }
                     }.bind(this)).catch(function (err) {
@@ -117,6 +125,10 @@ define([
                                     reportId: this.$route.params.reportId,
                                     type: this.$route.params.type
                                 }
+                            });
+                        }else {
+                            this.$alert(res.message,'提示', {
+                                confirmButtonText: '确定'
                             });
                         }
                     }.bind(this)).catch(function (err) {

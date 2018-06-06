@@ -62,7 +62,7 @@ define([
             return {
                 asideActive: '',
                 asides: [
-                    // {
+                    //     {
                     //     url: "/system/systemNotice",
                     //     name: "系统公告",
                     //     icon: "fa fa-newspaper-o"
@@ -79,13 +79,17 @@ define([
                     if (res.status == 200) {
                         // 请求服务器
                         this.logoSrc = res.content.logo;
+                    } else {
+                        this.$alert(res.message, '提示', {
+                            confirmButtonText: "确定",
+                            callback: function (action) {}
+                        });
                     }
                 }.bind(this)).catch(function (err) {
                     if (err.statusText == 'timeout') {
-                        this.$alert('请求超时，请刷新页面', '提示',{
+                        this.$alert('请求超时，请刷新页面', '提示', {
                             confirmButtonText: "确定",
-                            callback: function (action) {
-                            }
+                            callback: function (action) {}
                         });
                     }
                 }.bind(this));
@@ -98,7 +102,12 @@ define([
                     if (SYSTEM_lIST.indexOf(navList[i]) > -1) {
                         arr.push(SYSTEM_lIST_DETAIL[navList[i]])
                     }
-                }
+                };
+                arr.push({
+                    url: "/system/systemNotice",
+                    name: "系统公告",
+                    icon: "fa fa-newspaper-o"
+                });
                 this.asides = arr;
             },
             // 判断要跳转的地址是否有权限，如果没有权限，就转到404页面
@@ -119,7 +128,7 @@ define([
             this.getLogo();
             this.getAside();
             // 判断是否跳转到404页面
-            this._go404(this.asideActive, this.asides)
+            // this._go404(this.asideActive, this.asides)
         },
         beforeRouteUpdate: function (to, from, next) {
             this.asideActive = to.meta.asideActive;

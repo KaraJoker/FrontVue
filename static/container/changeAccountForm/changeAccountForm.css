@@ -1,4 +1,5 @@
 .progress {
+    padding-top: 30px;
     margin-bottom: 30px;
 }
 
@@ -19,9 +20,6 @@
     height: 40px;
     color: #fe7630;
     border-color: #fe7630;
-}
-.box-card{
-    padding: 30px 0;
 }
 .box-card .btn-next {
     display: block;

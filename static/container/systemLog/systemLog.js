@@ -50,7 +50,13 @@ define([
                                 ("00" + o[k]).substr(("" + o[k]).length));
                     return format;
                 };
-                return dateFormat(new Date(row.operateTime), 'yyyy-MM-dd hh:mm:ss');
+
+                if (row.operateTime) {
+                    return dateFormat(new Date(row.operateTime), 'yyyy-MM-dd hh:mm:ss');
+                } else {
+                    return '';
+                }
+                
             },
             // 切换分页
             handleCurrentChange: function (val) {
@@ -103,6 +109,11 @@ define([
                             this.tableData.currentPage = res.page.pageId; //当前是第几页的数据
                             this.tableData.total = res.page.totalElements; //总共多少条数据
                             this.tableData.pageSize = res.page.size; //每页的多少条数据
+                        }else {
+                            this.$alert(res.message, '提示', {
+                                confirmButtonText: "确定",
+                                callback: function (action) {}
+                            });
                         }
                     }.bind(this)).catch(function (err) {
                         this.flag = true;

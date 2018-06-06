@@ -122,19 +122,23 @@ define([
                                 }.bind(this)
                             });
                         }
+                    }else {
+                        this.$alert(res.message,'提示', {
+                            confirmButtonText: '确定'
+                        });
                     }
                 }.bind(this)).catch(function (err) {
-                    if(err.statusText=='timeout'){
-                        this.$alert('请求超时，请刷新页面', '提示',{
+                    if (err.statusText == 'timeout') {
+                        this.$alert('请求超时，请刷新页面', '提示', {
                             confirmButtonText: "确定",
-                            callback: function (action) {
-                            }
+                            callback: function (action) {}
                         });
                     }
                 }.bind(this));
             },
             // 搜索按钮查询table的数据
             searchTableData: function () {
+                console.log('aaaaaaaaaaaa', this.flag);
                 if (this.flag) {
                     this.flag = false;
                     // 设置链接
@@ -146,13 +150,24 @@ define([
                             roleId: this.searchObj.roleId || '',
                         }
                     })
+
+                    var sendObj = (function () {
+                        var obj = {};
+                        if (this.searchObj.date) {
+                            obj.startTime = this.searchObj.date[0];
+                            obj.endTime = this.searchObj.date[1];
+                        }
+                        if (this.searchObj.roleId) {
+                            obj.roleId = this.searchObj.roleId;
+                        }
+                        obj.page = this.searchObj.pageId;
+
+                        return obj;
+                    }.bind(this))()
+
+
                     // 正常数据
-                    var result = ServerAPI.getReportTableEcg({
-                        page: this.searchObj.pageId,
-                        startTime: this.searchObj.date[0] || '',
-                        roleId: this.searchObj.roleId || '',
-                        endTime: this.searchObj.date[1] || ''
-                    });
+                    var result = ServerAPI.getReportTableEcg(sendObj);
                     result.then(function (res) {
                         this.flag = true;
                         if (res.status == 0) {
@@ -162,11 +177,15 @@ define([
                                 total: res.page.size, //总共多少条数据
                                 pageSize: 10, //每页的多少条数据
                             };
+                        }else {
+                            this.$alert(res.message,'提示', {
+                                confirmButtonText: '确定'
+                            });
                         }
                     }.bind(this)).catch(function (err) {
                         this.flag = true;
-                        if(err.statusText=='timeout'){
-                            this.$alert('请求超时，请重新操作', '提示',{
+                        if (err.statusText == 'timeout') {
+                            this.$alert('请求超时，请重新操作', '提示', {
                                 confirmButtonText: "确定",
                                 callback: function (action) {}
                             });
@@ -221,7 +240,12 @@ define([
                                 ("00" + o[k]).substr(("" + o[k]).length));
                     return format;
                 };
-                return dateFormat(new Date(row.startTime), 'yyyy-MM-dd hh:mm:ss');
+                if (row.startTime) {
+                    return dateFormat(new Date(row.startTime), 'yyyy-MM-dd hh:mm:ss');
+                } else {
+                    return '';
+                }
+
             },
             // table等待小时数
             dateHour: function (row) {

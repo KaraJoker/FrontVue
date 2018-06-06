@@ -30,6 +30,11 @@ define([
                 ServerAPI.sysMsgSet().then(function (res) {
                     if (res.status == 200) {
                         this.formData = res.content;
+                    }else {
+                        this.$alert(res.message, '提示', {
+                            confirmButtonText: "确定",
+                            callback: function (action) {}
+                        });
                     }
                 }.bind(this)).catch(function (err) {
                     if(err.statusText=='timeout'){
@@ -48,7 +53,7 @@ define([
                     ServerAPI.saveMsgSet(this.formData).then(function (res) {
                         this.flag = true;
                         if (res.status == 200) {
-                            this.$alert('设置成功', {
+                            this.$alert('提交成功', '提示',{
                                 confirmButtonText: "确定",
                                 callback: function (action) {}
                             });

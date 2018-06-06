@@ -386,3 +386,11 @@ form label {
     background-color: #fe763a;
     color: #fff;
 }
+
+.main .content .page-box-title button {
+    margin-top: 17px;
+}
+
+.main .content .filter-box .btn-group {
+    padding-top: 0;
+}

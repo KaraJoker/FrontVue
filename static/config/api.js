@@ -5,9 +5,32 @@ define([
     // 超时的时间设置
     var TIME_OUT = 100000;
     return {
-        /**
-         * 通用模块
-         */
+        // 获取网站的基本信息
+        getWebDetail: function () {
+            return $.ajax({
+                timeout: TIME_OUT,
+                xhrFields: {
+                    withCredentials: true
+                },
+                crossDomain: true,
+                method: "post",
+                url: developmentPath + "/sysManage/findSystemSetting",
+            })
+        },
+        // 登录
+        login: function (sendData) {
+            console.log(sendData);
+            return $.ajax({
+                xhrFields: {
+                    withCredentials: true
+                },
+                timeout: TIME_OUT,
+                crossDomain: true,
+                method: 'post',
+                url: developmentPath + "/users/login",
+                data: sendData
+            })
+        },
         // 退出
         quit: function () {
             return $.ajax({
@@ -21,7 +44,7 @@ define([
                     withCredentials: true
                 },
                 crossDomain: true,
-                type: 'get',
+                method: 'get',
                 url: developmentPath + "/users/logout"
             });
         },
@@ -180,7 +203,7 @@ define([
                     withCredentials: true
                 },
                 crossDomain: true,
-                type: 'get',
+                method: 'get',
                 url: developmentPath + "/users/smsSendeRegister",
                 data: sendData
             });
@@ -198,7 +221,7 @@ define([
                     withCredentials: true
                 },
                 crossDomain: true,
-                type: 'get',
+                method: 'get',
                 url: developmentPath + "/users/smsSende",
                 data: sendData
             });
@@ -217,7 +240,7 @@ define([
                     withCredentials: true
                 },
                 crossDomain: true,
-                type: 'POST',
+                method: 'POST',
                 url: developmentPath + "/users/validateCode",
                 data: sendData
             });
@@ -238,7 +261,7 @@ define([
                     withCredentials: true
                 },
                 crossDomain: true,
-                type: 'POST',
+                method: 'POST',
                 url: developmentPath + "/doctorInfo/deleteFace"
             });
         },
@@ -260,7 +283,7 @@ define([
                 processData: false,
                 contentType: false,
                 crossDomain: true,
-                type: 'POST',
+                method: 'POST',
                 url: developmentPath + "/doctorInfo/basicAuth",
                 data: sendData
             });
@@ -283,7 +306,7 @@ define([
                 processData: false,
                 contentType: false,
                 crossDomain: true,
-                type: 'POST',
+                method: 'POST',
                 url: developmentPath + "/doctorInfo/doctorAuth",
                 data: sendData
             });
@@ -308,14 +331,13 @@ define([
                     withCredentials: true
                 },
                 crossDomain: true,
-                type: 'POST',
+                method: 'POST',
                 url: developmentPath + "/report/countTimelinessByYear",
                 data: sendData
             });
         },
         // 解读总量折线图
         getEcharCountLine: function (sendData) {
-            console.log(sendData);
             return $.ajax({
                 timeout: TIME_OUT,
                 complete: function (XMLHttpRequest, status) {
@@ -330,7 +352,7 @@ define([
                     withCredentials: true
                 },
                 crossDomain: true,
-                type: 'POST',
+                method: 'POST',
                 url: developmentPath + "/report/countTimelinessByMonth",
                 data: sendData
             });
@@ -351,7 +373,7 @@ define([
                     withCredentials: true
                 },
                 crossDomain: true,
-                type: 'POST',
+                method: 'POST',
                 url: developmentPath + "/report/countTimelinessByType",
                 data: sendData
             });
@@ -372,7 +394,7 @@ define([
                     withCredentials: true
                 },
                 crossDomain: true,
-                type: 'POST',
+                method: 'POST',
                 url: developmentPath + "/report/countTimelinessByTypeAndMonth",
                 data: sendData
             });
@@ -393,7 +415,7 @@ define([
                     withCredentials: true
                 },
                 crossDomain: true,
-                type: 'POST',
+                method: 'POST',
                 url: developmentPath + "/report/countTimelinessByDay"
             });
         },
@@ -413,7 +435,7 @@ define([
                     withCredentials: true
                 },
                 crossDomain: true,
-                type: 'post',
+                method: 'post',
                 url: developmentPath + "/report/countTimelinessByPerson"
             });
         },
@@ -433,7 +455,7 @@ define([
                     withCredentials: true
                 },
                 crossDomain: true,
-                type: 'post',
+                method: 'post',
                 url: developmentPath + "/report/selectByCondition",
                 data: sendData
             });
@@ -448,7 +470,7 @@ define([
                         XMLHttpRequest.abort();
                     }
                 },
-                type: 'get',
+                method: 'get',
                 url: developmentPath_gang + "/doctor/ecg",
                 data: sendData
             });
@@ -462,7 +484,7 @@ define([
                         XMLHttpRequest.abort();
                     }
                 },
-                type: 'get',
+                method: 'get',
                 url: developmentPath_gang + "/doctor/unfinished",
                 data: sendData
             });
@@ -476,7 +498,7 @@ define([
                         XMLHttpRequest.abort();
                     }
                 },
-                type: 'get',
+                method: 'get',
                 url: developmentPath_gang + "/doctor/start",
                 data: sendData
             });
@@ -504,7 +526,7 @@ define([
                         XMLHttpRequest.abort();
                     }
                 },
-                type: 'get',
+                method: 'get',
                 url: developmentPath_gang + '/doctor/report/heartRate',
                 data: sendData
             });
@@ -532,7 +554,7 @@ define([
                         XMLHttpRequest.abort();
                     }
                 },
-                type: 'get',
+                method: 'get',
                 url: developmentPath_gang + "/doctor/disease/list",
                 data: sendData
             });
@@ -547,7 +569,7 @@ define([
                         XMLHttpRequest.abort();
                     }
                 },
-                type: 'get',
+                method: 'get',
                 url: developmentPath_gang + "/medications/ecg",
                 data: sendData
             });
@@ -562,7 +584,7 @@ define([
                         XMLHttpRequest.abort();
                     }
                 },
-                type: 'get',
+                method: 'get',
                 url: developmentPath_gang + "/incident/ecg",
                 data: sendData
             });
@@ -577,7 +599,7 @@ define([
                         XMLHttpRequest.abort();
                     }
                 },
-                type: 'get',
+                method: 'get',
                 url: developmentPath_gang + "/doctor/verify/list",
                 data: sendData
             });
@@ -591,7 +613,7 @@ define([
                         XMLHttpRequest.abort();
                     }
                 },
-                type: 'get',
+                method: 'get',
                 url: developmentPath_gang + "/doctor/verify",
                 data: sendData
             });
@@ -605,7 +627,7 @@ define([
                         XMLHttpRequest.abort();
                     }
                 },
-                type: 'get',
+                method: 'get',
                 url: developmentPath_gang + "/doctor/update/type",
                 data: sendData
             });
@@ -621,7 +643,7 @@ define([
                 },
                 dataType: 'json',
                 contentType: 'application/json;charset=utf-8',
-                type: 'post',
+                method: 'post',
                 url: developmentPath_gang + "/doctor/report/commit",
                 data: JSON.stringify(sendData)
             });
@@ -637,7 +659,7 @@ define([
                 },
                 dataType: 'json',
                 contentType: 'application/json;charset=utf-8',
-                type: 'post',
+                method: 'post',
                 url: developmentPath_gang + "/doctor/report/finish",
                 data: JSON.stringify(sendData)
             });
@@ -747,6 +769,28 @@ define([
                 crossDomain: true,
                 method: "post",
                 url: developmentPath + "/sysManage/addDepartment",
+                data: sendData
+            });
+        },
+
+        // 判断是否能删除部门的信息
+        allowDeleteSectionInfo: function (sendData) {
+            return $.ajax({
+                timeout: TIME_OUT,
+                complete: function (XMLHttpRequest, status) {
+                    if (status == 'timeout') {
+                        XMLHttpRequest.abort();
+                    }
+                },
+                beforeSend: function (request) {
+                    request.setRequestHeader("Authorization", 'Bearer ' + sessionStorage.getItem('zhirou_token'));
+                },
+                xhrFields: {
+                    withCredentials: true
+                },
+                crossDomain: true,
+                method: "post",
+                url: developmentPath + "/sysManage/findDepartmentUserCount",
                 data: sendData
             });
         },
@@ -1016,7 +1060,6 @@ define([
         },
         // 人员列表初始查询
         userListSearch: function (sendData) {
-            console.log(sendData);
             return $.ajax({
                 timeout: TIME_OUT,
                 complete: function (XMLHttpRequest, status) {
@@ -1231,7 +1274,6 @@ define([
         },
         // 删除消息
         deleteMessage: function (sendData) {
-            console.log(sendData);
             return $.ajax({
                 timeout: TIME_OUT,
                 complete: function (XMLHttpRequest, status) {
@@ -1545,6 +1587,174 @@ define([
                 crossDomain: true,
                 method: "post",
                 url: developmentPath + "/report/addReport",
+                data: sendData
+            });
+        },
+        // 查询解读后报告的结果基本信息
+        getResultBase: function (sendData) {
+            return $.ajax({
+                timeout: TIME_OUT,
+                complete: function (XMLHttpRequest, status) {
+                    if (status == 'timeout') {
+                        XMLHttpRequest.abort();
+                    }
+                },
+                method: 'get',
+                dataType: 'json',
+                contentType: 'application/json;charset=utf-8',
+                url: developmentPath_gang + "/report/diagnosis/finish",
+                data: sendData
+            });
+
+        },
+        // 上传文件
+        fileUP: function (sendData) {
+            return $.ajax({
+                timeout: TIME_OUT,
+                complete: function (XMLHttpRequest, status) {
+                    if (status == 'timeout') {
+                        XMLHttpRequest.abort();
+                    }
+                },
+                beforeSend: function (request) {
+                    request.setRequestHeader("Authorization", 'Bearer ' + sessionStorage.getItem('zhirou_token'));
+                },
+                processData: false,
+                contentType: false,
+                xhrFields: {
+                    withCredentials: true
+                },
+                crossDomain: true,
+                method: "post",
+                url: developmentPath + "/sysManage/csvImport",
+                data: sendData
+            });
+        },
+        // 公告列表
+        noticeList: function (sendData) {
+            return $.ajax({
+                timeout: TIME_OUT,
+                complete: function (XMLHttpRequest, status) {
+                    if (status == 'timeout') {
+                        XMLHttpRequest.abort();
+                    }
+                },
+                beforeSend: function (request) {
+                    request.setRequestHeader("Authorization", 'Bearer ' + sessionStorage.getItem('zhirou_token'));
+                },
+                // processData: false,
+                // contentType: false,
+                xhrFields: {
+                    withCredentials: true
+                },
+                crossDomain: true,
+                method: "get",
+                url: developmentPath + "/message/announcement/list",
+                data: sendData
+            });
+        },
+        // 公告详情
+        noticeDetail: function (sendData) {
+            return $.ajax({
+                timeout: TIME_OUT,
+                complete: function (XMLHttpRequest, status) {
+                    if (status == 'timeout') {
+                        XMLHttpRequest.abort();
+                    }
+                },
+                beforeSend: function (request) {
+                    request.setRequestHeader("Authorization", 'Bearer ' + sessionStorage.getItem('zhirou_token'));
+                },
+                xhrFields: {
+                    withCredentials: true
+                },
+                crossDomain: true,
+                method: "get",
+                url: developmentPath + "/message/announcement/get",
+                data: sendData
+            });
+        },
+        // 新增公告
+        addNotice: function (sendData) {
+            return $.ajax({
+                timeout: TIME_OUT,
+                complete: function (XMLHttpRequest, status) {
+                    if (status == 'timeout') {
+                        XMLHttpRequest.abort();
+                    }
+                },
+                beforeSend: function (request) {
+                    request.setRequestHeader("Authorization", 'Bearer ' + sessionStorage.getItem('zhirou_token'));
+                },
+                xhrFields: {
+                    withCredentials: true
+                },
+                crossDomain: true,
+                method: "post",
+                url: developmentPath + "/message/announcement/add",
+                data: sendData
+            });
+        },
+        // 编辑公告
+        editNotice: function (sendData) {
+            return $.ajax({
+                timeout: TIME_OUT,
+                complete: function (XMLHttpRequest, status) {
+                    if (status == 'timeout') {
+                        XMLHttpRequest.abort();
+                    }
+                },
+                beforeSend: function (request) {
+                    request.setRequestHeader("Authorization", 'Bearer ' + sessionStorage.getItem('zhirou_token'));
+                },
+                xhrFields: {
+                    withCredentials: true
+                },
+                crossDomain: true,
+                method: "post",
+                url: developmentPath + "/message/announcement/update",
+                data: sendData
+            });
+        },
+        // 删除公告
+        deleteNotice: function (sendData) {
+            return $.ajax({
+                timeout: TIME_OUT,
+                complete: function (XMLHttpRequest, status) {
+                    if (status == 'timeout') {
+                        XMLHttpRequest.abort();
+                    }
+                },
+                beforeSend: function (request) {
+                    request.setRequestHeader("Authorization", 'Bearer ' + sessionStorage.getItem('zhirou_token'));
+                },
+                xhrFields: {
+                    withCredentials: true
+                },
+                crossDomain: true,
+                method: "post",
+                url: developmentPath + "/message/announcement/delete",
+                data: sendData
+            });
+        },
+        // 获取角色列表
+        getRoleList: function (sendData) {
+            return $.ajax({
+                timeout: TIME_OUT,
+                complete: function (XMLHttpRequest, status) {
+                    if (status == 'timeout') {
+                        XMLHttpRequest.abort();
+                    }
+                },
+                beforeSend: function (request) {
+                    request.setRequestHeader("Authorization", 'Bearer ' + sessionStorage.getItem('zhirou_token'));
+                },
+                xhrFields: {
+                    withCredentials: true
+                },
+                crossDomain: true,
+                method: "post",
+                url: developmentPath + "/sysManage/selectDoctorRoleList",
                 data: sendData
             });
         },

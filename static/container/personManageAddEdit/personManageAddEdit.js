@@ -37,14 +37,17 @@ define([
                     mobile: '',
                     realName: '',
                     gender: '1',
-                    idCard: '',
+                    certificateNumber: '',
                     birthday: '',
                     departmentId: [],
                     position: '',
-                    status: 'true'
+                    status: 'true',
+                    roleIds: []
                 },
                 // 职位列表
                 subjectList: [],
+                // 角色列表
+                roleList: [],
                 rules: {
                     mobile: [{
                         required: true,
@@ -61,7 +64,7 @@ define([
                         message: '请输入真实姓名',
                         trigger: 'blur'
                     }],
-                    idCard: [{
+                    certificateNumber: [{
                         required: true,
                         message: '请输入身份证号',
                         trigger: 'blur'
@@ -102,6 +105,28 @@ define([
                     }
                 }.bind(this))
             },
+            // 获取角色列表
+            _getRoleList: function () {
+                var sendData = {
+                    status: 0
+                };
+                ServerAPI.getRoleList(sendData).then(function (res) {
+                    if (res.status == 200) {
+                        this.roleList = res.content;
+                    } else {
+                        this.$alert(res.message, '提示', {
+                            confirmButtonText: '确定'
+                        });
+                    }
+                }.bind(this)).catch(function (err) {
+                    if (err.statusText == 'timeout') {
+                        this.$alert('请求超时，请刷新页面', '提示', {
+                            confirmButtonText: "确定",
+                            callback: function (action) {}
+                        });
+                    }
+                }.bind(this));
+            },
             // 编辑保存
             editSave: function () {
                 if (this.flag) {
@@ -112,20 +137,24 @@ define([
                         mobile: this.person.mobile,
                         realName: this.person.realName,
                         gender: this.person.gender,
-                        idCard: this.person.idCard,
+                        certificateNumber: this.person.certificateNumber,
                         birthday: this.person.birthday,
                         position: this.person.position,
                         status: this.person.status,
+                        roleIds: this.person.roleIds.join(',')
                     };
                     var result = ServerAPI.editUser(sendData);
                     result.then(function (res) {
                         this.flag = true;
-                        if (res.status === 200) {
-                            this.$alert('提交成功', {
-                                confirmButtonText: '确定'
+                        if (res.status == 200) {
+                            this.$alert('提交成功', '提示', {
+                                confirmButtonText: "确定",
+                                callback: function (action) {
+                                    history.go(-1);
+                                }
                             });
                         } else {
-                            this.$alert(res.msg, {
+                            this.$alert(res.message, '提示', {
                                 confirmButtonText: '确定'
                             });
                         }
@@ -171,26 +200,30 @@ define([
                         mobile: this.person.mobile,
                         realName: this.person.realName,
                         gender: this.person.gender,
-                        idCard: this.person.idCard,
+                        certificateNumber: this.person.certificateNumber,
                         birthday: this.person.birthday,
                         position: this.person.position,
                         status: this.person.status,
+                        roleIds: this.person.roleIds.join(',')
                     };
                     var result = ServerAPI.addUser(sendData);
                     result.then(function (res) {
                         this.flag = true;
-                        if (res.status === 200) {
-                            this.$alert('提交成功', {
-                                confirmButtonText: '确定'
+                        if (res.status == 200) {
+                            this.$alert('提交成功', '提示', {
+                                confirmButtonText: "确定",
+                                callback: function (action) {
+                                    history.go(-1);
+                                }
                             });
+
                         } else {
-                            this.$alert(res.msg, {
+                            this.$alert(res.message, '提示', {
                                 confirmButtonText: '确定'
                             });
                         }
                         this.flag = true;
                     }.bind(this)).catch(function (err) {
-                        this.flag = true;
                         if (err.statusText == 'timeout') {
                             this.$alert('请求超时，请重新操作', '提示', {
                                 confirmButtonText: "确定",
@@ -214,9 +247,12 @@ define([
                         result.then(function (res) {
                             this.flag = true;
                             if (res.status == 200) {
-                                this.person = res.content;
+                                this.$alert('该医生已经存在，请重新输入', '提示', {
+                                    confirmButtonText: "确定",
+                                    callback: function (action) {}
+                                });
                             } else {
-                                this.$alert('暂无该人员的信息，请填写', {
+                                this.$alert('暂无该人员的信息，请填写', '提示', {
                                     confirmButtonText: "确定",
                                     callback: function (action) {}
                                 });
@@ -245,11 +281,17 @@ define([
                         this.person.id = content.id;
                         this.person.mobile = content.mobile;
                         this.person.realName = content.realName;
-                        this.person.gender = content.gender + '';
-                        this.person.idCard = content.idCard;
+                        this.person.gender = content.gender + '' == '0' ? '0' : '1';
+                        this.person.certificateNumber = content.certificateNumber;
                         this.person.birthday = content.birthday;
                         this.person.position = content.position;
-                        this.person.status = content.status + '' || 'true';
+                        this.person.status = content.status + '' == 'true' ? 'true' : 'false';
+                        this.person.roleIds = content.roleIds || '';
+                    } else {
+                        this.$alert(res.message, '提示', {
+                            confirmButtonText: "确定",
+                            callback: function (action) {}
+                        });
                     }
                 }.bind(this)).catch(function (err) {
                     if (err.statusText == 'timeout') {
@@ -273,6 +315,12 @@ define([
                             }
                             return arr;
                         })(res.content);
+                        console.log(res.content);
+                    } else {
+                        this.$alert(res.message, '提示', {
+                            confirmButtonText: "确定",
+                            callback: function (action) {}
+                        });
                     }
                 }.bind(this)).catch(function (err) {
                     if (err.statusText == 'timeout') {
@@ -293,6 +341,8 @@ define([
             }
             // 获取部门列表
             this.getSectionData();
+            // 获取角色列表
+            this._getRoleList()
         }
     };
 });

@@ -59,7 +59,12 @@ define([
                     return format;
                 };
 
-                return dateFormat(new Date(row.createTime), 'yyyy-MM-dd hh:mm:ss');
+                
+                if (row.createTime) {
+                    return dateFormat(new Date(row.createTime), 'yyyy-MM-dd hh:mm:ss');
+                } else {
+                    return '';
+                }
             },
             // 切换分页
             handleCurrentChange: function (val) {
@@ -112,6 +117,11 @@ define([
                             this.tableData.currentPage = res.page.pageId; //当前是第几页的数据
                             this.tableData.total = res.page.totalElements; //总共多少条数据
                             this.tableData.pageSize = res.page.size; //每页的多少条数据
+                        }else {
+                            this.$alert(res.message, '提示', {
+                                confirmButtonText: "确定",
+                                callback: function (action) {}
+                            });
                         }
                     }.bind(this)).catch(function (err) {
                         this.flag = true;
@@ -173,11 +183,11 @@ define([
                     result.then(function (res) {
                         if (res.status == 200) {
                             row.splice(index, 1);
-                            this.$alert('删除成功', {
+                            this.$alert('删除成功', '提示',{
                                 confirmButtonText: '确定'
                             });
                         } else {
-                            this.$alert(res.msg, {
+                            this.$alert(res.message, '提示',{
                                 confirmButtonText: '确定'
                             });
                         }

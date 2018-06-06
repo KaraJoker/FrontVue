@@ -48,7 +48,11 @@ define([
                 reportChecked: [], //报告选中的数据
                 systemChecked: [], //系统管理选中的数据
                 // 服务器返回的权限数据
-                powerObj: {},
+                powerObj: {
+                    roleId: '',
+                    role: '',
+                    status: '0',
+                },
                 rules: {
                     role: [{
                             required: true,
@@ -58,7 +62,7 @@ define([
                         {
                             min: 1,
                             max: 10,
-                            message: "请输入正确的角色名称",
+                            message: "角色名称不能超过10个长度",
                             trigger: "blur"
                         }
                     ]
@@ -91,11 +95,14 @@ define([
                     result.then(function (res) {
                         this.flag = true;
                         if (res.status === 200) {
-                            this.$alert('提交成功', {
-                                confirmButtonText: '确定'
+                            this.$alert('提交成功', '提示',{
+                                confirmButtonText: '确定',
+                                callback: function (action) {
+                                    history.go(-1);
+                                }
                             });
                         } else {
-                            this.$alert(res.msg, {
+                            this.$alert(res.message,'提示', {
                                 confirmButtonText: '确定'
                             });
                         }
@@ -124,11 +131,14 @@ define([
                     result.then(function (res) {
                         this.flag = true;
                         if (res.status === 200) {
-                            this.$alert('提交成功', {
-                                confirmButtonText: '确定'
+                            this.$alert('提交成功', '提示',{
+                                confirmButtonText: '确定',
+                                callback: function (action) {
+                                    history.go(-1);
+                                }
                             });
                         } else {
-                            this.$alert(res.msg, {
+                            this.$alert(res.message, '提示',{
                                 confirmButtonText: '确定'
                             });
                         }
@@ -165,6 +175,7 @@ define([
                 result.then(function (res) {
                     if (res.status === 200) {
                         this.powerObj = res.content;
+                        this.powerObj.status = (res.content.status + '') == '0' ? '0' : '1';
                         var allChecked = res.content.privilegeListString.split(',');
                         for (var i = 0; i < allChecked.length; i++) {
                             if (this.REPORT_lIST.indexOf(allChecked[i]) > -1) {
@@ -178,14 +189,17 @@ define([
                         }
                         console.log(this.reportChecked);
                         console.log(this.systemChecked);
+                    }else {
+                        this.$alert(res.message,'提示', {
+                            confirmButtonText: '确定'
+                        });
                     }
 
                 }.bind(this)).catch(function (err) {
                     if (err.statusText == 'timeout') {
                         this.$alert('请求超时，请刷新页面', '提示', {
                             confirmButtonText: "确定",
-                            callback: function (action) {
-                            }
+                            callback: function (action) {}
                         });
                     }
                 }.bind(this));

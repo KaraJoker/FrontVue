@@ -11,8 +11,8 @@
             </div>
             <div class="report-box">
                 <div class="btn-group">
-                    <button @click="allError">全部报错</button>
-                    <button @click="checkSure">复核确认</button>
+                    <button @click="allError" v-if="!this.$route.params.isResult">全部报错</button>
+                    <button @click="checkSure" v-if="!this.$route.params.isResult">复核确认</button>
                 </div>
                 <div class="disease-content" v-for="(item,index) in dataList" :key="index">
                     <v-heart-part show-error="true" :echar-data="item"></v-heart-part>

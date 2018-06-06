@@ -35,7 +35,7 @@ define([
                     realName: '',
                     gender: '1',
                     certificateNumber: '',
-                    departmentId: ['1', '2'],
+                    departmentId: [],
                     position: '',
                 },
                 positionList: [],
@@ -67,16 +67,21 @@ define([
         computed: {
             seeMobile: function () {
                 return this.userInfo.mobile.substr(0, 3) + "****" + this.userInfo.mobile.substr(7);
+            },
+            disabledSet: function () {
+                // 如果是临时的，就说明没有认证
+                if (sessionStorage.getItem('isTemporary') == 'true') {
+                    return false
+                } else {
+                    return true
+                }
             }
         },
         methods: {
             // 跳转到修改账号页面
             pageChange: function () {
                 this.$router.push({
-                    name: 'changeAccount',
-                    params: {
-                        mobile: this.userInfo.mobile
-                    }
+                    name: 'changeAccount'
                 })
             },
             // 获取部门列表
@@ -92,6 +97,11 @@ define([
                             }
                             return arr;
                         })(res.content)
+                    } else {
+                        this.$alert(res.message, '提示', {
+                            confirmButtonText: "确定",
+                            callback: function (action) {}
+                        });
                     }
                 }.bind(this)).catch(function (err) {
                     if (err.statusText == 'timeout') {
@@ -115,10 +125,15 @@ define([
                             this.userInfo.userface = this.initPhotoSrc;
                         }
                         this.userInfo.realName = res.content.realName;
-                        this.userInfo.gender = res.content.gender + '' || '1';
+                        this.userInfo.gender = res.content.gender + '' == '0' ? '0' : '1';
                         this.userInfo.certificateNumber = res.content.certificateNumber;
                         this.userInfo.departmentId = res.content.departmentId;
                         this.userInfo.position = res.content.position;
+                    } else {
+                        this.$alert(res.message, '提示', {
+                            confirmButtonText: "确定",
+                            callback: function (action) {}
+                        });
                     }
                 }.bind(this)).catch(function (err) {
                     if (err.statusText == 'timeout') {
@@ -145,7 +160,7 @@ define([
                             result.then(function (res) {
                                 this.flag = true;
                                 if (res.status == 200) {
-                                    this.$alert('保存成功', '提示', {
+                                    this.$alert('提交成功', '提示', {
                                         confirmButtonText: "确定",
                                         callback: function (action) {
                                             location.reload();

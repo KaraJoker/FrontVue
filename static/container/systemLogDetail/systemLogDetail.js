@@ -41,7 +41,13 @@ define([
                                 ("00" + o[k]).substr(("" + o[k]).length));
                     return format;
                 };
-                return dateFormat(new Date(row.operateTime), 'yyyy-MM-dd hh:mm:ss');
+
+                if (row.operateTime) {
+                    return dateFormat(new Date(row.operateTime), 'yyyy-MM-dd hh:mm:ss');
+                } else {
+                    return '';
+                }
+                
             },
             // 获取页面的数据
             getData: function () {
@@ -62,6 +68,11 @@ define([
                         this.before = JSON.parse(res.content.operationAfter);
                         // 操作后的记录
                         this.after = JSON.parse(res.content.operationBefore);
+                    }else {
+                        this.$alert(res.message, '提示', {
+                            confirmButtonText: "确定",
+                            callback: function (action) {}
+                        });
                     }
                 }.bind(this)).catch(function (err) {
                     if(err.statusText=='timeout'){

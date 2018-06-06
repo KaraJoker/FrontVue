@@ -11,23 +11,31 @@ define([
         methods: {
             // 异常分类片段，返回数据总览
             returnTotal: function () {
-                if (this.$route.params.doctorId) {
-                    this.$router.push({
-                        name: 'reportDetailDeal',
-                        params: {
-                            reportId: this.$route.params.reportId,
-                            doctorId: this.$route.params.doctorId,
-                            type: this.$route.params.type
-                        }
-                    });
+                if (!this.$route.params.isResult) {
+                    if (this.$route.params.doctorId) {
+                        this.$router.push({
+                            name: 'reportDetailDeal',
+                            params: {
+                                reportId: this.$route.params.reportId,
+                                doctorId: this.$route.params.doctorId,
+                                type: this.$route.params.type
+                            }
+                        });
+                    } else {
+                        this.$router.push({
+                            name: 'reportDetailSee',
+                            params: {
+                                doctorId: this.$route.params.doctorId,
+                                type: this.$route.params.type
+                            }
+                        });
+                    }
                 } else {
-                    this.$router.push({
-                        name: 'reportDetailSee',
-                        params: {
-                            doctorId: this.$route.params.doctorId,
-                            type: this.$route.params.type
-                        }
-                    });
+                    if (this.$route.name == 'reportResultAbnormalType') {
+                        history.go(-1);
+                    } else {
+                        history.go(-2);
+                    }
                 }
             },
             // 表格过滤显示
@@ -65,13 +73,17 @@ define([
                     if (res.status == 200) {
                         // 请求服务器
                         this.logoSrc = res.content.logo;
+                    }else {
+                        this.$alert(res.message, '提示', {
+                            confirmButtonText: "确定",
+                            callback: function (action) {}
+                        });
                     }
                 }.bind(this)).catch(function (err) {
-                    if(err.statusText=='timeout'){
-                        this.$alert('请求超时，请刷新页面', '提示',{
+                    if (err.statusText == 'timeout') {
+                        this.$alert('请求超时，请刷新页面', '提示', {
                             confirmButtonText: "确定",
-                            callback: function (action) {
-                            }
+                            callback: function (action) {}
                         });
                     }
                 }.bind(this));

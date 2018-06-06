@@ -38,22 +38,34 @@ define([
             },
             // 查看该报告的这个异常片段类型下这个模板下的具体数据
             seeTypeDetail: function (index) {
-                // 路由配置参数
-                var paramsObj = {
-                    reportId: this.$route.params.reportId, //报告的id
-                    type: this.$route.params.type, //报告的类型
-                    diseaseType: this.errorType, //异常的类型
-                    diseaseMode: index //异常的模板号
-                };
-                this.$router.push({
-                    name: 'reportAbnormalTypeDetail',
-                    params: paramsObj
-                });
+                if (this.$route.params.isResult) {
+                    this.$router.push({
+                        name: 'reportResultAbnormalTypeDetail',
+                        params: {
+                            resultId:this.$route.params.resultId,
+                            reportId: this.$route.params.reportId, //报告的id
+                            type: this.$route.params.type, //报告的类型
+                            diseaseType: this.errorType, //异常的类型
+                            diseaseMode: index, //异常的模板号
+                            isResult: true
+                        }
+                    });
+                } else {
+                    this.$router.push({
+                        name: 'reportAbnormalTypeDetail',
+                        params: {
+                            reportId: this.$route.params.reportId, //报告的id
+                            type: this.$route.params.type, //报告的类型
+                            diseaseType: this.errorType, //异常的类型
+                            diseaseMode: index //异常的模板号
+                        }
+                    });
+                }
             }
         },
         mounted: function () {
-            console.log('异常的类型',this.errorType);
-            console.log('异常的模板号和图表id',this.errorModeId);
+            // console.log('异常的类型', this.errorType);
+            // console.log('异常的模板号和图表id', this.errorModeId);
             // 设置异常类型,将数字转为文字
             this.setNameType();
         },

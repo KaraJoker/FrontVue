@@ -28,8 +28,20 @@ define([
             };
         },
         methods: {
+            _isSend: function (row) {
+                console.log(row);
+                var isSend = row.isSend;
+                switch (isSend) {
+                    case true:
+                        return '已发送';
+                    case false:
+                        return '未发送';
+                    default:
+                        return '暂无状态'
+                }
+            },
             // table日期格式化
-            date: function (row, column) {
+            _sendTime: function (row, column) {
                 var dateFormat = function (date, format) {
                     var o = {
                         "M+": date.getMonth() + 1, //month
@@ -49,7 +61,14 @@ define([
                                 ("00" + o[k]).substr(("" + o[k]).length));
                     return format;
                 };
-                return dateFormat(new Date(row.operateTime), 'yyyy-MM-dd hh:mm:ss');
+
+                if (row.sendTime) {
+                    return dateFormat(new Date(row.sendTime), 'yyyy-MM-dd hh:mm:ss');
+                } else {
+                    return '暂无时间';
+                }
+
+
             },
             // 切换分页
             handleCurrentChange: function (val) {
@@ -69,28 +88,37 @@ define([
                         path: this.$route.path,
                         query: {
                             time: this.searchObj.time || '',
-                            operator: this.searchObj.operator || '', //角色名称
-                            operateAccount: this.searchObj.operateAccount || '', //状态
+                            notice: this.searchObj.notice || '', //角色名称
                             pageId: this.searchObj.pageId
                         }
                     })
-
-                    var result = ServerAPI.logListSearch({
-                        operator: this.searchObj.operator,
-                        operateAccount: this.searchObj.operateAccount,
-                        startTime: this.searchObj.time[0],
-                        endTime: this.searchObj.time[1],
-                        pageId: this.searchObj.pageId
-                    });
+                    var sendObj = (function () {
+                        var obj = {};
+                        if (this.searchObj.time) {
+                            obj.startTime = this.searchObj.time[0];
+                            obj.endTime = this.searchObj.time[1];
+                        };
+                        if (this.searchObj.notice) {
+                            obj.title = this.searchObj.notice;
+                        }
+                        obj.pageId = this.searchObj.pageId;
+                        return obj;
+                    }.bind(this))();
+                    var result = ServerAPI.noticeList(sendObj);
                     result.then(function (res) {
                         this.flag = true;
                         if (res.status == 200) {
                             this.tableData.data = res.content;
+                        } else {
+                            this.$alert(res.message, '提示', {
+                                confirmButtonText: "确定",
+                                callback: function (action) {}
+                            });
                         }
                     }.bind(this)).catch(function (err) {
                         this.flag = true;
-                        if(err.statusText=='timeout'){
-                            this.$alert('请求超时，请重新操作', '提示',{
+                        if (err.statusText == 'timeout') {
+                            this.$alert('请求超时，请重新操作', '提示', {
                                 confirmButtonText: "确定",
                                 callback: function (action) {}
                             });
@@ -98,27 +126,72 @@ define([
                     }.bind(this));
                 }
             },
+            add: function () {
+                this.$router.push({
+                    name: 'systemNoticeAdd'
+                });
+            },
             // 查看详情
             checkDetail: function (row) {
-                console.log(row);
                 this.$router.push({
-                    name: 'systemLogDetail',
+                    name: 'systemNoticeSee',
                     params: {
                         id: row.id
                     }
                 });
             },
+            // 查看详情
+            edit: function (row) {
+                this.$router.push({
+                    name: 'systemNoticeEdit',
+                    params: {
+                        id: row.id
+                    }
+                });
+            },
+            // 查看详情
+            deleteData: function (index, row, current) {
+                console.log(index, row, current);
+                this.$confirm('确认删除本条数据', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    var sendObj = {
+                        id: current.id
+                    };
+                    ServerAPI.deleteNotice(sendObj).then(function (res) {
+                        if (res.status == 200) {
+                            row.splice(index, 1);
+                            this.$alert('删除成功', '提示', {
+                                confirmButtonText: '确定'
+                            });
+                        } else {
+                            this.$alert(res.message, '提示', {
+                                confirmButtonText: '确定'
+                            });
+                        }
+                    }.bind(this)).catch(function (err) {
+                        this.flag = true;
+                        if (err.statusText == 'timeout') {
+                            this.$alert('请求超时，请重新操作', '提示', {
+                                confirmButtonText: "确定",
+                                callback: function (action) {}
+                            });
+                        }
+                    }.bind(this));
+                }.bind(this)).catch(function () {}.bind(this));
+            },
             // 初始页面查询数据
-            initSearch: function () {
-                this.searchObj.operator = this.$route.query.operator || '';
+            _initSearch: function () {
+                this.searchObj.notice = this.$route.query.notice || '';
                 this.searchObj.time = this.$route.query.time || '';
-                this.searchObj.operateAccount = this.$route.query.operateAccount || '';
                 this.searchObj.pageId = this.$route.query.pageId || 1;
             }
         },
         created: function () {
             // 将浏览器导航的数据放到页面的数据中心中
-            this.initSearch();
+            this._initSearch();
             this.search();
         }
     };

@@ -149,7 +149,6 @@ define([
                     reportType: this.activeName
                 });
                 result.then(function (res) {
-                    // res = JSON.parse(res);
                     if (res.status == 200) {
                         // x轴的数据,因为x轴的数据是一致的，所以我只取一条折线的x轴数据
                         this.options.xAxis[0].data = (function (data) {
@@ -183,6 +182,11 @@ define([
                         // 重新给图表添加数据
                         this.echart.setOption(this.options);
 
+                    } else {
+                        this.$alert(res.message, '提示', {
+                            confirmButtonText: "确定",
+                            callback: function (action) {}
+                        });
                     }
                 }.bind(this)).catch(function (err) {
                     if (err.statusText == 'timeout') {
@@ -202,8 +206,10 @@ define([
             }
         },
         mounted: function () {
-            this.initEchar();
-            this.draw();
+            if (sessionStorage.getItem('isTemporary') == 'false') {
+                this.initEchar();
+                this.draw();
+            }
         },
         components: {
             "v-select": homeIndexEcharSelect

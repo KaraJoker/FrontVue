@@ -43,7 +43,7 @@
                 </el-table-column>
                 <el-table-column prop="userAge" label="年龄" min-width="50" align="center" v-if="isShowAge">
                 </el-table-column>
-                <el-table-column prop="startTime" :formatter="date" label="报告时间" min-width="220" align="center" v-if="isShowReportStartTime">
+                <el-table-column prop="reportStateTime" :formatter="date" label="申请复核时间" min-width="220" align="center" v-if="isShowReportStartTime">
                 </el-table-column>
                 <el-table-column prop="reportStateTime" :formatter="dateHour" label="等待" min-width="120" align="center" v-if="isShowTimely">
                 </el-table-column>

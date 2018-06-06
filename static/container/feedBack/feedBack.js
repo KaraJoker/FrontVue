@@ -36,14 +36,14 @@ define([
                             this.flag = true;
                             if (res.status == 200) {
                                 // 假如如果提交成功
-                                this.$alert('感谢您的建议，我们会一直做好对您的服务', {
+                                this.$alert('感谢您的建议，我们会一直做好对您的服务','提示', {
                                     confirmButtonText: '确定',
                                     callback: function (action) {
                                         this.textValue = '';
                                     }.bind(this)
                                 });
                             } else {
-                                this.$alert(res.msg, {
+                                this.$alert(res.message, {
                                     confirmButtonText: '确定',
                                     callback: function (action) {
                                         this.textValue = '';

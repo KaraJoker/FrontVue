@@ -32,12 +32,50 @@ define([
             };
         },
         methods: {
+            // 导出文件
+            exportFile: function () {
+
+            },
+            // 上传文件
+            importFile: function () {
+                console.log('改变了');
+                var value = this.$refs.fileUp.files[0];
+                var formData = new FormData();
+                formData.append('fileUp', value)
+                if (this.flag) {
+                    this.flag = false;
+                    ServerAPI.fileUP(formData).then(function (res) {
+                        this.flag = true;
+                        if (res.status == 200) {
+                            this.$alert('上传成功', '提示', {
+                                confirmButtonText: '确定'
+                            });
+                        } else {
+                            this.$alert(res.message, '提示', {
+                                confirmButtonText: '确定'
+                            });
+                        }
+                    }.bind(this)).catch(function (err) {
+                        this.flag = true;
+                        if (err.statusText == 'timeout') {
+                            this.$alert('请求超时，请重新操作', '提示', {
+                                confirmButtonText: "确定",
+                                callback: function (action) {}
+                            });
+                        }
+                    }.bind(this));
+                }
+            },
             // 部门
             departmentId: function (row) {
+                console.log(row);
                 // 部门名称数组
                 var departmentNameArr = [];
                 // 本人员部门id
-                var departmentIdArr = row.departmentId;
+                var departmentIdArr = [];
+                if (row.departmentId) {
+                    departmentIdArr = row.departmentId;
+                }
                 // 所有的部门数据
                 var subjectList = this.subjectList;
                 for (var i = 0; i < departmentIdArr.length; i++) {
@@ -85,7 +123,7 @@ define([
                             obj.realName = this.searchObj.realName;
                         }
                         if (this.searchObj.subject) {
-                            obj.subject = this.searchObj.subject;
+                            obj.departmentId = this.searchObj.subject;
                         }
                         if (this.searchObj.status) {
                             obj.status = this.searchObj.status;
@@ -105,6 +143,10 @@ define([
                             this.tableData.currentPage = res.page.pageId; //当前是第几页的数据
                             this.tableData.total = res.page.totalElements; //总共多少条数据
                             this.tableData.pageSize = res.page.size; //每页的多少条数据
+                        } else {
+                            this.$alert(res.message, '提示', {
+                                confirmButtonText: '确定'
+                            });
                         }
                     }.bind(this)).catch(function (err) {
                         this.flag = true;
@@ -155,11 +197,11 @@ define([
                     result.then(function (res) {
                         if (res.status == 200) {
                             row.splice(index, 1);
-                            this.$alert('删除成功', {
+                            this.$alert('删除成功', '提示', {
                                 confirmButtonText: '确定'
                             });
                         } else {
-                            this.$alert(res.msg, {
+                            this.$alert(res.message, '提示', {
                                 confirmButtonText: '确定'
                             });
                         }
@@ -195,6 +237,11 @@ define([
                             }
                             return arr;
                         })(res.content)
+                    } else {
+                        this.$alert(res.message, '提示', {
+                            confirmButtonText: "确定",
+                            callback: function (action) {}
+                        });
                     }
                 }.bind(this)).catch(function (err) {
                     if (err.statusText == 'timeout') {
@@ -226,7 +273,12 @@ define([
                                 ("00" + o[k]).substr(("" + o[k]).length));
                     return format;
                 };
-                return dateFormat(new Date(row.birthday), 'yyyy-MM-dd');
+
+                if (row.birthday) {
+                    return dateFormat(new Date(row.birthday), 'yyyy-MM-dd');
+                } else {
+                    return '';
+                }
             },
             // 格式化创建时间
             createTime: function (row, column) {
@@ -249,7 +301,11 @@ define([
                                 ("00" + o[k]).substr(("" + o[k]).length));
                     return format;
                 };
-                return dateFormat(new Date(row.createTime), 'yyyy-MM-dd hh:mm:ss');
+                if (row.createTime) {
+                    return dateFormat(new Date(row.createTime), 'yyyy-MM-dd hh:mm:ss');
+                } else {
+                    return '';
+                }
             },
             status: function (row) {
                 if (row.status == false) {

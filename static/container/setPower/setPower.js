@@ -51,12 +51,14 @@ define([
                     result.then(function (res) {
                         this.flag = true;
                         if (res.status === 200) {
-                            this.$alert('添加成功', {
+                            this.$alert('提交成功', '提示',{
                                 confirmButtonText: "确定",
-                                callback: function (action) {}
+                                callback: function (action) {
+                                    history.go(-1);
+                                }
                             });
                         } else {
-                            this.$alert(res.msg, {
+                            this.$alert(res.message, '提示',{
                                 confirmButtonText: "确定",
                                 callback: function (action) {}
                             });
@@ -103,8 +105,11 @@ define([
                                 this.systemChecked.push(allChecked[i]);
                             }
                         }
-                        console.log('aaaaa', this.reportChecked);
-                        console.log('aaaaa', this.systemChecked);
+                    }else {
+                        this.$alert(res.message, '提示', {
+                            confirmButtonText: "确定",
+                            callback: function (action) {}
+                        });
                     }
                 }.bind(this))
             }

@@ -45,6 +45,11 @@ define([
                     if (res.status == 200) {
                         // 请求服务器
                         this.logoSrc = res.content.logo;
+                    }else {
+                        this.$alert(res.message, '提示', {
+                            confirmButtonText: "确定",
+                            callback: function (action) {}
+                        });
                     }
                 }.bind(this)).catch(function (err) {
                     if (err.statusText == 'timeout') {

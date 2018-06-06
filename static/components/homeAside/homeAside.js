@@ -33,12 +33,12 @@ define([
 
     const adminAside = [{
             url: "/home/reportCount",
-            name: "我的首页",
+            name: "系统首页",
             icon: "fa fa-home"
         },
         {
             url: "/home/unscramble",
-            name: "我的解读",
+            name: "报告解读",
             icon: "fa fa-clipboard"
         },
         {
@@ -47,13 +47,8 @@ define([
             icon: "fa fa-clipboard"
         },
         {
-            url: "/home/userInfo",
-            name: "个人信息",
-            icon: "fa fa-user"
-        },
-        {
-            url: "/home/attestation",
-            name: "我的认证",
+            url: "/home/changeAccount",
+            name: "修改账号",
             icon: "fa fa-drivers-license"
         },
         {
@@ -93,13 +88,17 @@ define([
                     if (res.status == 200) {
                         // 请求服务器
                         this.logoSrc = res.content.logo;
+                    }else {
+                        this.$alert(res.message, '提示', {
+                            confirmButtonText: "确定",
+                            callback: function (action) {}
+                        });
                     }
                 }.bind(this)).catch(function (err) {
-                    if(err.statusText=='timeout'){
-                        this.$alert('请求超时，请刷新页面', '提示',{
+                    if (err.statusText == 'timeout') {
+                        this.$alert('请求超时，请刷新页面', '提示', {
                             confirmButtonText: "确定",
-                            callback: function (action) {
-                            }
+                            callback: function (action) {}
                         });
                     }
                 }.bind(this));
@@ -109,35 +108,57 @@ define([
                 var inAsides = false;
                 for (var i = 0; i < asides.length; i++) {
                     if (active == asides[i].url) {
-                        inAsides=true;
+                        inAsides = true;
                     }
                 }
-                if(!inAsides){
-                    location.href="/404.html";
+                if (!inAsides) {
+                    location.href = "/404.html";
                 }
             }
         },
         created: function () {
             // 侧边栏导航的数据,如果是管理员
-            if (sessionStorage.getItem('zhirou_role')) {
+            if (sessionStorage.getItem('isSystem') + '' == 'true') {
                 this.asides = adminAside;
             } else {
                 // 如果不是管理员
                 this.asides = commonAside;
             }
             // 侧边栏导航的激活选项
-            this.asideActive = this.$route.meta.asideActive;
+            // 加一层修改账号页面的激活效果
+            this.asideActive = (function () {
+                if (this.$route.meta.asideActive == '/home/userInfo') {
+                    if (sessionStorage.getItem('isSystem') + '' == 'true') {
+                        return '/home/changeAccount'
+                    } else {
+                        return '/home/userInfo'
+                    }
+                } else {
+                    return this.$route.meta.asideActive;
+                }
+            }.bind(this))()
             // 获取logo图片的地址
             this.getLogo();
             // 判断是否跳转到404页面
-            this._go404(this.asideActive, this.asides);
+            // this._go404(this.asideActive, this.asides);
             // 如果是临时用户，将侧边栏导航的定位到我的认证这一项上
-            if (sessionStorage.getItem('isTemporary')=='true') {
+            if (sessionStorage.getItem('isTemporary') == 'true') {
                 this.asideActive = '/home/attestation';
             }
         },
         beforeRouteUpdate: function (to, from, next) {
-            this.asideActive = to.meta.asideActive;
+            // 加一层修改账号页面的激活效果
+            this.asideActive = (function () {
+                if (to.meta.asideActive == '/home/userInfo') {
+                    if (sessionStorage.getItem('isSystem') + '' == 'true') {
+                        return '/home/changeAccount'
+                    } else {
+                        return '/home/userInfo'
+                    }
+                } else {
+                    return to.meta.asideActive;
+                }
+            }.bind(this))()
             next();
         },
     };

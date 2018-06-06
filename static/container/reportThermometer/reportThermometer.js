@@ -122,13 +122,16 @@ define([
                                 }.bind(this)
                             });
                         }
+                    } else {
+                        this.$alert(res.message, '提示', {
+                            confirmButtonText: '确定'
+                        });
                     }
                 }.bind(this)).catch(function (err) {
-                    if(err.statusText=='timeout'){
-                        this.$alert('请求超时，请刷新页面', '提示',{
+                    if (err.statusText == 'timeout') {
+                        this.$alert('请求超时，请刷新页面', '提示', {
                             confirmButtonText: "确定",
-                            callback: function (action) {
-                            }
+                            callback: function (action) {}
                         });
                     }
                 }.bind(this));
@@ -162,11 +165,15 @@ define([
                                 total: res.page.size, //总共多少条数据
                                 pageSize: 10, //每页的多少条数据
                             };
+                        } else {
+                            this.$alert(res.message, '提示', {
+                                confirmButtonText: '确定'
+                            });
                         }
                     }.bind(this)).catch(function (err) {
                         this.flag = true;
-                        if(err.statusText=='timeout'){
-                            this.$alert('请求超时，请重新操作', '提示',{
+                        if (err.statusText == 'timeout') {
+                            this.$alert('请求超时，请重新操作', '提示', {
                                 confirmButtonText: "确定",
                                 callback: function (action) {}
                             });
@@ -221,7 +228,12 @@ define([
                                 ("00" + o[k]).substr(("" + o[k]).length));
                     return format;
                 };
-                return dateFormat(new Date(row.startTime), 'yyyy-MM-dd hh:mm:ss');
+                if (row.startTime) {
+                    return dateFormat(new Date(row.startTime), 'yyyy-MM-dd hh:mm:ss');
+                } else {
+                    return '';
+                }
+
             },
             // table等待小时数
             dateHour: function (row) {

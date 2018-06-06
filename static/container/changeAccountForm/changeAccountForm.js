@@ -99,7 +99,7 @@ define([
                                 }
                             }.bind(this), 1000)
                         } else {
-                            this.$alert(res.message, '提示',{
+                            this.$alert(res.message, '提示', {
                                 confirmButtonText: "确定",
                                 callback: function (action) {}
                             });
@@ -107,7 +107,7 @@ define([
                     }.bind(this)).catch(function (err) {
                         this.flag = true;
                         if (err.statusText == 'timeout') {
-                            this.$alert('请求超时，请重新操作', '提示',{
+                            this.$alert('请求超时，请重新操作', '提示', {
                                 confirmButtonText: "确定",
                                 callback: function (action) {}
                             });
@@ -132,7 +132,7 @@ define([
                                     if (res.status == 200) {
                                         this.step++
                                     } else {
-                                        this.$alert(res.message, '提示',{
+                                        this.$alert(res.message, '提示', {
                                             confirmButtonText: "确定",
                                             callback: function (action) {}
                                         });
@@ -141,7 +141,7 @@ define([
                             ).catch(function (err) {
                                 this.flag = true;
                                 if (err.statusText == 'timeout') {
-                                    this.$alert('请求超时，请重新操作', '提示',{
+                                    this.$alert('请求超时，请重新操作', '提示', {
                                         confirmButtonText: "确定",
                                         callback: function (action) {}
                                     });
@@ -175,7 +175,7 @@ define([
                                 }
                             }.bind(this), 1000)
                         } else {
-                            this.$alert(res.message, '提示',{
+                            this.$alert(res.message, '提示', {
                                 confirmButtonText: "确定",
                                 callback: function (action) {}
                             });
@@ -183,7 +183,7 @@ define([
                     }.bind(this)).catch(function (err) {
                         this.flag = true;
                         if (err.statusText == 'timeout') {
-                            this.$alert('请求超时，请重新操作', '提示',{
+                            this.$alert('请求超时，请重新操作', '提示', {
                                 confirmButtonText: "确定",
                                 callback: function (action) {}
                             });
@@ -206,7 +206,7 @@ define([
                                 if (res.status == 200) {
                                     this.step++
                                 } else {
-                                    this.$alert(res.message, '提示',{
+                                    this.$alert(res.message, '提示', {
                                         confirmButtonText: "确定",
                                         callback: function (action) {}
                                     });
@@ -214,7 +214,7 @@ define([
                             }.bind(this)).catch(function (err) {
                                 this.flag = true;
                                 if (err.statusText == 'timeout') {
-                                    this.$alert('请求超时，请重新操作', '提示',{
+                                    this.$alert('请求超时，请重新操作', '提示', {
                                         confirmButtonText: "确定",
                                         callback: function (action) {}
                                     });
@@ -239,7 +239,28 @@ define([
                         this.timeDownQuit()
                     }.bind(this), 1000)
                 }
-            }
+            },
+            // 获取用户的信息
+            getInfo: function () {
+                var result = ServerAPI.getUserInfo();
+                result.then(function (res) {
+                    if (res.status == 200) {
+                        this.userPhone.mobile = res.content.mobile;
+                    }else {
+                        this.$alert(res.message, '提示', {
+                            confirmButtonText: "确定",
+                            callback: function (action) {}
+                        });
+                    }
+                }.bind(this)).catch(function (err) {
+                    if (err.statusText == 'timeout') {
+                        this.$alert('请求超时，请刷新页面', '提示', {
+                            confirmButtonText: "确定",
+                            callback: function (action) {}
+                        });
+                    }
+                }.bind(this));
+            },
         },
         watch: {
             step: function (newValue, oldValue) {
@@ -249,7 +270,7 @@ define([
             }
         },
         created: function () {
-            this.userPhone.mobile = this.$route.params.mobile;
+            this.getInfo();
         }
     }
 })

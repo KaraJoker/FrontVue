@@ -43,6 +43,39 @@ define([
                         },
                     },
                     {
+                        path: 'reportDetailTwo/:resultId/:type/:isResult/:reportId/:finishTime/:doctorName',
+                        name: 'reportResult',
+                        component: function (resolve) {
+                            require(['reportDetailTwo'], resolve);
+                        },
+                        meta: {
+                            asideActive: '/home/unscramble',
+                            bread: ['首页', '我的解读']
+                        }
+                    },
+                    {
+                        path: 'reportResultAbnormalType/:reportId/:type/:isResult/:resultId',
+                        name: 'reportResultAbnormalType',
+                        component: function (resolve) {
+                            require(['reportAbnormalType'], resolve);
+                        },
+                        meta: {
+                            asideActive: '/home/unscramble',
+                            bread: ['首页', '我的解读']
+                        }
+                    },
+                    {
+                        path: 'reportResultAbnormalTypeDetail/:reportId/:resultId/:type/:diseaseType/:diseaseMode/:isResult',
+                        name: 'reportResultAbnormalTypeDetail',
+                        component: function (resolve) {
+                            require(['reportAbnormalTypeDetail'], resolve);
+                        },
+                        meta: {
+                            asideActive: '/home/unscramble',
+                            bread: ['首页', '我的解读']
+                        }
+                    },
+                    {
                         path: 'audit',
                         component: function (resolve) {
                             require(['audit'], resolve);
@@ -84,7 +117,7 @@ define([
                         },
                     },
                     {
-                        path: 'changeAccount/:mobile',
+                        path: 'changeAccount',
                         name: 'changeAccount',
                         component: function (resolve) {
                             require(['changeAccountForm'], resolve);
@@ -257,7 +290,7 @@ define([
                     },
                     meta: {
                         asideActive: '/system/powerManage',
-                        bread: ['系统管理', '组织架构', '选择人员']
+                        bread: ['系统管理', '权限管理', '选择人员']
                     }
                 }, {
                     path: 'setPower/:id',
@@ -267,7 +300,7 @@ define([
                     },
                     meta: {
                         asideActive: '/system/powerManage',
-                        bread: ['系统管理', '组织架构', '设置权限']
+                        bread: ['系统管理', '权限管理', '设置权限']
                     }
                 }, {
                     path: 'powerPerson',
@@ -277,7 +310,7 @@ define([
                     },
                     meta: {
                         asideActive: '/system/powerManage',
-                        bread: ['系统管理', '组织架构', '添加角色']
+                        bread: ['系统管理', '权限管理', '添加角色']
                     }
                 }, {
                     path: 'powerPerson/:id',
@@ -287,7 +320,7 @@ define([
                     },
                     meta: {
                         asideActive: '/system/powerManage',
-                        bread: ['系统管理', '组织架构', '编辑角色']
+                        bread: ['系统管理', '权限管理', '编辑角色']
                     }
                 }, {
                     path: 'personManage',
@@ -348,6 +381,46 @@ define([
                     meta: {
                         asideActive: '/system/systemSet',
                         bread: ['系统管理', '系统设置']
+                    }
+                }, {
+                    path: 'systemNotice',
+                    name: 'systemNotice',
+                    component: function (resolve) {
+                        require(['systemNotice'], resolve);
+                    },
+                    meta: {
+                        asideActive: '/system/systemNotice',
+                        bread: ['系统管理', '系统公告']
+                    }
+                }, {
+                    path: 'systemNoticeAdd',
+                    name: 'systemNoticeAdd',
+                    component: function (resolve) {
+                        require(['systemNoticeAddEdit'], resolve);
+                    },
+                    meta: {
+                        asideActive: '/system/systemNotice',
+                        bread: ['系统管理', '系统公告', '公告添加']
+                    }
+                }, {
+                    path: 'systemNoticeEdit/:id',
+                    name: 'systemNoticeEdit',
+                    component: function (resolve) {
+                        require(['systemNoticeAddEdit'], resolve);
+                    },
+                    meta: {
+                        asideActive: '/system/systemNotice',
+                        bread: ['系统管理', '系统公告', '公告编辑']
+                    }
+                }, {
+                    path: 'systemNoticeSee/:id',
+                    name: 'systemNoticeSee',
+                    component: function (resolve) {
+                        require(['systemNoticeSee'], resolve);
+                    },
+                    meta: {
+                        asideActive: '/system/systemNotice',
+                        bread: ['系统管理', '系统设置', '公告查看']
                     }
                 }]
             }, {

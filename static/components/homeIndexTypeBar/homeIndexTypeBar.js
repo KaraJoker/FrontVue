@@ -108,8 +108,6 @@ define([
                     year: this.select.value
                 });
                 result.then(function (res) {
-                    console.log('cccc', res);
-                    // res = JSON.parse(res);
                     // console.log('bbbb', res);
                     if (res.status == 200) {
                         // 解读报告总数 y轴数
@@ -157,6 +155,11 @@ define([
                             return arr;
                         })(res.content.totalTimelinessPerTypeMap);
                         this.echart.setOption(this.options);
+                    } else {
+                        this.$alert(res.message, '提示', {
+                            confirmButtonText: "确定",
+                            callback: function (action) {}
+                        });
                     }
                 }.bind(this)).catch(function (err) {
                     if (err.statusText == 'timeout') {
@@ -173,8 +176,11 @@ define([
             },
         },
         mounted: function () {
-            this.initEchar();
-            this.draw();
+
+            if (sessionStorage.getItem('isTemporary') == 'false') {
+                this.initEchar();
+                this.draw();
+            }
         },
         components: {
             "v-select": homeIndexEcharSelect

@@ -73,13 +73,17 @@ define([
                     if (res.status == 200) {
                         this.userPhoto = res.content.userface;
                         this.userInfo.name = res.content.name;
+                    } else {
+                        this.$alert(res.message, '提示', {
+                            confirmButtonText: "确定",
+                            callback: function (action) {}
+                        });
                     }
                 }.bind(this)).catch(function (err) {
                     if (err.statusText == 'timeout') {
-                        this.$alert('请求超时，请刷新页面', '提示',{
+                        this.$alert('请求超时，请刷新页面', '提示', {
                             confirmButtonText: "确定",
-                            callback: function (action) {
-                            }
+                            callback: function (action) {}
                         });
                     }
                 }.bind(this));
@@ -102,11 +106,16 @@ define([
                                 sessionStorage.removeItem('isTemporary');
                                 sessionStorage.removeItem('zhirou_role');
                                 location.href = "/login.html";
+                            } else {
+                                this.$alert(res.message, '提示', {
+                                    confirmButtonText: "确定",
+                                    callback: function (action) {}
+                                });
                             }
                         }.bind(this)).catch(function (err) {
                             this.flag = true;
                             if (err.statusText == 'timeout') {
-                                this.$alert('请求超时，请重新操作', '提示',{
+                                this.$alert('请求超时，请重新操作', '提示', {
                                     confirmButtonText: "确定",
                                     callback: function (action) {}
                                 });
@@ -149,7 +158,9 @@ define([
 
         },
         created: function () {
-            this.getInfo();
+            if (sessionStorage.getItem('zhirou_role')) {
+                this.getInfo();
+            }
             this.getAside();
         }
     };

@@ -1,6 +1,6 @@
 <div class="heart-detail-box" ref="echarBox">
     <div class="heart-echar-detail" @click="errorClick">
-        <div class="heart-part-detail" ref="heartPartDetail"  v-bind:style="{ height: boxHeight }"></div>
+        <div class="heart-part-detail" ref="heartPartDetail" v-bind:style="{ height: boxHeight }"></div>
         <div class="hint-box" v-if="result">
             <h1 class="cancel" @click.stop="cancelError">取消</h1>
             <div class="hint-checked"></div>
@@ -11,6 +11,7 @@
             </ul>
         </div>
     </div>
+    <slot name="checkResult"></slot>
     <!-- <div>
         <p>异常类型：{{diseaseType}}</p>
         <p>图表的id：{{echarId}}</p>

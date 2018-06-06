@@ -50,9 +50,11 @@ requirejs.config({
         // 修改密码页组件
         changePwdForm: 'container/changePwdForm/changePwdForm',
         // 找回密码页组件
-        findPwdForm: 'components/findPwdForm/findPwdForm',
+        findPwdForm: 'container/findPwdForm/findPwdForm',
         // 注册页面组件
-        registerForm: 'components/registerForm/registerForm',
+        registerForm: 'container/registerForm/registerForm',
+        // 登录
+        loginForm: 'container/loginForm/loginForm',
         // 认证页面
         attestation: 'container/attestation/attestation',
         // 个人信息
@@ -84,7 +86,9 @@ requirejs.config({
         // 系统设置
         systemAside: 'components/systemAside/systemAside',
         // 系统公告
-        systemNotice: 'components/systemNotice/systemNotice',
+        systemNotice: 'container/systemNotice/systemNotice',
+        systemNoticeAddEdit: 'container/systemNoticeAddEdit/systemNoticeAddEdit',
+        systemNoticeSee: 'container/systemNoticeSee/systemNoticeSee',
         // 组织架构
         organization: 'container/organization/organization',
         // 组织架构编辑

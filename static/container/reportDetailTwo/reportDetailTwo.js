@@ -84,14 +84,25 @@ define([
         methods: {
             // 进入复核异常片段,将报告的id，报告的类型，如果有医生id，将这些数据往下面传递
             againSee: function () {
-                var paramsObj = {
-                    reportId: this.$route.params.reportId,
-                    type: this.$route.params.type,
-                };
-                this.$router.push({
-                    name: 'reportAbnormalType',
-                    params: paramsObj
-                });
+                if (this.$route.params.isResult) {
+                    this.$router.push({
+                        name: 'reportResultAbnormalType',
+                        params: {
+                            resultId: this.$route.params.resultId,
+                            reportId: this.$route.params.reportId,
+                            type: this.$route.params.type,
+                            isResult: true
+                        }
+                    });
+                } else {
+                    this.$router.push({
+                        name: 'reportAbnormalType',
+                        params: {
+                            reportId: this.$route.params.reportId,
+                            type: this.$route.params.type,
+                        }
+                    });
+                }
             },
             // 心电图表初始化
             initHeartEchar: function () {
@@ -317,13 +328,16 @@ define([
                                 data: res.content.heartRateValue
                             }
                         };
+                    }else {
+                        this.$alert(res.message,'提示', {
+                            confirmButtonText: '确定'
+                        });
                     }
                 }.bind(this)).catch(function (err) {
-                    if(err.statusText=='timeout'){
-                        this.$alert('请求超时，请刷新页面', '提示',{
+                    if (err.statusText == 'timeout') {
+                        this.$alert('请求超时，请刷新页面', '提示', {
                             confirmButtonText: "确定",
-                            callback: function (action) {
-                            }
+                            callback: function (action) {}
                         });
                     }
                 }.bind(this));

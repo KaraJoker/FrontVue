@@ -12,9 +12,9 @@
     outline: none;
     cursor: pointer;
     float: right;
-    margin-top: 5px;
-    position:  relative;
-    z-index:  30;
+    margin-top: 17px;
+    position: relative;
+    z-index: 30;
 }
 
 .report-box .check-result {

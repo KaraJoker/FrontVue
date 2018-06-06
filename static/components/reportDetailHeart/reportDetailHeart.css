@@ -49,17 +49,18 @@
     text-align: center;
     /* width: 153px; */
     /* height: 121px; */
-    background: rgba(0,0,0,0.2);
+    background: rgba(0, 0, 0, 0.2);
 }
-.hint-box .cancel{
+
+.hint-box .cancel {
     position: absolute;
     right: 0;
     top: 0;
     color: red;
     cursor: pointer;
     z-index: 20;
-    font-size:  16px;
-    width:  50px;
+    font-size: 16px;
+    width: 50px;
     line-height: 30px;
 }
 
@@ -94,26 +95,31 @@
     height: 50px;
     background: red;
 }
-.heart-detail-box .mouse-choice{
+
+.heart-detail-box .mouse-choice {
     position: absolute;
     left: 0;
     top: 0;
+    width: 150px;
 }
-.heart-detail-box .mouse-choice ul{
+
+.heart-detail-box .mouse-choice ul {
     height: 120px;
     overflow-y: scroll;
     padding: 10px 0;
     background-color: #edeff1;
     z-index: 200;
 }
-.heart-detail-box .mouse-choice ul li{
+
+.heart-detail-box .mouse-choice ul li {
     line-height: 28px;
     font-size: 14px;
     padding: 0 10px;
     color: #FE763A;
     cursor: pointer;
 }
-.heart-detail-box .mouse-choice ul li:hover{
+
+.heart-detail-box .mouse-choice ul li:hover {
     background-color: #FE763A;
     color: #fff;
 }

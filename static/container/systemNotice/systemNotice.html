@@ -11,7 +11,7 @@
         <transition name="fade">
             <el-form ref="form" label-width="100px" class="search-box" v-show="isSearchShow">
                 <el-form-item label="公告名称" class="role">
-                    <el-input v-model="searchObj.notice"></el-input>
+                    <el-input v-model="searchObj.notice" clearable></el-input>
                 </el-form-item>
                 <el-form-item label="发布时间" class="role">
                     <el-date-picker v-model="searchObj.time" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"
@@ -25,22 +25,26 @@
         <div class="page-box-title">
             <i class="fa fa-circle-o"></i>
             <span>公告列表</span>
+            <el-button class="add" @click="add()" type="text" icon="el-icon-plus">添加</el-button>
         </div>
         <div class="table-content">
-            <el-table :data="tableData.data"  style="width: 100%">
-                <el-table-column prop="operateTime" :formatter="date" label="公告名称" min-width="150" align="center">
+            <el-table :data="tableData.data" style="width: 100%">
+                <el-table-column prop="title" label="公告名称" min-width="150" align="center">
                 </el-table-column>
-                <el-table-column prop="operateContent" label="状态" min-width="50" align="center">
+                <el-table-column prop="isSend" :formatter="_isSend" label="状态" min-width="50" align="center">
                 </el-table-column>
-                <el-table-column prop="operateType" label="发送人数" min-width="50" align="center">
+                <el-table-column prop="peopleNumber" label="发送人数" min-width="50" align="center">
                 </el-table-column>
-                <el-table-column prop="operator" label="发布人" min-width="50" align="center">
+                <el-table-column prop="createUser" label="发布人" min-width="50" align="center">
                 </el-table-column>
-                <el-table-column prop="operateAccount" label="发布时间" min-width="100" align="center">
+                <el-table-column prop="sendTime" :formatter="_sendTime" label="发布时间" min-width="100" align="center">
                 </el-table-column>
-                <el-table-column label="操作" min-width="100" align="center">
+                <el-table-column label="操作" min-width="200" align="center">
                     <template slot-scope="scope">
-                        <el-button class="rule-btn edit-btn" @click="checkDetail(scope.row)" type="text" size="small" icon="el-icon-edit">查看详情</el-button>
+                        <el-button class="rule-btn edit-btn" @click="checkDetail(scope.row)" type="text" size="small" icon="el-icon-edit">查看</el-button>
+                        <el-button class="rule-btn edit-btn" @click="edit(scope.row)" type="text" size="small" icon="el-icon-edit" v-if="!scope.row.isSend">编辑</el-button>
+                        <el-button class="rule-btn edit-btn" @click.native.prevent="deleteData(scope.$index,tableData.data,scope.row)" type="text"
+                            size="small" icon="el-icon-edit">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>

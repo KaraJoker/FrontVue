@@ -67,13 +67,16 @@ define([
                             }
                             return this.eventLog.concat(arr);
                         }.bind(this))(res.content);
+                    }else {
+                        this.$alert(res.message,'提示', {
+                            confirmButtonText: '确定'
+                        });
                     }
                 }.bind(this)).catch(function (err) {
-                    if(err.statusText=='timeout'){
-                        this.$alert('请求超时，请刷新页面', '提示',{
+                    if (err.statusText == 'timeout') {
+                        this.$alert('请求超时，请刷新页面', '提示', {
                             confirmButtonText: "确定",
-                            callback: function (action) {
-                            }
+                            callback: function (action) {}
                         });
                     }
                 }.bind(this));
@@ -97,13 +100,16 @@ define([
                             }
                             return this.eventLog.concat(arr);
                         }.bind(this))(res.content);
+                    }else {
+                        this.$alert(res.message,'提示', {
+                            confirmButtonText: '确定'
+                        });
                     }
                 }.bind(this)).catch(function (err) {
-                    if(err.statusText=='timeout'){
-                        this.$alert('请求超时，请刷新页面', '提示',{
+                    if (err.statusText == 'timeout') {
+                        this.$alert('请求超时，请刷新页面', '提示', {
                             confirmButtonText: "确定",
-                            callback: function (action) {
-                            }
+                            callback: function (action) {}
                         });
                     }
                 }.bind(this));
@@ -140,17 +146,30 @@ define([
             },
             // 点击每一行的数据
             clickRowList: function (row) {
-                // 路由配置参数
-                var paramsObj = {
-                    reportId: this.$route.params.reportId, //报告的id
-                    type: this.$route.params.type, //报告的类型
-                    diseaseType: row.diseaseType, //异常的类型
-                    diseaseMode: row.diseaseMode //异常的模板号
-                };
-                this.$router.push({
-                    name: 'reportAbnormalTypeDetail',
-                    params: paramsObj
-                });
+                if (this.$route.params.isResult) {
+                    this.$router.push({
+                        name: 'reportResultAbnormalTypeDetail',
+                        params: {
+
+                            resultId:this.$route.params.resultId,
+                            reportId: this.$route.params.reportId, //报告的id
+                            type: this.$route.params.type, //报告的类型
+                            diseaseType: row.diseaseType, //异常的类型
+                            diseaseMode: row.diseaseMode, //异常的模板号
+                            isResult: true
+                        }
+                    });
+                } else {
+                    this.$router.push({
+                        name: 'reportAbnormalTypeDetail',
+                        params: {
+                            reportId: this.$route.params.reportId, //报告的id
+                            type: this.$route.params.type, //报告的类型
+                            diseaseType: row.diseaseType, //异常的类型
+                            diseaseMode: row.diseaseMode //异常的模板号
+                        }
+                    });
+                }
             },
             // 获取所有的异常记录
             getErrorLog: function () {
@@ -161,13 +180,16 @@ define([
                 result.then(function (res) {
                     if (res.status == 0) {
                         this.$store.commit('setDiseaseList', res.content);
+                    }else {
+                        this.$alert(res.message,'提示', {
+                            confirmButtonText: '确定'
+                        });
                     }
                 }.bind(this)).catch(function (err) {
-                    if(err.statusText=='timeout'){
-                        this.$alert('请求超时，请刷新页面', '提示',{
+                    if (err.statusText == 'timeout') {
+                        this.$alert('请求超时，请刷新页面', '提示', {
                             confirmButtonText: "确定",
-                            callback: function (action) {
-                            }
+                            callback: function (action) {}
                         });
                     }
                 }.bind(this));

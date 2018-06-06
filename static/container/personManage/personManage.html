@@ -18,6 +18,7 @@
                 </el-form-item>
                 <el-form-item label="所在部门" class="role">
                     <el-select v-model="searchObj.subject" placeholder="请选择部门">
+                        <el-option label="全部" value=""></el-option>
                         <el-option v-for="item in subjectList" :key="item.index" :label="item.departmentName" :value="item.id"></el-option>
                     </el-select>
                 </el-form-item>
@@ -36,6 +37,11 @@
             <i class="fa fa-circle-o"></i>
             <span>人员管理</span>
             <el-button class="add" @click="add()" type="text" icon="el-icon-plus">添加</el-button>
+            <el-button class="add exportFile" @click="exportFile()" type="text">导出</el-button>
+            <div class="upFile">
+                <input type="file" name="fileUp" @change="importFile" ref="fileUp">
+                <span class="up-text">上传文件</span>
+            </div>
         </div>
         <div class="table-content">
             <el-table :data="tableData.data" style="width: 100%">
@@ -47,7 +53,7 @@
                 </el-table-column>
                 <el-table-column prop="birthday" :formatter="birthday" label="出生日期" min-width="100" align="center">
                 </el-table-column>
-                <el-table-column prop="idCard" label="身份证号" min-width="100" align="center">
+                <el-table-column prop="certificateNumber" label="身份证号" min-width="100" align="center">
                 </el-table-column>
                 <el-table-column prop="departmentId" :formatter="departmentId" label="所在部门" min-width="100" align="center">
                 </el-table-column>

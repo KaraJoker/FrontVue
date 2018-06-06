@@ -91,7 +91,7 @@
     margin-top: 7px;
 }
 
-.personManage-box .table-box .add  span {
+.personManage-box .table-box .add span {
     line-height: 30px;
 }
 
@@ -109,4 +109,47 @@
     width: 100px;
     height: 30px;
     color: #3DB8F0;
+}
+
+.personManage-box .upFile {
+    float: right;
+    width: 124px;
+    height: 30px;
+    border: 1px solid #3DB8F0;
+    line-height: 30px;
+    border-radius: 30px;
+    color: #3DB8F0;
+    background-color: #fff;
+    cursor: pointer;
+    padding: 0;
+    margin-top: 16px;
+    position: relative;
+    margin-right: 10px;
+}
+
+.personManage-box .upFile input {
+    width: 124px;
+    height: 30px;
+    opacity: 0;
+    background: red;
+    cursor: pointer;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 10;
+}
+
+.personManage-box .upFile .up-text {
+    display: block;
+    width: 124px;
+    z-index: 3;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    cursor: pointer;
+    color: #3DB8F0;
+}
+
+.personManage-box .exportFile {
+    margin-right: 10px;
 }

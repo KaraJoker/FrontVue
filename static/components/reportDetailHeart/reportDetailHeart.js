@@ -33,6 +33,8 @@ define([
         },
         data: function () {
             return {
+                // 是否可以对图表进行操作
+                isAllowSetChar: false,
                 // 每秒400个数据,这个常量最好保存下来,预防后期改动
                 SPACE: 400,
                 // 点击区域的大小一半
@@ -132,7 +134,6 @@ define([
             // 处理数据
             dealData: function () {
                 var yData = this.echarDetailData;
-                console.log(this.echarDetailData);
                 // 数据分成几段
                 var steps = 0;
                 // 所有的y轴数据
@@ -380,120 +381,143 @@ define([
             },
             // 修改错误的类型/或者添加异常
             changeDiseaseType: function (name, typeNum) {
-                console.log(name, typeNum);
-                // 在区块内点击就是修改异常
-                if (this.mouseEventParams.componentType === 'markArea') {
-                    this.showChoice = false;
-                    var result = ServerAPI.changeError({
-                        diseaseId: this.echarId,
-                        diseaseType: '[' + typeNum + ']'
-                    });
-                    result.then(function (res) {
-                        if (res.status === 0) {
-                            // 修改图表的异常类型
-                            this.diseaseType = name;
-                            this.dealData(this.echarDetailData)
-                        }
-                    }.bind(this)).catch(function (err) {
-                        this.flag = true;
-                        if(err.statusText=='timeout'){
-                            this.$alert('请求超时，请重新操作', '提示',{
-                                confirmButtonText: "确定",
-                                callback: function (action) {}
-                            });
-                        }
-                    }.bind(this));
-                } else {
-                    // 在区块外点击就是添加异常
-                    this.showChoice = false;
-                    var result = ServerAPI.changeError({
-                        diseaseId: this.echarId,
-                        diseaseType: '[' + typeNum + ']',
-                        diseaseTime: this.addErrorIndex
-                    });
-                    result.then(function (res) {
-                        if (res.status === 0) {
-                            var diseaseTime = this.addErrorIndex;
-                            var startTime = this.startTime;
-                            var timeDiff = Number(diseaseTime) - Number(startTime);
-                            var arrIndex = 0;
-                            // 算出异常出现在y轴数据的那个索引下
-                            if (timeDiff < this.ECHARSPACE) {
-                                arrIndex = 0;
-                            } else {
-                                arrIndex = parseInt(timeDiff / this.ECHARSPACE);
-                            };
-                            var seriesArr = this.heartEcharOptions.series;
-                            seriesArr[arrIndex].markArea.data.push(
-                                [{
-                                    name: name,
-                                    xAxis: Number(diseaseTime) - this.AREA + ''
-                                }, {
-                                    xAxis: Number(diseaseTime) + this.AREA + ''
-                                }]
-                            );
-                            this.heartEcharOptions = {
-                                grid: this.heartEcharOptions.grid,
-                                yAxis: this.heartEcharOptions.yAxis,
-                                xAxis: this.heartEcharOptions.xAxis,
-                                series: seriesArr
-                            };
+                console.log('aaaaaaaaaaa', this.isAllowSetChar);
+                if (this.isAllowSetChar) {
+                    console.log(name, typeNum);
+                    // 在区块内点击就是修改异常
+                    if (this.mouseEventParams.componentType === 'markArea') {
+                        this.showChoice = false;
+                        var result = ServerAPI.changeError({
+                            diseaseId: this.echarId,
+                            diseaseType: '[' + typeNum + ']'
+                        });
+                        result.then(function (res) {
+                            if (res.status === 0) {
+                                // 修改图表的异常类型
+                                this.diseaseType = name;
+                                this.dealData(this.echarDetailData)
+                            }else {
+                                this.$alert(res.message,'提示', {
+                                    confirmButtonText: '确定'
+                                });
+                            }
+                        }.bind(this)).catch(function (err) {
+                            this.flag = true;
+                            if (err.statusText == 'timeout') {
+                                this.$alert('请求超时，请重新操作', '提示', {
+                                    confirmButtonText: "确定",
+                                    callback: function (action) {}
+                                });
+                            }
+                        }.bind(this));
+                    } else {
+                        // 在区块外点击就是添加异常
+                        this.showChoice = false;
+                        var result = ServerAPI.changeError({
+                            diseaseId: this.echarId,
+                            diseaseType: '[' + typeNum + ']',
+                            diseaseTime: this.addErrorIndex
+                        });
+                        result.then(function (res) {
+                            if (res.status === 0) {
+                                var diseaseTime = this.addErrorIndex;
+                                var startTime = this.startTime;
+                                var timeDiff = Number(diseaseTime) - Number(startTime);
+                                var arrIndex = 0;
+                                // 算出异常出现在y轴数据的那个索引下
+                                if (timeDiff < this.ECHARSPACE) {
+                                    arrIndex = 0;
+                                } else {
+                                    arrIndex = parseInt(timeDiff / this.ECHARSPACE);
+                                };
+                                var seriesArr = this.heartEcharOptions.series;
+                                seriesArr[arrIndex].markArea.data.push(
+                                    [{
+                                        name: name,
+                                        xAxis: Number(diseaseTime) - this.AREA + ''
+                                    }, {
+                                        xAxis: Number(diseaseTime) + this.AREA + ''
+                                    }]
+                                );
+                                this.heartEcharOptions = {
+                                    grid: this.heartEcharOptions.grid,
+                                    yAxis: this.heartEcharOptions.yAxis,
+                                    xAxis: this.heartEcharOptions.xAxis,
+                                    series: seriesArr
+                                };
 
-                        }
-                    }.bind(this)).catch(function (err) {
-                        this.flag = true;
-                        if(err.statusText=='timeout'){
-                            this.$alert('请求超时，请重新操作', '提示',{
-                                confirmButtonText: "确定",
-                                callback: function (action) {}
-                            });
-                        }
-                    }.bind(this));
+                            }else {
+                                this.$alert(res.message,'提示', {
+                                    confirmButtonText: '确定'
+                                });
+                            }
+                        }.bind(this)).catch(function (err) {
+                            this.flag = true;
+                            if (err.statusText == 'timeout') {
+                                this.$alert('请求超时，请重新操作', '提示', {
+                                    confirmButtonText: "确定",
+                                    callback: function (action) {}
+                                });
+                            }
+                        }.bind(this));
+                    }
                 }
 
             },
             // 单个点击报错
             errorClick: function () {
-                if (this.showError === 'true') {
-                    var result = ServerAPI.oneError({
-                        diseaseId: this.echarId,
-                        verify: 2
-                    })
-                    result.then(function (res) {
-                        if (res.status === 0) {
-                            this.result = true;
-                        }
-                    }.bind(this)).catch(function (err) {
-                        this.flag = true;
-                        if(err.statusText=='timeout'){
-                            this.$alert('请求超时，请重新操作', '提示',{
-                                confirmButtonText: "确定",
-                                callback: function (action) {}
-                            });
-                        }
-                    }.bind(this));
+                if (this.isAllowSetChar) {
+                    if (this.showError === 'true') {
+                        var result = ServerAPI.oneError({
+                            diseaseId: this.echarId,
+                            verify: 2
+                        })
+                        result.then(function (res) {
+                            if (res.status === 0) {
+                                this.result = true;
+                            }else {
+                                this.$alert(res.message,'提示', {
+                                    confirmButtonText: '确定'
+                                });
+                            }
+                        }.bind(this)).catch(function (err) {
+                            this.flag = true;
+                            if (err.statusText == 'timeout') {
+                                this.$alert('请求超时，请重新操作', '提示', {
+                                    confirmButtonText: "确定",
+                                    callback: function (action) {}
+                                });
+                            }
+                        }.bind(this));
+                    }
                 }
             },
             // 取消报错
             cancelError: function () {
-                if (this.showError === 'true') {
-                    var result = ServerAPI.oneError({
-                        diseaseId: this.echarId,
-                        verify: 0
-                    })
-                    result.then(function (res) {
-                        if (res.status === 0) {
-                            this.result = false;
-                        }
-                    }.bind(this)).catch(function (err) {
-                        this.flag = true;
-                        if(err.statusText=='timeout'){
-                            this.$alert('请求超时，请重新操作', '提示',{
-                                confirmButtonText: "确定",
-                                callback: function (action) {}
-                            });
-                        }
-                    }.bind(this));
+                if (this.isAllowSetChar) {
+                    if (this.showError === 'true') {
+                        var result = ServerAPI.oneError({
+                            diseaseId: this.echarId,
+                            verify: 0
+                        })
+                        result.then(function (res) {
+                            if (res.status === 0) {
+                                this.result = false;
+                            }else {
+                                this.$alert(res.message,'提示', {
+                                    confirmButtonText: '确定'
+                                });
+                            }
+                        }.bind(this)).catch(function (err) {
+                            this.flag = true;
+                            if (err.statusText == 'timeout') {
+                                this.$alert('请求超时，请重新操作', '提示', {
+                                    confirmButtonText: "确定",
+                                    callback: function (action) {}
+                                });
+                            }
+                        }.bind(this));
+                    }
                 }
             }
         },
@@ -504,10 +528,16 @@ define([
             this.getHeartData();
             // 将异常类型数字根据配置转成文字
             this.setNameType();
-            // 监听鼠标右键事件
-            this.eventListen();
-            // 鼠标选择框
-            this.setMouseChoice();
+            // 是否可以对图表进行操作
+            if (this.$route.params.isResult) {
+                this.isAllowSetChar = false;
+            } else {
+                this.isAllowSetChar = true;
+                // 监听鼠标右键事件
+                this.eventListen();
+                // 鼠标选择框
+                this.setMouseChoice();
+            }
         },
         watch: {
             // 监听图表数据的变化,自动更新图表

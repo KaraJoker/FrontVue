@@ -12,7 +12,14 @@ define([
         data: function () {
             return {
                 // form数据
-                formData: {},
+                formData: {
+                    departmentName: '',
+                    status: '0',
+                    principle: '',
+                    departmentPhone: '',
+                    address: '',
+                    remarks: ''
+                },
                 // 父部门
                 parentDepartmentName: '',
                 // 父亲部门的id
@@ -23,7 +30,7 @@ define([
                 // 所有部门信息
                 allPostionData: [],
                 flag: true,
-                radioDisabled: 'false' //是否禁止编辑状态
+                radioDisabled: true //是否禁止编辑状态   true是禁用，false是可用
             };
         },
         /**
@@ -76,7 +83,7 @@ define([
                     Promise.all([result, setAllow]).then(function (results) {
                         this.flag = true;
                         if (results[0].status == 200 && results[1].status == 200) {
-                            this.$alert('提交成功', {
+                            this.$alert('提交成功','提示', {
                                 confirmButtonText: '确定',
                                 callback: function (action) {
                                     history.go(-1);
@@ -102,13 +109,10 @@ define([
                     // 带上父节点的id
                     sendData.parentId = this.parentId;
                     var result = ServerAPI.addSectionInfo(sendData);
-                    // var setAllow = ServerAPI.setAllow({
-                    //     ids: this.$route.params.childArr.split('/').join(',')
-                    // });
                     result.then(function (res) {
                         this.flag = true;
                         if (res.status == '200') {
-                            this.$alert('提交成功', {
+                            this.$alert('提交成功', '提示',{
                                 confirmButtonText: '确定',
                                 callback: function (action) {
                                     history.go(-1);
@@ -134,6 +138,10 @@ define([
                         this.parentId = res.content.parentId;
                         // 根据父亲部门的id获取父亲部门的名称
                         this.getParentSection(res.content.parentId);
+                    }else {
+                        this.$alert(res.message,'提示', {
+                            confirmButtonText: '确定'
+                        });
                     }
                 }.bind(this))
             },
@@ -143,10 +151,26 @@ define([
                     id: id
                 });
                 result.then(function (res) {
+                    console.log('副部们', res);
                     if (res.status === 200) {
+                        // 如果是最顶级的部门，它的父亲部门信息就是空的
                         if ('content' in res) {
                             this.parentDepartmentName = res.content.departmentName;
+                            if (res.content.status == '1') {
+                                this.radioDisabled = true;
+                            }
+                            if (res.content.status == '0') {
+                                this.radioDisabled = false;
+                            }
+                        } else {
+                            this.radioDisabled = false;
                         }
+
+                        console.log(this.radioDisabled);
+                    }else {
+                        this.$alert(res.message,'提示', {
+                            confirmButtonText: '确定'
+                        });
                     }
                 }.bind(this))
             },
@@ -155,13 +179,23 @@ define([
                 var result = ServerAPI.getSectionData();
                 result.then(function (res) {
                     if (res.status == 200) {
-                        this.allPostionData = (function (data) {
-                            var arr = [];
-                            for (var i = 0; i < data.length; i++) {
-                                arr.push(data[i].departmentName);
-                            }
-                            return arr;
-                        })(res.content);
+                        if (res.content) {
+                            this.allPostionData = (function (data) {
+                                var arr = [];
+                                for (var i = 0; i < data.length; i++) {
+                                    if (data[i].parentId == this.$route.params.parentId) {
+                                        arr.push(data[i].departmentName);
+                                    }
+                                }
+                                return arr;
+                            }.bind(this))(res.content);
+                            console.log('所有的子部门', this.allPostionData);
+                        }
+                    }else {
+                        this.$alert(res.message, '提示', {
+                            confirmButtonText: "确定",
+                            callback: function (action) {}
+                        });
                     }
                 }.bind(this));
             }
@@ -171,8 +205,6 @@ define([
             this.getSectionData();
             // 如果进入的编辑页面
             if (this.$route.name == 'organizationEdit') {
-                console.log(this.$route.params);
-                console.log('现在是编辑页面');
                 //  获取部门的基本信息
                 this.getSectionInfo();
                 // 编辑的验证规则
@@ -186,7 +218,6 @@ define([
             };
             // 如果进入的是添加页面
             if (this.$route.name == 'organizationAdd') {
-                console.log('现在是添加页面');
                 // 添加的验证规则
                 this.rules = {
                     departmentName: [{
@@ -199,6 +230,7 @@ define([
                     }]
                 }
                 this.parentId = this.$route.params.parentId;
+                this.getParentSection(this.parentId);
             };
         }
     };

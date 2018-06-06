@@ -28,11 +28,11 @@ define(function () {
             value: "NI"
         },
         "55": {
-            name: "HRVB室性二联律",
+            name: "室性二联律",
             value: "VB"
         },
         "56": {
-            name: "HRPVPB室性早搏成对",
+            name: "室性早搏成对",
             value: "VP"
         },
         "62": {
@@ -77,7 +77,7 @@ define(function () {
             value: "VF"
         },
         "54": {
-            name: "HRVTL室性三联律",
+            name: "室性三联律",
             value: "VT"
         },
         "65": {
@@ -87,6 +87,14 @@ define(function () {
         "57": {
             name: "房颤",
             value: "AF"
+        },
+        "196": {
+            name: "异常",
+            value: "NPK"
+        },
+        "目前后端没有这个值": {
+            name: "未知",
+            value: "未知"
         }
     };
     return ERROR;

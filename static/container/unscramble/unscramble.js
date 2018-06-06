@@ -97,6 +97,42 @@ define([
             },
         },
         methods: {
+            // 解析报告类型
+            reportType: function (row) {
+                var typeNum = row.reportType;
+                if (typeNum == 0 || typeNum == 1) {
+                    return '心电报告'
+                } else if (typeNum == 2 || typeNum == 3) {
+                    return '体温报告'
+                } else {
+                    return '未知类型'
+                }
+            },
+            // 跳转到报告结果
+            handleClick: function (row) {
+                this.$router.push({
+                    name: 'reportResult',
+                    params: {
+                        resultId: row.resultId,
+                        type: row.reportType,
+                        isResult: true,
+                        reportId: row.reportId || '',
+                        finishTime: row.finishTime,
+                        doctorName: row.reader
+                    }
+                });
+            },
+            // 将性别转为字符串
+            gender: function (row) {
+                switch (row.gender) {
+                    case 1:
+                        return '男';
+                    case 0:
+                        return '女';
+                    default:
+                        return '未知'
+                }
+            },
             // 表格过滤显示
             checkInArray: function (value) {
                 if (this.choiceShow.showList.indexOf(value) !== -1) {
@@ -163,6 +199,11 @@ define([
                             this.tableData.currentPage = res.page.pageId; //当前是第几页的数据
                             this.tableData.total = res.page.totalElements; //总共多少条数据
                             this.tableData.pageSize = res.page.size; //每页的多少条数据
+                        }else {
+                            this.$alert(res.message, '提示', {
+                                confirmButtonText: "确定",
+                                callback: function (action) {}
+                            });
                         }
                     }.bind(this)).catch(function (err) {
                         this.flag = true;
@@ -231,7 +272,12 @@ define([
                     return format;
                 };
 
-                return dateFormat(new Date(row.reportTime), 'yyyy-MM-dd hh:mm:ss');
+                if (row.reportTime) {
+                    return dateFormat(new Date(row.reportTime), 'yyyy-MM-dd hh:mm:ss');
+                } else {
+                    return '';
+                }
+
             },
             // 开始日期格式化
             finishTime: function (row, column) {
@@ -255,7 +301,12 @@ define([
                     return format;
                 };
 
-                return dateFormat(new Date(row.finishTime), 'yyyy-MM-dd hh:mm:ss');
+                if (row.finishTime) {
+                    return dateFormat(new Date(row.finishTime), 'yyyy-MM-dd hh:mm:ss');
+                } else {
+                    return '';
+                }
+
             },
             timeliness: function (row) {
                 switch (row.timeliness + '') {

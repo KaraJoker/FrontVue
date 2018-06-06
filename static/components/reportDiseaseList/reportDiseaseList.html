@@ -5,19 +5,20 @@
             <span v-for="nameTypeName in nameType" v-text="nameTypeName"></span>
             <button type="button" class="print-btn" @click="seeTypeDetail(index)">点击查看该类全部</button>
         </div>
-        <v-heart-part :id="item.list[0]" show-error="false"></v-heart-part>
-        <div class="check-result">
-            <div class="result-true" v-if="item.checkErrorNum!=item.list.length&&item.checkErrorNum>0||item.checkTrueNum>0">
-                <span>{{item.checkTrueNum+item.checkErrorNum}}</span>
-                <span>/</span>
-                <span>{{item.list.length}}</span>
+        <v-heart-part :id="item.list[0]" show-error="false">
+            <div class="check-result" slot="checkResult">
+                <div class="result-true" v-if="item.checkErrorNum!=item.list.length&&item.checkErrorNum>0||item.checkTrueNum>0">
+                    <span>{{item.checkTrueNum+item.checkErrorNum}}</span>
+                    <span>/</span>
+                    <span>{{item.list.length}}</span>
+                </div>
+                <div class="result-false" v-if="item.checkErrorNum==item.list.length">
+                    <span>{{item.checkErrorNum}}</span>
+                    <span>/</span>
+                    <span>{{item.list.length}}</span>
+                </div>
             </div>
-            <div class="result-false" v-if="item.checkErrorNum==item.list.length">
-                <span>{{item.checkErrorNum}}</span>
-                <span>/</span>
-                <span>{{item.list.length}}</span>
-            </div>
-        </div>
+        </v-heart-part>
         <!-- <div style="">
             <h3>统计数据测试：</h3>
             <p>异常类型的代码是：{{errorType}}</p>

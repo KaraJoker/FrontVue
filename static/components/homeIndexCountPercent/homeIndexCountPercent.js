@@ -38,6 +38,7 @@ define([
                 },
                 // 本图表的echart实例对象，只初始化一次
                 echart: Object,
+                total: ''
             };
         },
         methods: {
@@ -48,25 +49,26 @@ define([
                 var option = {
                     tooltip: {
                         trigger: 'item',
-                        formatter: "{a} <br/>{b}: {c}个 ({d}%)"
                     },
                     legend: {
                         orient: 'horizontal',
                         x: 'center',
                         y: '85%',
                         data: [{
-                            name: '解读报告数量',
-                            icon: 'circle',
-                            textStyle: {
-                                color: '#C0BDBC'
+                                name: '及时报告数量',
+                                icon: 'circle',
+                                textStyle: {
+                                    color: '#C0BDBC'
+                                }
+                            },
+                            {
+                                name: '超时报告数量',
+                                icon: 'circle',
+                                textStyle: {
+                                    color: '#C0BDBC'
+                                }
                             }
-                        }, {
-                            name: '超时报告数量',
-                            icon: 'circle',
-                            textStyle: {
-                                color: '#C0BDBC'
-                            }
-                        }]
+                        ]
                     },
                     color: ['#FC8E37', '#D6243C'],
                     series: [{
@@ -93,7 +95,8 @@ define([
                                 show: false
                             }
                         },
-                        data: []
+                        data: [],
+                        animation: false
                     }]
                 };
                 this.echart.setOption(option);
@@ -105,11 +108,12 @@ define([
                     year: this.select.value
                 });
                 result.then(function (res) {
-                    // res = JSON.parse(res);
                     if (res.status == '200') {
+                        this.total = res.content.totalNum;
+                        console.log(this.total);
                         var seriesData = [{
-                                value: res.content.totalNum,
-                                name: '解读报告数量'
+                                value: res.content.totalNum - res.content.totalTimeleness,
+                                name: '及时报告数量'
                             },
                             {
                                 value: res.content.totalTimeleness,
@@ -118,6 +122,10 @@ define([
                         ];
 
                         this.echart.setOption({
+                            tooltip: {
+                                trigger: 'item',
+                                formatter: "{a}<br/>解读报告总数:" + this.total + "个<br/>{b}: {c}个 ({d}%)"
+                            },
                             series: [{
                                 data: seriesData
                             }]
@@ -139,8 +147,10 @@ define([
             },
         },
         mounted: function () {
-            this.initEchar();
-            this.draw();
+            if (sessionStorage.getItem('isTemporary') == 'false') {
+                this.initEchar();
+                this.draw();
+            }
         },
         components: {
             "v-select": homeIndexEcharSelect

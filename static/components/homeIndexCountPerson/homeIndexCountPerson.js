@@ -29,7 +29,7 @@ define([
                         data: []
                     },
                     series: [{
-                            name: '解读报告数量',
+                            name: '及时报告数量',
                             type: 'bar',
                             stack: '总量',
                             label: {
@@ -64,8 +64,8 @@ define([
                 var option = {
                     tooltip: {
                         trigger: 'axis',
-                        axisPointer: { // 坐标轴指示器，坐标轴触发有效
-                            type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+                        axisPointer: {
+                            type: 'shadow'
                         }
                     },
                     legend: {
@@ -73,7 +73,7 @@ define([
                         x: 'center',
                         y: '85%',
                         data: [{
-                            name: '解读报告数量',
+                            name: '及时报告数量',
                             icon: 'circle',
                             textStyle: {
                                 color: '#C0BDBC'
@@ -99,32 +99,20 @@ define([
                     },
                     yAxis: {
                         type: 'category',
-                        data: [] //人名
+                        data: []
                     },
 
                     color: ['#FC8E37', '#D6243C'],
                     series: [{
-                            name: '解读报告数量',
+                            name: '及时报告数量',
                             type: 'bar',
                             stack: '总量',
-                            label: {
-                                normal: {
-                                    show: true,
-                                    position: 'insideRight'
-                                }
-                            },
                             data: []
                         },
                         {
                             name: '超时报告数量',
                             type: 'bar',
                             stack: '总量',
-                            label: {
-                                normal: {
-                                    show: true,
-                                    position: 'insideRight'
-                                }
-                            },
                             data: []
                         }
                     ]
@@ -136,63 +124,74 @@ define([
                 //获取图表的数据
                 var result = ServerAPI.getEcharCountPerson();
                 result.then(function (res) {
-                    // res = JSON.parse(res);
                     if (res.status == 200) {
-                        this.options.yAxis.data = (function (data) {
+                        var yAxisData = (function (data) {
                             var arr = [];
                             for (var i = 0; i < data.length; i++) {
-                                arr.push(data[i].reader);
+                                arr.push(data[i].reader + '');
                             }
                             return arr;
                         })(res.content.totalNumList);
+                        // 及时报告总数 y轴数
+                        var jiShiData = (function (data, linesData) {
+                            var arr = [];
+                            for (var i = 0; i < data.length; i++) {
+                                arr.push(data[i].number - linesData[i].number);
+                            }
+                            return arr;
+                        })(res.content.totalNumList, res.content.totalTimelinessList);
+                        console.log('jishi', jiShiData);
 
-                        // 解读报告总数 y轴数
-                        this.options.series[0].data = (function (data) {
-                            var arr = [];
-                            for (var i = 0; i < data.length; i++) {
-                                arr.push(data[i].number);
-                            }
-                            return arr;
-                        })(res.content.totalNumList);
                         // 超时报告总数 y轴数
-                        this.options.series[1].data = (function (data) {
+                        var chaoShiData = (function (data) {
                             var arr = [];
                             for (var i = 0; i < data.length; i++) {
                                 arr.push(data[i].number);
                             }
                             return arr;
                         })(res.content.totalTimelinessList);
+                        console.log('chaoShiData', chaoShiData);
 
-                        if (this.options.yAxis.data.length <= 0) {
-                            // this.echart.showLoading({
-                            //     text: '暂无数据',
-                            //     effect: 'bubble',
-                            //     maskColor: 'rgba(0, 0, 0, 0)',
-                            //     textStyle: {
-                            //         fontSize: 30
-                            //     }
-                            // });
-                        } else {
-                            // 隐藏暂无数据的loading
-                            this.echart.hideLoading();
-                            // 重新给图表添加数据
-                            this.echart.setOption(this.options);
-                        }
+                        // 重新给图表添加数据
+                        this.echart.setOption({
+                            yAxis: {
+                                data: yAxisData
+                            },
+                            series: [{
+                                    name: '及时报告数量',
+                                    type: 'bar',
+                                    stack: '总量',
+                                    data: jiShiData
+                                },
+                                {
+                                    name: '超时报告数量',
+                                    type: 'bar',
+                                    stack: '总量',
+                                    data: chaoShiData
+                                }
+                            ]
+                        });
+                    } else {
+                        this.$alert(res.message, '提示', {
+                            confirmButtonText: "确定",
+                            callback: function (action) {}
+                        });
                     }
                 }.bind(this)).catch(function (err) {
                     if (err.statusText == 'timeout') {
-                        this.$alert('请求超时，请刷新页面', '提示',{
+                        this.$alert('请求超时，请刷新页面', '提示', {
                             confirmButtonText: "确定",
-                            callback: function (action) {
-                            }
+                            callback: function (action) {}
                         });
                     }
                 }.bind(this));
             }
         },
         mounted: function () {
-            this.initEchar();
-            this.draw();
+            if (sessionStorage.getItem('isTemporary') == 'false') {
+                this.initEchar();
+                this.draw();
+            }
         },
         watch: {
             // 监听子组件select值得变化

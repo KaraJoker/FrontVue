@@ -20,17 +20,17 @@
                         value-format="timestamp">
                     </el-date-picker>
                 </el-form-item>
-                <el-form-item label="患者账号" class="account-input">
+                <el-form-item label="患者账号" class="account-input" style="width: 300px">
                     <el-input v-model="searchObj.patientAccount" placeholder="例如:179416313"></el-input>
                 </el-form-item>
-                <el-form-item label="解读及时性">
+                <el-form-item label="解读及时性" style="width: 200px">
                     <el-select v-model="searchObj.timeliness" placeholder="请选择">
                         <el-option label="全部" value=""></el-option>
                         <el-option label="及时" value="1"></el-option>
                         <el-option label="超时" value="0"></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="报告类型">
+                <el-form-item label="报告类型" style="width: 200px">
                     <el-select v-model="searchObj.reportType" placeholder="请选择">
                         <el-option label="全部" value=""></el-option>
                         <el-option label="体温报告" value="2,3"></el-option>
@@ -58,7 +58,7 @@
                 </el-table-column>
                 <el-table-column prop="name" label="姓名" width="120" align="center" v-if="isShowName">
                 </el-table-column>
-                <el-table-column prop="gender" label="性别" width="50" align="center" v-if="isShowSex">
+                <el-table-column prop="gender" label="性别" :formatter="gender" width="50" align="center" v-if="isShowSex">
                 </el-table-column>
                 <el-table-column prop="age" label="年龄" width="50" align="center" v-if="isShowAge">
                 </el-table-column>
@@ -66,7 +66,11 @@
                 </el-table-column>
                 <el-table-column prop="finishTime" :formatter="finishTime" label="完成时间" width="220" align="center" v-if="isShowReportEndTime">
                 </el-table-column>
-                <el-table-column prop="timeliness"  :formatter="timeliness" label="解读及时性" width="120" align="center" v-if="isShowTimely">
+                <el-table-column prop="timeliness" :formatter="timeliness" label="解读及时性" width="120" align="center" v-if="isShowTimely">
+                </el-table-column>
+                <el-table-column prop="reportType" :formatter="reportType" label="报告类型" width="120" align="center" v-if="isShowTimely">
+                </el-table-column>
+                <el-table-column prop="reader" label="解读人" width="120" align="center" v-if="isShowTimely">
                 </el-table-column>
                 <el-table-column label="操作" min-width="120" align="center">
                     <template slot-scope="scope">

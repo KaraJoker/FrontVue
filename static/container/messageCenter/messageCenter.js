@@ -7,8 +7,8 @@ define([
     tpl,
     ServerAPI
 ) {
-    var NOT_READING = '1'; //未读
-    var READING = '0'; //已读
+    var NOT_READING = '0'; //未读
+    var READING = '1'; //已读
 
     var TONG_ZHI = '0'; //通知
     var GONG_GAO = '1'; //公告
@@ -56,7 +56,13 @@ define([
                                 ("00" + o[k]).substr(("" + o[k]).length));
                     return format;
                 };
-                return dateFormat(new Date(row.createTime), 'yyyy-MM-dd hh:mm:ss');
+
+                
+                if (row.createTime) {
+                    return dateFormat(new Date(row.createTime), 'yyyy-MM-dd hh:mm:ss');
+                } else {
+                    return '';
+                }
             },
             // 获取消息列表
             getMsgList: function (text) {
@@ -74,13 +80,16 @@ define([
                         this.tableData = res.content;
                         this.page = res.page;
                         this.pageId = res.page.pageId;
+                    }else {
+                        this.$alert(res.message,'提示', {
+                            confirmButtonText: '确定'
+                        });
                     }
                 }.bind(this)).catch(function (err) {
                     if (err.statusText == 'timeout') {
                         this.$alert('请求超时，请刷新页面', '提示', {
                             confirmButtonText: "确定",
-                            callback: function (action) {
-                            }
+                            callback: function (action) {}
                         });
                     }
                 }.bind(this));
@@ -125,7 +134,12 @@ define([
                     result.then(function (res) {
                         if (res.status == 200) {
                             rows.splice(index, 1);
-                            this.$alert('删除成功', {
+                            this.$alert('删除成功', '提示',{
+                                confirmButtonText: "确定",
+                                callback: function (action) {}
+                            });
+                        }else {
+                            this.$alert(res.message, '提示', {
                                 confirmButtonText: "确定",
                                 callback: function (action) {}
                             });
@@ -169,7 +183,12 @@ define([
                         result.then(function (res) {
                             if (res.status == 200) {
                                 this.tableData = [];
-                                this.$alert('全部删除成功', {
+                                this.$alert('全部删除成功','提示', {
+                                    confirmButtonText: "确定",
+                                    callback: function (action) {}
+                                });
+                            }else {
+                                this.$alert(res.message, '提示', {
                                     confirmButtonText: "确定",
                                     callback: function (action) {}
                                 });
@@ -233,13 +252,17 @@ define([
                                 }
                             }
                         }
+                    }else {
+                        this.$alert(res.message, '提示', {
+                            confirmButtonText: "确定",
+                            callback: function (action) {}
+                        });
                     }
                 }.bind(this)).catch(function (err) {
                     if (err.statusText == 'timeout') {
                         this.$alert('请求超时，请刷新页面', '提示', {
                             confirmButtonText: "确定",
-                            callback: function (action) {
-                            }
+                            callback: function (action) {}
                         });
                     }
                 }.bind(this));
@@ -256,20 +279,24 @@ define([
             // 打开标记为已读
             openRow: function (row, expandedRows) {
                 console.log(row);
-                if (row.isReading) {
+                if (!row.isReading) {
                     var result = ServerAPI.readYet({
                         ids: row.id
                     });
                     result.then(function (res) {
                         if (res.status == 200) {
                             row.isReading = READING
+                        }else {
+                            this.$alert(res.message, '提示', {
+                                confirmButtonText: "确定",
+                                callback: function (action) {}
+                            });
                         }
                     }).catch(function (err) {
                         if (err.statusText == 'timeout') {
                             this.$alert('请求超时，请刷新页面', '提示', {
                                 confirmButtonText: "确定",
-                                callback: function (action) {
-                                }
+                                callback: function (action) {}
                             });
                         }
                     }.bind(this));

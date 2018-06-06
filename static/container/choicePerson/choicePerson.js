@@ -138,10 +138,17 @@ define([
                             roleId: this.$route.params.id,
                             userList: this.checkOption.join(',')
                         });
-                        checkedList.then(function (res) {
+                        chekedResult.then(function (res) {
                             this.flag = true;
                             if (res.status == 200) {
-                                this.$alert('设置成功', '提示', {
+                                this.$alert('提交成功', '提示', {
+                                    confirmButtonText: "确定",
+                                    callback: function (action) {
+                                        history.go(-1);
+                                    }
+                                });
+                            }else {
+                                this.$alert(res.message, '提示', {
                                     confirmButtonText: "确定",
                                     callback: function (action) {}
                                 });
@@ -170,6 +177,11 @@ define([
                         this.serverData = res.content //部门列表的服务器数据;
                         // 处理成tree数据
                         this.setTreeData(res.content);
+                    }else {
+                        this.$alert(res.message, '提示', {
+                            confirmButtonText: "确定",
+                            callback: function (action) {}
+                        });
                     }
                 }.bind(this)).catch(function (err) {
                     if (err.statusText == 'timeout') {

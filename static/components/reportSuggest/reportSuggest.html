@@ -1,4 +1,4 @@
-<div>
+<div v-if="!this.$route.params.isResult">
     <div class="report-suggest" @click="dialogVisible = true"></div>
     <el-dialog title="报告建议" :visible.sync="dialogVisible" width="30%">
         <el-input type="textarea" :rows="6" placeholder="请输入内容" v-model="textarea"></el-input>

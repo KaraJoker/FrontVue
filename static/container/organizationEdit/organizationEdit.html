@@ -11,7 +11,7 @@
             <el-input v-model="parentDepartmentName" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="状态">
-            <el-radio-group v-model="formData.status">
+            <el-radio-group v-model="formData.status" :disabled="radioDisabled">
                 <el-radio label="0">启用</el-radio>
                 <el-radio label="1">禁用</el-radio>
             </el-radio-group>

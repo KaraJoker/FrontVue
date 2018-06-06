@@ -74,7 +74,11 @@ define([
                     return format;
                 };
 
-                return dateFormat(new Date(row.createTime), 'yyyy-MM-dd hh:mm:ss');
+                if (row.createTime) {
+                    return dateFormat(new Date(row.createTime), 'yyyy-MM-dd hh:mm:ss');
+                } else {
+                    return '';
+                }
             },
             // 切换分页
             handleCurrentChange: function (val) {
@@ -129,7 +133,7 @@ define([
                     })
                     var sendObj = (function () {
                         var obj = {};
-                        if (this.waitAuditSearchObj.time.length > 0) {
+                        if (this.waitAuditSearchObj.time) {
                             obj.startTime = this.waitAuditSearchObj.time[0];
                             obj.endTime = this.waitAuditSearchObj.time[1];
                         }
@@ -151,6 +155,11 @@ define([
                             this.waitAuditTableData.currentPage = res.page.pageId; //当前是第几页的数据
                             this.waitAuditTableData.total = res.page.totalElements; //总共多少条数据
                             this.waitAuditTableData.pageSize = res.page.size; //每页的多少条数据
+                        }else {
+                            this.$alert(res.message, '提示', {
+                                confirmButtonText: "确定",
+                                callback: function (action) {}
+                            });
                         }
                     }.bind(this)).catch(function (err) {
                         this.waitflag = true;
@@ -204,6 +213,11 @@ define([
                             this.yetAuditTableData.currentPage = res.page.pageId; //当前是第几页的数据
                             this.yetAuditTableData.total = res.page.totalElements; //总共多少条数据
                             this.yetAuditTableData.pageSize = res.page.size; //每页的多少条数据
+                        }else {
+                            this.$alert(res.message, '提示', {
+                                confirmButtonText: "确定",
+                                callback: function (action) {}
+                            });
                         }
                     }.bind(this)).catch(function (err) {
                         this.yetflag = true;

@@ -11,8 +11,10 @@ define([
         template: tpl,
         data: function () {
             return {
-                // 服务器返回的数据
-                serverData: Object,
+                // 所有部门的原始数据
+                allPosData: [],
+                // 所有部门的parentId,神奇的一个问题，所有部门的原始数据居然是个长度为3的空数组，很无语，只能不这个数据取出来
+                allParentId: [],
                 // tab那个栏目显示,默认是第一个
                 showBox: 1,
                 // 是否在编辑状态下
@@ -33,7 +35,7 @@ define([
                 // 当前部门的数据
                 nowPosData: '',
                 // 当前选中部门的id和子部门的id的集合
-                nowPosChildArr: []
+                // nowPosChildArr: []
             };
         },
         methods: {
@@ -120,41 +122,83 @@ define([
             },
             // 删除table一条数据
             deleteData: function (index, row, current) {
-                this.$confirm('确认删除本条数据', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(function () {
-                    var result = ServerAPI.deleteSectionInfo({
-                        id: current.id
-                    });
-                    result.then(function (res) {
-                        if (res.status == 200) {
-                            row.splice(index, 1);
-                            this.$alert('删除成功', {
-                                confirmButtonText: '确定'
+                /**
+                 * 判断当前部门是否有子部门
+                 * 如果没有子部门，就返回true，表示这个部门可以删除
+                 * nowPostionId 当前要删除的部门的Id
+                 * postionData 所有部门的数据
+                 */
+                // var allowDelete = (function (nowPostionId, postionData) {
+                //     var result = false;
+                //     for (var i = 0; i < postionData.length; i++) {
+                //         if (postionData[i] == nowPostionId) {
+                //             result = false;
+                //         } else {
+                //             result = true;
+                //         }
+                //     }
+                //     return result;
+                // })(current.id, this.allParentId);
+
+                ServerAPI.allowDeleteSectionInfo({
+                    id: current.id
+                }).then(function (res) {
+                    if (res.status == 200) {
+                        this.$confirm('确认删除本条数据', '提示', {
+                            confirmButtonText: '确定',
+                            cancelButtonText: '取消',
+                            type: 'warning'
+                        }).then(function () {
+                            var result = ServerAPI.deleteSectionInfo({
+                                id: current.id
                             });
-                        }
-                    }.bind(this)).catch(function (err) {
-                        this.flag = true;
-                        if (err.statusText == 'timeout') {
-                            this.$alert('请求超时，请重新操作', '提示', {
-                                confirmButtonText: "确定",
-                                callback: function (action) {}
-                            });
-                        }
-                    }.bind(this));
-                }.bind(this)).catch(function () {}.bind(this));
+                            result.then(function (res) {
+                                if (res.status == 200) {
+                                    row.splice(index, 1);
+                                    this.$alert('删除成功', '提示', {
+                                        confirmButtonText: '确定'
+                                    });
+                                } else {
+                                    this.$alert(res.message, '提示', {
+                                        confirmButtonText: '确定'
+                                    });
+                                }
+                            }.bind(this)).catch(function (err) {
+                                this.flag = true;
+                                if (err.statusText == 'timeout') {
+                                    this.$alert('请求超时，请重新操作', '提示', {
+                                        confirmButtonText: "确定",
+                                        callback: function (action) {}
+                                    });
+                                }
+                            }.bind(this));
+                        }.bind(this)).catch(function () {}.bind(this));
+                    } else {
+                        this.$confirm(res.message, '提示', {
+                            confirmButtonText: '确定',
+                            cancelButtonText: '取消',
+                            type: 'warning'
+                        })
+                    }
+                }.bind(this));
             },
             // 初始获取部门数据
             getSectionData: function () {
                 var result = ServerAPI.getSectionData();
                 result.then(function (res) {
                     if (res.status == 200) {
-                        // 原始数据
-                        this.serverData = res.content;
+                        var data = res.content
+                        this.allPosData = data;
+                        // 所有部门的父部门id
+                        this.allParentId = (function (data) {
+                            var arr = [];
+                            for (var i = 0; i < data.length; i++) {
+                                arr.push(data[i].parentId);
+                            }
+                            return arr;
+                        })(data);
                         // 处理成tree数据
-                        this.setTreeData(res.content);
+                        this.treeData = this.setTreeData(this.allPosData);
                         // 默认显示公司信息
                         this.organization.organizationList = this.treeData[0];
                         // 下级部门信息
@@ -166,8 +210,7 @@ define([
                     if (err.statusText == 'timeout') {
                         this.$alert('请求超时，请刷新页面', '提示', {
                             confirmButtonText: "确定",
-                            callback: function (action) {
-                            }
+                            callback: function (action) {}
                         });
                     }
                 }.bind(this));
@@ -267,11 +310,10 @@ define([
                     rootId: '0'
                 };
                 var treeData = this.toTreeData(data, attributes);
-                console.log('ssssssssssssss', treeData);
-                this.treeData = treeData;
+                return treeData;
             }
         },
-        mounted: function () {
+        created: function () {
             this.getSectionData();
         },
         watch: {

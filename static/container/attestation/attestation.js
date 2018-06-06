@@ -143,11 +143,19 @@ define([
             },
             // 认证时间
             createTime: function () {
-                return this.dateFormat(new Date(Number(this.result.createTime)), 'yyyy-MM-dd hh:mm:ss');
+                if (this.result.createTime) {
+                    return this.dateFormat(new Date(Number(this.result.createTime)), 'yyyy-MM-dd hh:mm:ss');
+                } else {
+                    return '';
+                }
             },
             // 审核时间
             updateTime: function () {
-                return this.dateFormat(new Date(Number(this.result.updateTime)), 'yyyy-MM-dd hh:mm:ss');
+                if (this.result.updateTime) {
+                    return this.dateFormat(new Date(Number(this.result.updateTime)), 'yyyy-MM-dd hh:mm:ss');
+                } else {
+                    return '';
+                }
             }
         },
         components: {

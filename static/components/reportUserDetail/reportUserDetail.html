@@ -9,10 +9,10 @@
                 <span v-text="userDetail.userInfoId"></span>
             </li>
             <li>姓名
-                <span v-text="userDetail.usernName"></span>
+                <span v-text="userDetail.userName"></span>
             </li>
             <li>性别
-                <span v-text="userDetail.userGender"></span>
+                <span>{{userDetail.userGender|gender}}</span>
             </li>
             <li>年龄
                 <span v-text="userDetail.userAge"></span>
